@@ -3,8 +3,7 @@ package com.isateam.blooddonationcenter.database.users;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -12,8 +11,10 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(name = "address")
 public class AddressEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String street;
     private String number;
