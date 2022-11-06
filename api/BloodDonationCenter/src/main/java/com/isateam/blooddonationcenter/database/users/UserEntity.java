@@ -1,7 +1,5 @@
 package com.isateam.blooddonationcenter.database.users;
 
-
-import com.isateam.blooddonationcenter.core.users.Address;
 import com.isateam.blooddonationcenter.core.users.utils.Sex;
 import lombok.*;
 
@@ -13,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "users")
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,7 +21,9 @@ public class UserEntity {
     private String name;
     private String surname;
     private Sex sex;
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private AddressEntity address;
     private String uid;
     private String profession;

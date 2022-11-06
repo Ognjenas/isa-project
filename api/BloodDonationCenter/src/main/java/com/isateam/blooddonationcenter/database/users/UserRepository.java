@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @AllArgsConstructor
 public class UserRepository implements IUserRepository {
-    private final IUserDao repository;
+    private final IUserEntityDao repository;
 
     @Override
     public User getById(long id) {
