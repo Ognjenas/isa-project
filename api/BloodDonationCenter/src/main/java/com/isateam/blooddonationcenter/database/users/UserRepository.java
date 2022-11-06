@@ -6,6 +6,8 @@ import com.isateam.blooddonationcenter.core.users.interfaces.IUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @AllArgsConstructor
 public class UserRepository implements IUserRepository {
@@ -20,10 +22,16 @@ public class UserRepository implements IUserRepository {
         );
     }
 
+    public void update(User user) {
+        repository.save(convert(user));
+    }
+
+
     private User convert(UserEntity entity) {
         return User.builder()
                 .id(entity.getId())
                 .email(entity.getEmail())
+                .password(entity.getPassword())
                 .name(entity.getName())
                 .surname(entity.getSurname())
                 .uid(entity.getUid())
@@ -32,13 +40,13 @@ public class UserRepository implements IUserRepository {
                 .profession(entity.getProfession())
                 .school(entity.getSchool())
                 .build();
-
     }
 
     private UserEntity convert(User user) {
         return UserEntity.builder()
                 .id(user.getId())
                 .email(user.getEmail())
+                .password(user.getPassword())
                 .name(user.getName())
                 .surname(user.getSurname())
                 .uid(user.getUid())
@@ -51,6 +59,7 @@ public class UserRepository implements IUserRepository {
 
     private Address convert(AddressEntity entity) {
         return Address.builder()
+                .id(entity.getId())
                 .street(entity.getStreet())
                 .number(entity.getNumber())
                 .city(entity.getCity())
@@ -60,6 +69,7 @@ public class UserRepository implements IUserRepository {
 
     private AddressEntity convert(Address address) {
         return AddressEntity.builder()
+                .id(address.getId())
                 .street(address.getStreet())
                 .number(address.getNumber())
                 .city(address.getCity())

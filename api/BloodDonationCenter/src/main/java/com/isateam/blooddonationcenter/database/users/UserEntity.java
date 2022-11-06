@@ -23,7 +23,7 @@ public class UserEntity {
     private Sex sex;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
     private AddressEntity address;
     private String uid;
     private String profession;
