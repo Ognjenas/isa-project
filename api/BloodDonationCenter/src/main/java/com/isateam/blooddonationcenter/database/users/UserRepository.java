@@ -14,11 +14,11 @@ public class UserRepository implements IUserRepository {
     private final IUserEntityDao repository;
 
     @Override
-    public User getById(long id) throws RuntimeException{
+    public User getById(long id) {
         return convert(
                 repository
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException(id + " "))
+                .orElseThrow()
         );
     }
 
