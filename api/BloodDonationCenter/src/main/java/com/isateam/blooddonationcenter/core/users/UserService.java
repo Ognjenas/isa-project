@@ -1,5 +1,6 @@
 package com.isateam.blooddonationcenter.core.users;
 
+import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
 import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserRepository;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
@@ -12,12 +13,12 @@ public class UserService implements IUserService {
     private final IUserRepository userRepository;
 
     @Override
-    public User getOne(long id) {
+    public User getOne(long id) throws NotFoundException {
         return userRepository.getById(id);
     }
 
     @Override
-    public User updateOne(UpdateUserDTO updated) {
+    public User updateOne(UpdateUserDTO updated) throws NotFoundException {
         User user = userRepository.getById(updated.getId());
         User forUpdate = fillUpdated(user, updated);
         userRepository.update(forUpdate);

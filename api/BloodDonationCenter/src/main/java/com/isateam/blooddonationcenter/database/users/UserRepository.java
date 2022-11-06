@@ -1,5 +1,6 @@
 package com.isateam.blooddonationcenter.database.users;
 
+import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
 import com.isateam.blooddonationcenter.core.users.Address;
 import com.isateam.blooddonationcenter.core.users.User;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserRepository;
@@ -14,11 +15,11 @@ public class UserRepository implements IUserRepository {
     private final IUserEntityDao repository;
 
     @Override
-    public User getById(long id) {
+    public User getById(long id) throws NotFoundException{
         return convert(
                 repository
                 .findById(id)
-                .orElseThrow()
+                .orElseThrow(() -> new NotFoundException("User with given id doesn't exist!"))
         );
     }
 

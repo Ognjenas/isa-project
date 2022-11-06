@@ -1,5 +1,6 @@
 package com.isateam.blooddonationcenter.core.users;
 
+import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
 import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
 import com.isateam.blooddonationcenter.core.users.dtos.UserProfileDTO;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
@@ -19,13 +20,16 @@ public class UserController {
 
 
     @GetMapping("/{id}")
-    public UserProfileDTO getOne(@PathVariable("id") long id) {
+    public UserProfileDTO getOne(@PathVariable("id") long id) throws NotFoundException {
         User user = userService.getOne(id);
         return new UserProfileDTO(user);
     }
 
     @PatchMapping("/{id}")
-    public UserProfileDTO updateOne(@Valid @RequestBody UpdateUserDTO user, @PathVariable("id") long id) {
+    public UserProfileDTO updateOne(
+            @Valid @RequestBody UpdateUserDTO user,
+            @PathVariable("id") long id
+    )  throws NotFoundException {
         user.setId(id);
         User updated = userService.updateOne(user);
         return new UserProfileDTO(updated);
