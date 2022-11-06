@@ -1,8 +1,10 @@
 package com.isateam.blooddonationcenter.core.errorhandling;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
-public class NotFoundException extends BaseException{
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class NotFoundException extends BaseException {
     public NotFoundException(String message) {
         super(message, HttpStatus.NOT_FOUND);
     }

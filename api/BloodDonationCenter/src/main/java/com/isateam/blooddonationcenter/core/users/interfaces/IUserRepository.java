@@ -6,5 +6,6 @@ import com.isateam.blooddonationcenter.core.users.User;
 public interface IUserRepository {
     User getById(long id) throws NotFoundException;
     void update(User user);
-
+    User getByEmail(String email);
+    User create(User user);
 }
