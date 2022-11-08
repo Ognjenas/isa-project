@@ -1,6 +1,8 @@
 import { Flex, FormControl, FormHelperText, FormLabel, Input, Radio, RadioGroup, Stack } from "@chakra-ui/react"
 import { useState } from "react"
 import TemplateForm from "../../../shared/components/template-form"
+import { RegistrationDTO } from "../../dtos/registration.dto"
+import { authService } from "../../services/auth.service"
 
 enum Sex { MALE="MALE", FEMALE="FEMALE" }
 
@@ -10,7 +12,7 @@ export const RegistrationForm = () => {
     const [name, setName] = useState("Srdjan")
     const [surname, setSurname] = useState("Stjepanovic")
     const [password, setPassword] = useState("Stjepanovic")
-    const [sex, setSex] = useState("MALE")
+    const [sex, setSex] = useState(Sex.MALE)
     const [uid, setUid] = useState("Stjepanovic")
     const [profession, setProfession] = useState("Stjepanovic")
     const [school, setSchool] = useState("Stjepanovic")
@@ -21,8 +23,22 @@ export const RegistrationForm = () => {
 
     const [isEmailAddressValid, setIsEmailAddressValid] = useState(true)
 
-    const handleSubmit = () => {
-        console.log(email, name, surname)
+    const handleSubmit = async () => {
+        const dto: RegistrationDTO = {
+            name,
+            surname,
+            sex,
+            profession,
+            school,
+            uid,
+            address: {
+                country,
+                city,
+                street,
+                number
+            }
+        }
+        await authService.registrate(dto)
     }
 
 
