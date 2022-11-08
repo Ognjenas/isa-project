@@ -11,6 +11,7 @@ const state: AuthStoreState = {
     token: ""
 }
 
+
 export const authStoreSlice:
     StateCreator<
         AuthStore,
@@ -18,7 +19,7 @@ export const authStoreSlice:
             ["zustand/persist", unknown],
             ["zustand/immer", never]
         ]
-    > = (set) => ({
+    > = (set, get) => ({
         ...state,
         login: () => { },
         register: () => { }
