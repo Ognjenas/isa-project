@@ -10,6 +10,7 @@ import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,9 +29,8 @@ public class CenterService implements ICenterService {
 
     @Override
     public AllCentersDto sort(String field, String sort) {
-        if (!field.equals("description") && !field.equals("name") && !field.equals("averageGrade")
-                && !field.equals("city") && !field.equals("country")
-                && !field.equals("number") && !field.equals("street")) {
+        String[] fields = {"description", "name", "averageGrade", "city", "country", "number", "street"};
+        if (Arrays.stream(fields).noneMatch(f -> f.equals(field))) {
             throw new BadRequestException("Given field does not exist");
         }
         if (!sort.equals("asc") && !sort.equals("desc")) {

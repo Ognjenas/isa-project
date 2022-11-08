@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -24,7 +25,8 @@ public class CenterCustomDao implements ICenterCustomDao {
         Root<Center> center = criteriaQuery.from(Center.class);
         criteriaQuery.select(center);
         Order orderBy;
-        if(field.equals("city") || field.equals("country") || field.equals("number") || field.equals("street")) {
+        String[] addressFields = {"city", "country", "number", "street"};
+        if (Arrays.asList(addressFields).contains(field)) {
             orderBy = sort.equals("asc") ? criteriaBuilder.asc(center.get("address").get(field))
                     : criteriaBuilder.desc(center.get("address").get(field));
         } else {
@@ -33,7 +35,6 @@ public class CenterCustomDao implements ICenterCustomDao {
         }
         criteriaQuery.orderBy(orderBy);
         TypedQuery<Center> query = entityManager.createQuery(criteriaQuery);
-        List<Center> res = query.getResultList();
-        return res;
+        return query.getResultList();
     }
 }
