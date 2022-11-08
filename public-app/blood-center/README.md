@@ -1,3 +1,19 @@
+
+# Folder structure
+
+src
+    --> App-files
+    --> modules 
+                --> module1 
+                           --> index.ts
+                           --> views
+                           --> components
+                           --> services
+                --> shared
+                           --> services
+                           --> components
+    --> stores
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
