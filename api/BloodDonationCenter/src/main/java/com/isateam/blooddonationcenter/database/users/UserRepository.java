@@ -8,10 +8,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
 public class UserRepository implements IUserRepository {
+
     private final IUserEntityDao repository;
 
     @Override
@@ -23,8 +25,20 @@ public class UserRepository implements IUserRepository {
         );
     }
 
+    @Override
     public void update(User user) {
         repository.save(convert(user));
+    }
+
+    @Override
+    public User getByEmail(String email) {
+        Optional<UserEntity> entity = repository.findByEmail(email);
+        return entity.isEmpty() ? null : convert(entity.get());
+    }
+
+    @Override
+    public User create(User user) {
+        return convert(repository.save(convert(user)));
     }
 
 
