@@ -8,7 +8,7 @@ import { AuthStoreState } from "./interfaces/auth-store-state";
 type AuthStore = AuthStoreActions & AuthStoreState
 
 const state: AuthStoreState = {
-    token: ""
+    token: "",
 }
 
 
