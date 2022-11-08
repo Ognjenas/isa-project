@@ -1,3 +1,4 @@
+import { Box, Flex } from "@chakra-ui/react"
 import { useAuthStore } from "../../../../stores/auth-store/auth.store"
 
 
@@ -5,7 +6,10 @@ import { useAuthStore } from "../../../../stores/auth-store/auth.store"
 export const HomeComponent = () => {
 
     return (
-        <div>This is home component</div>
+        <Flex direction='column' justifyContent='flex-start' alignItems='flex-start'>
+            <Box>Sta ima</Box>
+            <Box>Sta nema</Box>
+        </Flex>
     )
 }
 
