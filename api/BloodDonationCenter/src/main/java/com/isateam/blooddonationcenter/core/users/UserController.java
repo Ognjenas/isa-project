@@ -1,17 +1,13 @@
 package com.isateam.blooddonationcenter.core.users;
 
-import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
-import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
 import com.isateam.blooddonationcenter.core.users.dtos.CreateUserDTO;
 import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
 import com.isateam.blooddonationcenter.core.users.dtos.UserProfileDTO;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 @RestController
 @RequiredArgsConstructor

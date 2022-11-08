@@ -1,9 +1,7 @@
 package com.isateam.blooddonationcenter.core.users.interfaces;
 
-import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
-import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
-import com.isateam.blooddonationcenter.core.users.User;
 import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
+import com.isateam.blooddonationcenter.core.users.User;
 
 public interface IUserService {
 
