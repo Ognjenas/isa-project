@@ -1,8 +1,8 @@
 package com.isateam.blooddonationcenter.core.users.dtos;
 
+import com.isateam.blooddonationcenter.core.users.utils.Sex;
 import com.isateam.blooddonationcenter.core.users.Address;
 import com.isateam.blooddonationcenter.core.users.User;
-import com.isateam.blooddonationcenter.core.users.utils.Sex;
 import lombok.Getter;
 import lombok.Setter;
 

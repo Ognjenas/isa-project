@@ -1,9 +1,8 @@
 package com.isateam.blooddonationcenter.core.users;
 
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
-import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
 import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
-import com.isateam.blooddonationcenter.core.users.interfaces.IUserRepository;
+import com.isateam.blooddonationcenter.core.users.interfaces.IUserEntityDao;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,27 +11,27 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService implements IUserService {
 
-    private final IUserRepository userRepository;
+    private final IUserEntityDao userEntityDao;
 
     @Override
     public User getOne(long id) {
-        return userRepository.getById(id);
+        return userEntityDao.findById(id).orElseThrow(() -> new BadRequestException("User with given id does not exist"));
     }
 
     @Override
     public User updateOne(UpdateUserDTO updated) {
-        User user = userRepository.getById(updated.getId());
+        User user = userEntityDao.findById(updated.getId()).orElseThrow(() -> new BadRequestException("User with given id does not exist"));
         User forUpdate = fillUpdated(user, updated);
-        userRepository.update(forUpdate);
+        userEntityDao.save(forUpdate);
         return forUpdate;
     }
 
     @Override
     public void create(User user) {
-        if (userRepository.getByEmail(user.getEmail()) != null) {
+        if (userEntityDao.findByEmail(user.getEmail()).isPresent()) {
             throw new BadRequestException("Given email is already in use");
         }
-        userRepository.create(user);
+        userEntityDao.save(user);
     }
 
     private User fillUpdated(User oldUser, UpdateUserDTO newUser) {

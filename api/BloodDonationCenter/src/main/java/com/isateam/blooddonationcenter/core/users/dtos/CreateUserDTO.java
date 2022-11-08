@@ -1,7 +1,8 @@
 package com.isateam.blooddonationcenter.core.users.dtos;
 
-import com.isateam.blooddonationcenter.core.users.User;
+import com.isateam.blooddonationcenter.core.users.UserRole;
 import com.isateam.blooddonationcenter.core.users.utils.Sex;
+import com.isateam.blooddonationcenter.core.users.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -51,6 +52,7 @@ public class CreateUserDTO {
                 .school(school)
                 .uid(uid)
                 .surname(surname)
+                .role(UserRole.REGULAR)
                 .build();
     }
 }

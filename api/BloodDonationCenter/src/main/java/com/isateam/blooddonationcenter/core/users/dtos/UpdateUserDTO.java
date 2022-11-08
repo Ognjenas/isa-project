@@ -1,12 +1,11 @@
 package com.isateam.blooddonationcenter.core.users.dtos;
 
-import com.isateam.blooddonationcenter.core.users.Address;
 import com.isateam.blooddonationcenter.core.users.utils.Sex;
+import com.isateam.blooddonationcenter.core.users.Address;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Getter
