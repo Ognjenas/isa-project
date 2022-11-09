@@ -1,8 +1,10 @@
 package com.isateam.blooddonationcenter.core.centers;
 
-import com.isateam.blooddonationcenter.core.appointment.Appointment;
+import com.isateam.blooddonationcenter.core.appointments.Appointment;
+import com.isateam.blooddonationcenter.core.bloodstorage.BloodStorage;
 import com.isateam.blooddonationcenter.core.users.Address;
 import com.isateam.blooddonationcenter.core.workers.Worker;
+import com.isateam.blooddonationcenter.core.worktime.WorkTime;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,5 +39,10 @@ public class Center {
     @OneToMany(mappedBy = "center", fetch = FetchType.LAZY)
     private Set<Appointment> appointments;
 
+    @OneToMany(mappedBy = "center", fetch = FetchType.LAZY)
+    private Set<WorkTime> workTime;
+
+    @OneToMany(mappedBy = "center", fetch = FetchType.LAZY)
+    private Set<BloodStorage> bloodStorage;
 
 }
