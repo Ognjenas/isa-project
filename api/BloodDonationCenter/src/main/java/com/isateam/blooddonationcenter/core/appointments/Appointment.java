@@ -1,13 +1,12 @@
-package com.isateam.blooddonationcenter.core.appointment;
+package com.isateam.blooddonationcenter.core.appointments;
 
 
 import com.isateam.blooddonationcenter.core.centers.Center;
-import com.isateam.blooddonationcenter.core.users.Address;
-import com.isateam.blooddonationcenter.core.workers.Worker;
+import com.isateam.blooddonationcenter.core.users.User;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.time.LocalDateTime;
 
 @Builder
 @AllArgsConstructor
@@ -25,4 +24,12 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="center_id", nullable=false)
     private Center center;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id", referencedColumnName = "id", nullable = false)
+    private User user;
+
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private AppointmentState state;
 }
