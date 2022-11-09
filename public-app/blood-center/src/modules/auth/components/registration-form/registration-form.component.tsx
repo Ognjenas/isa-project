@@ -25,6 +25,8 @@ export const RegistrationForm = () => {
 
     const handleSubmit = async () => {
         const dto: RegistrationDTO = {
+            email,
+            password,
             name,
             surname,
             sex,
@@ -38,6 +40,7 @@ export const RegistrationForm = () => {
                 number
             }
         }
+        console.log(dto)
         await authService.registrate(dto)
     }
 
