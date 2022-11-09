@@ -2,11 +2,14 @@ package com.isateam.blooddonationcenter.core.centers;
 
 import com.isateam.blooddonationcenter.core.centers.dtos.AllCentersDto;
 import com.isateam.blooddonationcenter.core.centers.dtos.CenterDto;
+import com.isateam.blooddonationcenter.core.centers.dtos.CreateCenterDto;
 import com.isateam.blooddonationcenter.core.centers.dtos.CriteriaDto;
 import com.isateam.blooddonationcenter.core.centers.interfaces.CenterDao;
 import com.isateam.blooddonationcenter.core.centers.interfaces.ICenterCustomDao;
 import com.isateam.blooddonationcenter.core.centers.interfaces.ICenterService;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
+import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
+import com.isateam.blooddonationcenter.core.users.Address;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +42,19 @@ public class CenterService implements ICenterService {
 
         List<Center> centers = centerCustomDao.getSorted(field, sort);
         return mapToAllCentersDto(centers);
+    }
+
+    @Override
+    public Center create(Center center) {
+        return centerDao.save(center);
+    }
+
+    @Override
+    public Center update(Center center) {
+        Center centerOld = centerDao.findById(center.getId())
+                .orElseThrow(() -> new NotFoundException("Center doesnt exist"));
+        center.setAverageGrade(centerOld.getAverageGrade());
+        return centerDao.save(center);
     }
 
     private AllCentersDto mapToAllCentersDto(List<Center> centers) {

@@ -1,5 +1,6 @@
 package com.isateam.blooddonationcenter.core.centers;
 
+import com.isateam.blooddonationcenter.core.appointment.Appointment;
 import com.isateam.blooddonationcenter.core.users.Address;
 import com.isateam.blooddonationcenter.core.workers.Worker;
 import lombok.*;
@@ -22,7 +23,8 @@ public class Center {
 
     private String name;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
     private Address address;
 
     private Double averageGrade;
@@ -31,5 +33,9 @@ public class Center {
 
     @OneToMany(mappedBy = "center", fetch = FetchType.LAZY)
     private Set<Worker> workers;
+
+    @OneToMany(mappedBy = "center", fetch = FetchType.LAZY)
+    private Set<Appointment> appointments;
+
 
 }
