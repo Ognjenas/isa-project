@@ -1,8 +1,10 @@
-import { Flex, FormControl, FormHelperText, FormLabel, Grid, GridItem, Input, Radio, RadioGroup, Stack } from "@chakra-ui/react"
+import { Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Grid, GridItem, Input, Radio, RadioGroup, Stack } from "@chakra-ui/react"
 import { setuid } from "process"
 import { useEffect, useState } from "react"
 import TemplateForm from "../../../shared/components/template-form"
 import { Sex } from "../../../shared/utils/constants"
+import { useValidator } from "../../../shared/utils/form-validator.hook"
+import { FormValidator, ValidationField } from "../../../shared/utils/form.validator"
 import { UpdateProfileDTO } from "../../dtos/update-profile.dto"
 import { profileService } from "../../services/profile.service"
 
@@ -36,6 +38,38 @@ export const UpdateProfileForm = () => {
         setAddressId(user.address.id)
     }
 
+
+    const fields: ValidationField[] = [
+        {
+            field: 'name',
+            ref: name,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'surname',
+            ref: surname,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'uid',
+            ref: uid,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'sex',
+            ref: sex,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'profession',
+            ref: profession,
+            validations: [FormValidator.isRequired]
+        },
+
+    ]
+
+    let errors: any = useValidator(fields)
+
     useEffect(() => { handleOnMounted() }, [])
 
     const handleSubmit = async () => {
@@ -61,28 +95,41 @@ export const UpdateProfileForm = () => {
         <Flex margin='auto' justifyContent='center' width='100%' className="update-profile-form" border='1px solid lightgray' w={600} p={20}>
             <TemplateForm header={"Update Profile"} buttonText={"Save"} onSubmit={handleSubmit}>
                 <>
-                    <FormControl >
+                    <FormControl isInvalid={!errors.name.isValid} >
                         <FormLabel>Name</FormLabel>
                         <Input
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
+                        {
+                            !errors.name.isValid &&
+                            <FormErrorMessage>{errors?.name.errors[0]}</FormErrorMessage>
+                        }
+
                     </FormControl>
-                    <FormControl >
+                    <FormControl isInvalid={!errors.surname.isValid}>
                         <FormLabel>Surname</FormLabel>
                         <Input
                             isRequired={true}
                             value={surname}
                             onChange={(e) => setSurname(e.target.value)}
                         />
+                        {
+                            !errors.surname.isValid &&
+                            <FormErrorMessage>{errors?.surname.errors[0]}</FormErrorMessage>
+                        }
                     </FormControl>
-                    <FormControl >
+                    <FormControl isInvalid={!errors.uid.isValid}>
                         <FormLabel>Uid</FormLabel>
                         <Input
                             isRequired={true}
                             value={uid}
                             onChange={(e) => setUid(e.target.value)}
                         />
+                        {
+                            !errors.uid.isValid &&
+                            <FormErrorMessage>{errors?.uid.errors[0]}</FormErrorMessage>
+                        }
                     </FormControl>
                     <FormControl >
                         <FormLabel>Profession</FormLabel>
@@ -142,7 +189,7 @@ export const UpdateProfileForm = () => {
                             </FormControl>
                         </GridItem>
                     </Grid>
-                    <FormControl >
+                    <FormControl isInvalid={!errors.sex.isValid}>
                         <FormLabel>Sex</FormLabel>
                         <RadioGroup value={sex} onChange={(val: any) => setSex(val)}>
                             <Stack direction='row' justifyContent='flex-start' gap={10}>
@@ -150,6 +197,10 @@ export const UpdateProfileForm = () => {
                                 <Radio value={Sex.FEMALE}>Female</Radio>
                             </Stack>
                         </RadioGroup>
+                        {
+                            !errors.sex.isValid &&
+                            <FormErrorMessage>{errors?.sex.errors[0]}</FormErrorMessage>
+                        }
                     </FormControl>
                 </>
             </TemplateForm>
