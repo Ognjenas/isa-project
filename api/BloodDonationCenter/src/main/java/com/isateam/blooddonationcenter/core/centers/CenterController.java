@@ -3,6 +3,7 @@ package com.isateam.blooddonationcenter.core.centers;
 import com.isateam.blooddonationcenter.core.centers.dtos.AllCentersDto;
 import com.isateam.blooddonationcenter.core.centers.dtos.CenterDto;
 import com.isateam.blooddonationcenter.core.centers.dtos.CreateCenterDto;
+import com.isateam.blooddonationcenter.core.centers.dtos.UpdateCenterDto;
 import com.isateam.blooddonationcenter.core.centers.interfaces.ICenterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +27,12 @@ public class CenterController {
 
     @PostMapping
     public Center createCenter(@RequestBody CreateCenterDto createCenterDto){
-        System.out.println(createCenterDto.toString());
-        return centerService.create(createCenterDto);
+        return centerService.create(createCenterDto.mapToModel());
     }
 
 
     @PutMapping
-    public CenterDto updateCenter(){
-        return null;
+    public Center updateCenter(@RequestBody UpdateCenterDto updateCenterDto){
+        return centerService.update(updateCenterDto.mapToModel());
     }
 }

@@ -8,5 +8,6 @@ import com.isateam.blooddonationcenter.core.centers.dtos.CreateCenterDto;
 public interface ICenterService {
     AllCentersDto getAll();
     AllCentersDto sort(String field, String sort);
-    Center create(CreateCenterDto center);
+    Center create(Center center);
+    Center update(Center center);
 }

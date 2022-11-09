@@ -8,6 +8,7 @@ import com.isateam.blooddonationcenter.core.centers.interfaces.CenterDao;
 import com.isateam.blooddonationcenter.core.centers.interfaces.ICenterCustomDao;
 import com.isateam.blooddonationcenter.core.centers.interfaces.ICenterService;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
+import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
 import com.isateam.blooddonationcenter.core.users.Address;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,15 +45,15 @@ public class CenterService implements ICenterService {
     }
 
     @Override
-    public Center create(CreateCenterDto createCenterDto) {
-        Center center= new Center();
-        Address address =createCenterDto.getAddress();
-        address.setId(null);
-        center.setAddress(address);
-        center.setName(createCenterDto.getName());
-        center.setDescription(createCenterDto.getDescription());
-        center.setAverageGrade(0.);
-        center.setWorkers(createCenterDto.getWorkers());
+    public Center create(Center center) {
+        return centerDao.save(center);
+    }
+
+    @Override
+    public Center update(Center center) {
+        Center centerOld = centerDao.findById(center.getId())
+                .orElseThrow(() -> new NotFoundException("Center doesnt exist"));
+        center.setAverageGrade(centerOld.getAverageGrade());
         return centerDao.save(center);
     }
 
