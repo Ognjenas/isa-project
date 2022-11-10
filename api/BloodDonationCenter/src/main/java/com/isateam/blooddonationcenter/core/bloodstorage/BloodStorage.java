@@ -22,7 +22,7 @@ public class BloodStorage {
 
     private BloodType bloodType;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "center_id", nullable = false)
     private Center center;
 
