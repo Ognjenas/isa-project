@@ -1,129 +1,241 @@
-import { Flex, FormControl, FormHelperText, FormLabel, Input, Radio, RadioGroup, Stack } from "@chakra-ui/react"
+import { Flex, FormControl, FormHelperText, FormLabel, Grid, GridItem, Input, Radio, RadioGroup, Stack } from "@chakra-ui/react"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 import TemplateForm from "../../../shared/components/template-form"
+import TemplateErrorInput from "../../../shared/components/template-form/components/template-error-input"
+import TemplateErrorRadio from "../../../shared/components/template-form/components/template-error-radio"
+import { useValidator } from "../../../shared/utils/form-validator.hook"
+import { FormValidator, ValidationField } from "../../../shared/utils/form.validator"
 import { RegistrationDTO } from "../../dtos/registration.dto"
 import { authService } from "../../services/auth.service"
+
 
 enum Sex { MALE="MALE", FEMALE="FEMALE" }
 
 export const RegistrationForm = () => {
 
-    const [email, setEmail] = useState("stjepanovicsrdjan2000@gmail.com")
-    const [name, setName] = useState("Srdjan")
-    const [surname, setSurname] = useState("Stjepanovic")
-    const [password, setPassword] = useState("Stjepanovic")
+    const [email, setEmail] = useState("")
+    const [name, setName] = useState("")
+    const [surname, setSurname] = useState("")
+    const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
     const [sex, setSex] = useState(Sex.MALE)
-    const [uid, setUid] = useState("Stjepanovic")
-    const [profession, setProfession] = useState("Stjepanovic")
-    const [school, setSchool] = useState("Stjepanovic")
-    const [city, setCity] = useState("Stjepanovic")
-    const [number, setNumber] = useState("Stjepanovic")
-    const [country, setCountry] = useState("Stjepanovic")
-    const [street, setStreet] = useState("Stjepanovic")
-
-    const [isEmailAddressValid, setIsEmailAddressValid] = useState(true)
+    const [uid, setUid] = useState("")
+    const [profession, setProfession] = useState("")
+    const [school, setSchool] = useState("")
+    const [city, setCity] = useState("")
+    const [country, setCountry] = useState("")
+    const [streetNumber, setStreetNumber] = useState("")
+    const [street, setStreet] = useState("")
+    const navigate = useNavigate()
 
     const handleSubmit = async () => {
-        const dto: RegistrationDTO = {
-            email,
-            password,
-            name,
-            surname,
-            sex,
-            profession,
-            school,
-            uid,
-            address: {
-                country,
-                city,
-                street,
-                number
+        if(password === confirmPassword) {
+            const dto: RegistrationDTO = {
+                email,
+                password,
+                name,
+                surname,
+                sex,
+                profession,
+                school,
+                uid,
+                address: {
+                    country,
+                    city,
+                    street,
+                    streetNumber
+                }
             }
+           
+            let ok = await authService.registrate(dto)
+            if (ok) {
+                setTimeout(() => navigate("/"), 3000)
+            }
+        } else {
+            toast.error("Passwords must be same")
         }
-        console.log(dto)
-        await authService.registrate(dto)
+        
     }
+
+    const fields: ValidationField[] = [
+        {
+            field: 'name',
+            ref: name,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'email',
+            ref: email,
+            validations: [FormValidator.isEmail, FormValidator.isRequired]
+        },
+        {
+            field: 'surname',
+            ref: surname,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'password',
+            ref: password,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'confirmPassword',
+            ref: confirmPassword,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'uid',
+            ref: uid,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'sex',
+            ref: sex,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'profession',
+            ref: profession,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'school',
+            ref: school,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'country',
+            ref: country,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'city',
+            ref: city,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'street',
+            ref: street,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'streetNumber',
+            ref: streetNumber,
+            validations: [FormValidator.isRequired]
+        },
+
+    ]
+
+    let [errors, valid] = useValidator(fields)
 
 
     return (
-        <Flex margin='auto' justifyContent='center' width='100%'>
+        <Flex margin='auto' justifyContent='center' width='100%' className="update-profile-form" border='1px solid lightgray' w={600} p={20}>
             <TemplateForm header={"Registration"} buttonText={"Save"} onSubmit={handleSubmit}>
                 <>
-                    <FormControl >
-                        <FormLabel>Email address</FormLabel>
-                        <Input
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </FormControl>
-                    <FormControl >
-                        <FormLabel>Name</FormLabel>
-                        <Input
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </FormControl>
-                    <FormControl >
-                        <FormLabel>Surname</FormLabel>
-                        <Input
-                            isRequired={true}
-                            value={surname}
-                            onChange={(e) => setSurname(e.target.value)}
-                        />
-                    </FormControl>
-                    <FormControl >
-                        <FormLabel>Password</FormLabel>
-                        <Input
-                            isRequired={true}
-                            value={password}
-                            type='password'
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </FormControl>
-                    <FormControl >
-                        <FormLabel>Sex</FormLabel>
-                        <RadioGroup value={sex} onChange={(val:any) => setSex(val)}>
-                            <Stack direction='row' justifyContent='flex-start' gap={10}>
-                                <Radio value={Sex.MALE}>Male</Radio>
-                                <Radio value={Sex.FEMALE}>Female</Radio>
-                            </Stack>
-                        </RadioGroup>
-                    </FormControl>
-                    <FormControl >
-                        <FormLabel>City</FormLabel>
-                        <Input
-                            isRequired={true}
-                            value={city}
-                            onChange={(e) => setCity(e.target.value)}
-                        />
-                    </FormControl>
-                    <FormControl >
-                        <FormLabel>Country</FormLabel>
-                        <Input
-                            isRequired={true}
-                            value={country}
-                            onChange={(e) => setCountry(e.target.value)}
-                        />
-                    </FormControl>
-                    <FormControl >
-                        <FormLabel>Street</FormLabel>
-                        <Input
-                            isRequired={true}
-                            value={street}
-                            onChange={(e) => setStreet(e.target.value)}
-                        />
-                    </FormControl>
-                    <FormControl >
-                        <FormLabel>Number</FormLabel>
-                        <Input
-                            isRequired={true}
-                            value={number}
-                            onChange={(e) => setNumber(e.target.value)}
-                        />
-                    </FormControl>
+                    <TemplateErrorInput
+                        label={'Email'}
+                        isValid={errors.email.isValid}
+                        error={errors.email.errors[0]}
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email} />
+                    <TemplateErrorInput
+                        label={'Password'}
+                        isValid={errors.password.isValid}
+                        error={errors.password.errors[0]}
+                        onChange={(e) => setPassword(e.target.value)}
+                        type={'password'}
+                        value={password} />
+                    <TemplateErrorInput
+                        label={'Repeat password'}
+                        isValid={errors.confirmPassword.isValid}
+                        error={errors.password.errors[0]}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        type={'password'}
+                        value={confirmPassword} />
+                    <TemplateErrorInput
+                        label={'Name'}
+                        isValid={errors.name.isValid}
+                        error={errors.name.errors[0]}
+                        onChange={(e) => setName(e.target.value)}
+                        value={name} />
+                    <TemplateErrorInput
+                        label={'Surname'}
+                        isValid={errors.surname.isValid}
+                        error={errors.surname.errors[0]}
+                        onChange={(e) => setSurname(e.target.value)}
+                        value={surname} />
+                    <TemplateErrorInput
+                        label={'Uid'}
+                        isValid={errors.uid.isValid}
+                        error={errors.uid.errors[0]}
+                        onChange={(e) => setUid(e.target.value)}
+                        value={uid} />
+                    <TemplateErrorInput
+                        label={'Profession'}
+                        isValid={errors.profession.isValid}
+                        error={errors.profession.errors[0]}
+                        onChange={(e) => setProfession(e.target.value)}
+                        value={profession} />
+                    <TemplateErrorInput
+                        label={'School'}
+                        isValid={errors.school.isValid}
+                        error={errors.school.errors[0]}
+                        onChange={(e) => setSchool(e.target.value)}
+                        value={school} />
+
+                    <Grid templateColumns='repeat(2, 1fr)' templateRows='repeat(2, 1fr)' gap={5} width="100%">
+                        <GridItem>
+                            <TemplateErrorInput
+                                label={'Country'}
+                                isValid={errors.country.isValid}
+                                error={errors.country.errors[0]}
+                                onChange={(e) => setCountry(e.target.value)}
+                                value={country} />
+                        </GridItem>
+                        <GridItem>
+                            <TemplateErrorInput
+                                label={'City'}
+                                isValid={errors.city.isValid}
+                                error={errors.city.errors[0]}
+                                onChange={(e) => setCity(e.target.value)}
+                                value={city} />
+                        </GridItem>
+                        <GridItem>
+                            <TemplateErrorInput
+                                label={'Street'}
+                                isValid={errors.street.isValid}
+                                error={errors.street.errors[0]}
+                                onChange={(e) => setStreet(e.target.value)}
+                                value={street} />
+                        </GridItem>
+                        <GridItem>
+                            <TemplateErrorInput
+                                label={'Street Number'}
+                                isValid={errors.streetNumber.isValid}
+                                error={errors.streetNumber.errors[0]}
+                                onChange={(e) => setStreetNumber(e.target.value)}
+                                value={streetNumber} />
+                        </GridItem>
+                    </Grid>
+                    <TemplateErrorRadio
+                        label={'Sex'}
+                        isValid={errors.sex.isValid}
+                        error={errors.sex.errors[0]}
+                        value={sex}
+                        onChange={(val: any) => setSex(val)}
+                        values={
+                            [
+                                { text: 'Male', value: Sex.MALE },
+                                { text: 'Female', value: Sex.FEMALE }
+                            ]
+                        }
+                    />
+
                 </>
             </TemplateForm>
-
         </Flex>
     )
 }
