@@ -8,6 +8,8 @@ import com.isateam.blooddonationcenter.core.centers.interfaces.ICenterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/centers")
 @RequiredArgsConstructor
@@ -16,8 +18,8 @@ public class CenterController {
     private final ICenterService centerService;
 
     @GetMapping
-    public AllCentersDto getAll() {
-        return centerService.getAll();
+    public AllCentersDto getAll(@RequestParam  Map<String, String> queryParams) {
+        return centerService.getAll(queryParams);
     }
 
     @GetMapping("/{field}/{sort}")
@@ -39,6 +41,5 @@ public class CenterController {
     public Center updateCenter(@RequestBody UpdateCenterDto updateCenterDto) {
         return centerService.update(updateCenterDto.mapToModel());
     }
-
 
 }

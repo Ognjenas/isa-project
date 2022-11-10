@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,8 +27,8 @@ public class CenterService implements ICenterService {
     private final ICenterCustomDao centerCustomDao;
 
     @Override
-    public AllCentersDto getAll() {
-        return mapToAllCentersDto(centerDao.findAll());
+    public AllCentersDto getAll(Map<String, String> map) {
+        return mapToAllCentersDto(centerCustomDao.getFiltered(map));
     }
 
     @Override
