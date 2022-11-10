@@ -11,7 +11,7 @@ import { RegistrationDTO } from "../../dtos/registration.dto"
 import { authService } from "../../services/auth.service"
 
 
-enum Sex { MALE="MALE", FEMALE="FEMALE" }
+enum Sex { MALE = "MALE", FEMALE = "FEMALE" }
 
 export const RegistrationForm = () => {
 
@@ -31,7 +31,7 @@ export const RegistrationForm = () => {
     const navigate = useNavigate()
 
     const handleSubmit = async () => {
-        if(password === confirmPassword) {
+        if (password === confirmPassword) {
             const dto: RegistrationDTO = {
                 email,
                 password,
@@ -48,7 +48,7 @@ export const RegistrationForm = () => {
                     streetNumber
                 }
             }
-           
+
             let ok = await authService.registrate(dto)
             if (ok) {
                 setTimeout(() => navigate("/"), 3000)
@@ -56,7 +56,7 @@ export const RegistrationForm = () => {
         } else {
             toast.error("Passwords must be same")
         }
-        
+
     }
 
     const fields: ValidationField[] = [
@@ -78,12 +78,12 @@ export const RegistrationForm = () => {
         {
             field: 'password',
             ref: password,
-            validations: [FormValidator.isRequired]
+            validations: [FormValidator.isRequired, FormValidator.minLength(8), FormValidator.maxLength(20)]
         },
         {
             field: 'confirmPassword',
             ref: confirmPassword,
-            validations: [FormValidator.isRequired]
+            validations: [FormValidator.isRequired, FormValidator.isEqualToField(password, "password")]
         },
         {
             field: 'uid',
@@ -151,7 +151,7 @@ export const RegistrationForm = () => {
                     <TemplateErrorInput
                         label={'Repeat password'}
                         isValid={errors.confirmPassword.isValid}
-                        error={errors.password.errors[0]}
+                        error={errors.confirmPassword.errors[0]}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         type={'password'}
                         value={confirmPassword} />

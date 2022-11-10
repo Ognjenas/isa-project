@@ -40,6 +40,39 @@ export class FormValidator {
         return null
     }
 
+    static minLength(len: number) {
+        return (field: string, value: string) => {
+            const isValid = value.trim().length >= len
+            if (!isValid) {
+                let message = "Minimum length is " + len + " characters!"
+                return message
+            }
+            return null
+        }
+    }
+
+    static maxLength(len: number) {
+        return (field: string, value: string) => {
+            const isValid = value.trim().length <= len
+            if (!isValid) {
+                let message = "Maximum length is " + len + " characters!"
+                return message
+            }
+            return null
+        }
+    }
+
+    static isEqualToField(foreignRef: any, foreignName: string) {
+        return (field: string, value: string) => {
+            const isValid = value.trim() === foreignRef.trim()
+            if (!isValid) {
+                let message = field + " doesn't match " + foreignName
+                return message.charAt(0).toUpperCase() + message.slice(1);
+            }
+            return null
+        }
+    }
+
     private validateField(obj: ValidationField) {
         let errorList: string[] = []
         obj.validations.forEach(validation => {
