@@ -20,8 +20,6 @@ export const ShowCentersComponent = () => {
     const onSubmit = async () => {
         let res = await centerService.getCentersSorted(field, sort);
         setCenters(res);
-        console.log(sort);
-        console.log(field);
     }
 
     useEffect(() => { handleOnMounted() }, [])
@@ -29,7 +27,7 @@ export const ShowCentersComponent = () => {
 
     return (
         <Flex justifyContent="center" flexDirection='column'>
-                <Table variant='simple' margin="auto" width='70%'>
+                <Table variant='simple' margin="auto" width='70%' >
                     <TableCaption>Blood centers</TableCaption>
                     <Thead>
                     <Tr>
@@ -37,6 +35,7 @@ export const ShowCentersComponent = () => {
                         <Th>Description</Th>
                         <Th>Average grade</Th>
                         <Th>Country</Th>
+                        <Th>City</Th>
                         <Th>Address</Th>
                     </Tr>
                     </Thead>
@@ -48,13 +47,14 @@ export const ShowCentersComponent = () => {
                                     <Td>{center.description}</Td>
                                     <Td>{center.averageGrade}</Td>
                                     <Td>{center.address.country}</Td>
+                                    <Td>{center.address.city}</Td>
                                     <Td>{center.address.street + ' ' +center.address.number}</Td>
                                 </Tr>
                             ))
                         }
                     </Tbody>
                 </Table>
-            <Flex flexDirection='row' justifyContent='center'>
+            <Flex flexDirection='row' justifyContent='center' margin='auto' width='30%' gap='5' border='1px' padding='10'>
                     <FormControl >
                     <FormLabel>Field</FormLabel>
                         <Select placeholder='Select field' 
@@ -64,6 +64,7 @@ export const ShowCentersComponent = () => {
                             <option value='averageGrade'>Average grade</option>
                             <option value='country'>Country</option>
                             <option value='street'>Address</option>
+                            <option value='city'>City</option>
                         </Select>
                     </FormControl>
                     <FormLabel>By</FormLabel>
