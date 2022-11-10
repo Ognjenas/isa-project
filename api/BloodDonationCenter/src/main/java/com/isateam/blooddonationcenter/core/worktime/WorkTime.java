@@ -28,6 +28,6 @@ public class WorkTime {
     private Center center;
 
     private DayOfWeek day;
-    private Timestamp startTime;
-    private Timestamp endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
 }

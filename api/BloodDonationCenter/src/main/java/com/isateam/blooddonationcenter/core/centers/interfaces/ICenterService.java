@@ -10,4 +10,5 @@ public interface ICenterService {
     AllCentersDto sort(String field, String sort);
     Center create(Center center);
     Center update(Center center);
+    CenterDto getById(long id);
 }

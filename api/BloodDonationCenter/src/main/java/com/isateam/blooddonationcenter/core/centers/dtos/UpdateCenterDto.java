@@ -11,12 +11,14 @@ import lombok.*;
 @Builder
 @ToString
 public class UpdateCenterDto {
+    private long id;
     private String name;
     private String description;
     private Address address;
 
     public Center mapToModel() {
         return Center.builder()
+                .id(id)
                 .address(address)
                 .name(name)
                 .description(description)

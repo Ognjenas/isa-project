@@ -25,14 +25,20 @@ public class CenterController {
         return centerService.sort(field, sort);
     }
 
+    @GetMapping("/{id}")
+    public CenterDto getById(@PathVariable long id) {
+        return centerService.getById(id);
+    }
+
     @PostMapping
-    public Center createCenter(@RequestBody CreateCenterDto createCenterDto){
+    public Center createCenter(@RequestBody CreateCenterDto createCenterDto) {
         return centerService.create(createCenterDto.mapToModel());
     }
 
-
     @PutMapping
-    public Center updateCenter(@RequestBody UpdateCenterDto updateCenterDto){
+    public Center updateCenter(@RequestBody UpdateCenterDto updateCenterDto) {
         return centerService.update(updateCenterDto.mapToModel());
     }
+
+
 }

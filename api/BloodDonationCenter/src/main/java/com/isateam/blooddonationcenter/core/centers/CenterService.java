@@ -57,6 +57,17 @@ public class CenterService implements ICenterService {
         return centerDao.save(center);
     }
 
+    @Override
+    public CenterDto getById(long id) {
+        Center center=centerDao.findById(id).orElseThrow(() -> new NotFoundException("Center doesnt exist"));
+        return CenterDto.builder()
+                .address(center.getAddress())
+                .name(center.getName())
+                .description(center.getDescription())
+                .averageGrade(center.getAverageGrade())
+                .build();
+    }
+
     private AllCentersDto mapToAllCentersDto(List<Center> centers) {
         return new AllCentersDto(centers.stream().map(c -> CenterDto.builder()
                 .address(c.getAddress())
