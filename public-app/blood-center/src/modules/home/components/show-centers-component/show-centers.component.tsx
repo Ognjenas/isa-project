@@ -1,48 +1,80 @@
-import { Box, Flex, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react"
+import { Box, Button, Flex, FormControl, FormLabel, Radio, RadioGroup, Select, Stack, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
 import { useAuthStore } from "../../../../stores/auth-store/auth.store"
+import { CenterDto } from "./dtos/center.dto";
+import { centerService } from "./services/cetner.service";
 
 
 
 export const ShowCentersComponent = () => {
 
+    const [centers, setCenters] = useState<CenterDto[]>();
+    const [field, setField] = useState('');
+    const [sort, setSort] = useState('');
+
+    const handleOnMounted = async () => {
+        let res = await centerService.getCenters();
+        setCenters(res);
+    }
+
+    const onSubmit = async () => {
+        let res = await centerService.getCentersSorted(field, sort);
+        setCenters(res);
+        console.log(sort);
+        console.log(field);
+    }
+
+    useEffect(() => { handleOnMounted() }, [])
+
+
     return (
-        <Flex justifyContent="center" >
-            
-                <Table variant='simple' margin="auto" >
-                    <TableCaption>Imperial to metric conversion factors</TableCaption>
+        <Flex justifyContent="center" flexDirection='column'>
+                <Table variant='simple' margin="auto" width='70%'>
+                    <TableCaption>Blood centers</TableCaption>
                     <Thead>
                     <Tr>
-                        <Th>To convert</Th>
-                        <Th>into</Th>
-                        <Th isNumeric>multiply by</Th>
+                        <Th>Name</Th>
+                        <Th>Description</Th>
+                        <Th>Average grade</Th>
+                        <Th>Country</Th>
+                        <Th>Address</Th>
                     </Tr>
                     </Thead>
                     <Tbody>
-                    <Tr>
-                        <Td>inches</Td>
-                        <Td>millimetres (mm)</Td>
-                        <Td isNumeric>25.4</Td>
-                    </Tr>
-                    <Tr>
-                        <Td>feet</Td>
-                        <Td>centimetres (cm)</Td>
-                        <Td isNumeric>30.48</Td>
-                    </Tr>
-                    <Tr>
-                        <Td>yards</Td>
-                        <Td>metres (m)</Td>
-                        <Td isNumeric>0.91444</Td>
-                    </Tr>
+                        {
+                            centers?.map((center, index) => (
+                                <Tr key={index}>
+                                    <Td>{center.name}</Td>
+                                    <Td>{center.description}</Td>
+                                    <Td>{center.averageGrade}</Td>
+                                    <Td>{center.address.country}</Td>
+                                    <Td>{center.address.street + ' ' +center.address.number}</Td>
+                                </Tr>
+                            ))
+                        }
                     </Tbody>
-                    <Tfoot>
-                    <Tr>
-                        <Th>To convert</Th>
-                        <Th>into</Th>
-                        <Th isNumeric>multiply by</Th>
-                    </Tr>
-                    </Tfoot>
                 </Table>
-     
+            <Flex flexDirection='row' justifyContent='center'>
+                    <FormControl >
+                    <FormLabel>Field</FormLabel>
+                        <Select placeholder='Select field' 
+                        value={field} onChange={(e) => setField(e.target.value)}>
+                            <option value='name'>Name</option>
+                            <option value='description'>Description</option>
+                            <option value='averageGrade'>Average grade</option>
+                            <option value='country'>Country</option>
+                            <option value='street'>Address</option>
+                        </Select>
+                    </FormControl>
+                    <FormLabel>By</FormLabel>
+                    <RadioGroup onChange={setSort} value={sort}>
+                        <Stack >
+                        <Radio value='asc'>Ascending</Radio>
+                        <Radio value='desc'>Descending</Radio>
+                        </Stack>
+                    </RadioGroup>    
+                <Button size='lg' onClick={() => onSubmit()} colorScheme='blue'>Sort</Button>
+            </Flex>
         </Flex>
     )
 }
