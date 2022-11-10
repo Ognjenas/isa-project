@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -36,5 +37,11 @@ public class UserController {
     @PostMapping
     public void register(@Valid @RequestBody CreateUserDTO createUserDTO) {
         userService.create(createUserDTO.map());
+    }
+
+
+    @GetMapping ("/search/{name}/{surname}")
+    public List<User> getSearched(@PathVariable String name, @PathVariable String surname) {
+        return userService.getSearchedUsers(name, surname);
     }
 }
