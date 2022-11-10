@@ -19,7 +19,7 @@ public class Worker {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)

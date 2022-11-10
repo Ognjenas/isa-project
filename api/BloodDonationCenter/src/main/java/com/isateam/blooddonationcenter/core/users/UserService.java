@@ -7,6 +7,8 @@ import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService implements IUserService {
@@ -49,4 +51,12 @@ public class UserService implements IUserService {
                 .build();
     }
 
+    public List<User> getAllUsers(){
+        return userEntityDao.findAll();
+    }
+    public List<User> getSearchedUsers(String name, String surname){
+        if( name.trim().equals("") && surname.trim().equals(""))
+            return userEntityDao.findAll();
+        return userEntityDao.findAllByNameLikeIgnoreCaseAndSurnameLikeIgnoreCase(name, surname);
+    }
 }
