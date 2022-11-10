@@ -28,7 +28,7 @@ public class CenterService implements ICenterService {
 
     @Override
     public AllCentersDto getAll(Map<String, String> map) {
-        return mapToAllCentersDto(centerCustomDao.getFiltered(map));
+        return mapToAllCentersDto(centerDao.findAll());
     }
 
     @Override
