@@ -1,8 +1,6 @@
 package com.isateam.blooddonationcenter.core.workers.dtos;
 
 import com.isateam.blooddonationcenter.core.centers.Center;
-import com.isateam.blooddonationcenter.core.users.User;
-import com.isateam.blooddonationcenter.core.users.UserRole;
 import com.isateam.blooddonationcenter.core.users.dtos.CreateUserDTO;
 import com.isateam.blooddonationcenter.core.workers.Worker;
 import lombok.Getter;

@@ -57,6 +57,6 @@ public class UserService implements IUserService {
     public List<User> getSearchedUsers(String name, String surname){
         if( name.trim().equals("") && surname.trim().equals(""))
             return userEntityDao.findAll();
-        return userEntityDao.findAllByNameLikeAndSurnameLike(name, surname);
+        return userEntityDao.findAllByNameLikeIgnoreCaseAndSurnameLikeIgnoreCase(name, surname);
     }
 }

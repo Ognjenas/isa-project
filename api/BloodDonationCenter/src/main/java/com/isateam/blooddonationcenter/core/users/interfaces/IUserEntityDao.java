@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface IUserEntityDao extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
-    List<User> findAllByNameLikeAndSurnameLike(String name,String surname);
+    List<User> findAllByNameLikeIgnoreCaseAndSurnameLikeIgnoreCase(String name,String surname);
 }
