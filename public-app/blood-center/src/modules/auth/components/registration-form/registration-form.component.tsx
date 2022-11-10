@@ -19,7 +19,7 @@ export const RegistrationForm = () => {
     const [name, setName] = useState("")
     const [surname, setSurname] = useState("")
     const [password, setPassword] = useState("")
-    const [password2, setPassword2] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
     const [sex, setSex] = useState(Sex.MALE)
     const [uid, setUid] = useState("")
     const [profession, setProfession] = useState("")
@@ -31,7 +31,7 @@ export const RegistrationForm = () => {
     const navigate = useNavigate()
 
     const handleSubmit = async () => {
-        if(password === password2) {
+        if(password === confirmPassword) {
             const dto: RegistrationDTO = {
                 email,
                 password,
@@ -81,8 +81,8 @@ export const RegistrationForm = () => {
             validations: [FormValidator.isRequired]
         },
         {
-            field: 'password2',
-            ref: password2,
+            field: 'confirmPassword',
+            ref: confirmPassword,
             validations: [FormValidator.isRequired]
         },
         {
@@ -152,9 +152,9 @@ export const RegistrationForm = () => {
                         label={'Repeat password'}
                         isValid={errors.password2.isValid}
                         error={errors.password.errors[0]}
-                        onChange={(e) => setPassword2(e.target.value)}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                         type={'password'}
-                        value={password2} />
+                        value={confirmPassword} />
                     <TemplateErrorInput
                         label={'Name'}
                         isValid={errors.name.isValid}
