@@ -23,11 +23,11 @@ public class WorkTime {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "center_id", nullable = false)
     private Center center;
 
     private DayOfWeek day;
-    private Timestamp startTime;
-    private Timestamp endTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
 }
