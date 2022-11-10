@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import HomeView from './modules/home';
+import UpdateProfileView from './modules/profiles/views/update-profile';
+import routes from './routes';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -21,10 +25,12 @@ const theme = extendTheme({
   }
 })
 
+const router = createBrowserRouter(routes)
+
 root.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <App />
+      <RouterProvider router={router} />
     </ChakraProvider>
   </React.StrictMode>
 );

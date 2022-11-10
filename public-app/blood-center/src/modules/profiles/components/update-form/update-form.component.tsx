@@ -129,7 +129,7 @@ export const UpdateProfileForm = () => {
     }
 
     return (
-        <Flex margin='auto' justifyContent='center' width='100%' className="update-profile-form" border='1px solid lightgray' w={600} p={20}>
+        <Flex margin='auto' borderRadius={10} justifyContent='center' width='100%' className="update-profile-form" border='1px solid lightgray' w={700} p={20}>
             <TemplateForm header={"Update Profile"} buttonText={"Save"} onSubmit={handleSubmit}>
                 <>
                     <TemplateErrorInput
