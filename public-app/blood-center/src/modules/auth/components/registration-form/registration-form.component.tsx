@@ -150,7 +150,7 @@ export const RegistrationForm = () => {
                         value={password} />
                     <TemplateErrorInput
                         label={'Repeat password'}
-                        isValid={errors.password2.isValid}
+                        isValid={errors.confirmPassword.isValid}
                         error={errors.password.errors[0]}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         type={'password'}
