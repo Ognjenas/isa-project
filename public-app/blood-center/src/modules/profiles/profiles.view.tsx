@@ -2,5 +2,9 @@ import { Outlet } from "react-router-dom"
 
 
 
-export const ProfilesView = () => <Outlet />
+export const ProfilesView = () => {
+    return (
+        <Outlet />
+    )
+}
 export default ProfilesView
