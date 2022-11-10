@@ -22,7 +22,7 @@ public class Worker {
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="center_id", nullable=false)
     private Center center;
 }

@@ -22,14 +22,14 @@ public class Center {
 
     private String name;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
     private Double averageGrade;
 
     private String description;
 
-    @OneToMany(mappedBy = "center", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "center", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Worker> workers;
 
 }
