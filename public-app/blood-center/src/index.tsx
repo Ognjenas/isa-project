@@ -7,7 +7,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomeView from './modules/home';
 import UpdateProfileView from './modules/profiles/views/update-profile';
-import routes from './routing/routes';
+import routes from './routes';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
