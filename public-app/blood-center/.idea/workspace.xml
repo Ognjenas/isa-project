@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b2a5df96-a113-4881-91ed-1e607fda23e1" name="Changes" comment="" />
+    <list default="true" id="b2a5df96-a113-4881-91ed-1e607fda23e1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/blood-center.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/profiles/components/update-form/update-form.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/profiles/components/update-form/update-form.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/worker/components/update-form/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/components/update-form/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/worker/components/update-form/update-form.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/components/update-form/update-form.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/worker/dtos/get-worker2update.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/dtos/get-worker2update.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/worker/dtos/update-worker.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/dtos/update-worker.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/worker/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/worker/services/worker.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/services/worker.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/worker/views/worker-update/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/views/worker-update/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/worker/views/worker-update/worker-update.view.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/views/worker-update/worker-update.view.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,7 +48,7 @@
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "D:/PROGRAMI/WORKSPACE/IntelliJ/ISA/isa-project/public-app/blood-center",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "D:\\PROGRAMI\\Jet Brains\\apps\\WebStorm\\ch-0\\222.4345.14\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external",
+    "ts.external.directory.path": "D:\\PROGRAMI\\WORKSPACE\\IntelliJ\\ISA\\isa-project\\public-app\\blood-center\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>

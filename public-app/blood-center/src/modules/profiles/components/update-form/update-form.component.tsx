@@ -28,6 +28,7 @@ export const UpdateProfileForm = () => {
     const navigate = useNavigate()
 
     const handleOnMounted = async () => {
+
         let user = await profileService.getProfile()
         setId(user.id)
         setName(user.name)
