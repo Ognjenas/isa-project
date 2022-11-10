@@ -6,8 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.security.Timestamp;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Builder
 @AllArgsConstructor
@@ -15,7 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "centers")
+@Table(name = "donations")
 public class Donation {
 
     @Id
@@ -29,8 +28,7 @@ public class Donation {
     private double quantity;
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date donatedAt;
+    private LocalDate donatedAt;
 
     private BloodType bloodType;
 
