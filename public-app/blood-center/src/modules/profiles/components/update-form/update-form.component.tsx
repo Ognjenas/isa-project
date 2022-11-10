@@ -9,10 +9,11 @@ import { useValidator } from "../../../shared/utils/form-validator.hook"
 import { FormValidator, ValidationField } from "../../../shared/utils/form.validator"
 import { UpdateProfileDTO } from "../../dtos/update-profile.dto"
 import { profileService } from "../../services/profile.service"
+import { useNavigate } from "react-router-dom"
 
 
 export const UpdateProfileForm = () => {
-
+    const [id, setId] = useState(-1)
     const [name, setName] = useState("")
     const [surname, setSurname] = useState("")
     const [sex, setSex] = useState<Sex>(Sex.MALE)
@@ -24,9 +25,11 @@ export const UpdateProfileForm = () => {
     const [street, setStreet] = useState("")
     const [streetNumber, setStreetNumber] = useState("")
     const [addressId, setAddressId] = useState(0)
+    const navigate = useNavigate()
 
     const handleOnMounted = async () => {
         let user = await profileService.getProfile()
+        setId(user.id)
         setName(user.name)
         setSurname(user.surname)
         setSex(user.sex)
@@ -119,8 +122,10 @@ export const UpdateProfileForm = () => {
                 number: streetNumber
             }
         }
-        console.log(dto)
-        // await profileService.updateProfile(dto)
+        let ok = await profileService.updateProfile(dto, id)
+        if (ok) {
+            setTimeout(() => navigate("/"), 3000)
+        }
     }
 
     return (

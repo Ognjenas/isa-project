@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { UpdateProfileDTO } from "../dtos/update-profile.dto";
 
 
@@ -19,18 +20,38 @@ export class ProfileService {
         return data
     }
 
-    async updateProfile(updateProfileDTO: UpdateProfileDTO) {
-        const url = `${this.apiUrl}/users`
+    async updateProfile(updateProfileDTO: UpdateProfileDTO, id: number) {
+        const url = `${this.apiUrl}/users/${id}`
 
-        let response = await fetch(url, {
-            method: 'PATCH',
-            body: JSON.stringify(updateProfileDTO),
-            headers: {
-                'Content-Type': 'application/json'
+        try {
+            let response = await fetch(url, {
+                method: 'PATCH',
+                body: JSON.stringify(updateProfileDTO),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            if (!response.ok) {
+                let error = await response.json()
+                this.parseError(error)
             }
-        })
+            toast.success("Successfully updated profile!", { autoClose: 3000 })
+            return true
+        } catch (e: any) {
+            toast.error(e.message, { autoClose: 3000 })
+            return false
+        }
 
-        if (!response.ok) throw new Error("Something wrong with updating profile")
+    }
+
+
+    parseError(error: any) {
+        if (error.statusCode) {
+            throw new Error(error.message)
+        } else {
+            throw new Error('Date not correct!')
+        }
     }
 }
 
