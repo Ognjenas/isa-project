@@ -15,4 +15,5 @@ public class WorkerController {
 
     @PostMapping
     public void register(@Valid @RequestBody CreateWorkerDto createWorkerDto) {workerService.create(createWorkerDto.map());}
+
 }
