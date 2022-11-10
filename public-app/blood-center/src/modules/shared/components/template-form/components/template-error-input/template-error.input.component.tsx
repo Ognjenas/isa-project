@@ -4,12 +4,13 @@ interface Props {
     error: string,
     value: string,
     label: string
+    type?: string
     onChange: (e: any) => void
 }
 
 
 
-export const TemplateErrorInput = ({ isValid, error, value, label, onChange }: Props) => {
+export const TemplateErrorInput = ({ isValid, error, value, label, onChange, type }: Props) => {
     return (
         <FormControl isInvalid={!isValid}>
             <FormLabel>{label}</FormLabel>
@@ -18,6 +19,7 @@ export const TemplateErrorInput = ({ isValid, error, value, label, onChange }: P
                 fontSize={18}
                 isRequired={true}
                 value={value}
+                type={type}
                 onChange={onChange}
             />
             {
