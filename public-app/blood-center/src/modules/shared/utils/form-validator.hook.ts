@@ -5,17 +5,19 @@ import { FormValidator, ValidationField } from "./form.validator";
 
 
 
-export const useValidator = (fields: ValidationField[]) => {
+export const useValidator = (fields: ValidationField[]): [any, boolean] => {
     const validator = new FormValidator(fields)
     const refs = fields.map(field => field.ref)
     const [errors, setErrors] = useState(validator.getErrors())
+    const [valid, setValid] = useState(true)
 
 
     useEffect(() => {
-        console.log("triggering")
-        setErrors(validator.validate())
+        const { errors, validationPassed } = validator.validate()
+        setErrors(errors)
+        setValid(validationPassed)
     }, [...refs])
 
-    return errors;
+    return [errors, valid];
 
 }

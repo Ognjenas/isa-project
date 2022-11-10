@@ -1,6 +1,8 @@
 import { Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Grid, GridItem, Input, Radio, RadioGroup, Stack } from "@chakra-ui/react"
 import { setuid } from "process"
 import { useEffect, useState } from "react"
+import TemplateErrorInput from "../../../shared/components/template-form/components/template-error-input"
+import TemplateErrorRadio from "../../../shared/components/template-form/components/template-error-radio"
 import TemplateForm from "../../../shared/components/template-form"
 import { Sex } from "../../../shared/utils/constants"
 import { useValidator } from "../../../shared/utils/form-validator.hook"
@@ -65,14 +67,43 @@ export const UpdateProfileForm = () => {
             ref: profession,
             validations: [FormValidator.isRequired]
         },
+        {
+            field: 'school',
+            ref: school,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'country',
+            ref: country,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'city',
+            ref: city,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'street',
+            ref: street,
+            validations: [FormValidator.isRequired]
+        },
+        {
+            field: 'streetNumber',
+            ref: streetNumber,
+            validations: [FormValidator.isRequired]
+        },
 
     ]
 
-    let errors: any = useValidator(fields)
+    let [errors, valid] = useValidator(fields)
 
     useEffect(() => { handleOnMounted() }, [])
 
     const handleSubmit = async () => {
+        if (!valid) {
+            console.log("Sorry validation not passed")
+            return
+        }
         const dto: UpdateProfileDTO = {
             name,
             surname,
@@ -88,120 +119,93 @@ export const UpdateProfileForm = () => {
                 number: streetNumber
             }
         }
-        await profileService.updateProfile(dto)
+        console.log(dto)
+        // await profileService.updateProfile(dto)
     }
 
     return (
         <Flex margin='auto' justifyContent='center' width='100%' className="update-profile-form" border='1px solid lightgray' w={600} p={20}>
             <TemplateForm header={"Update Profile"} buttonText={"Save"} onSubmit={handleSubmit}>
                 <>
-                    <FormControl isInvalid={!errors.name.isValid} >
-                        <FormLabel>Name</FormLabel>
-                        <Input
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                        {
-                            !errors.name.isValid &&
-                            <FormErrorMessage>{errors?.name.errors[0]}</FormErrorMessage>
-                        }
+                    <TemplateErrorInput
+                        label={'Name'}
+                        isValid={errors.name.isValid}
+                        error={errors.name.errors[0]}
+                        onChange={(e) => setName(e.target.value)}
+                        value={name} />
+                    <TemplateErrorInput
+                        label={'Surname'}
+                        isValid={errors.surname.isValid}
+                        error={errors.surname.errors[0]}
+                        onChange={(e) => setSurname(e.target.value)}
+                        value={surname} />
+                    <TemplateErrorInput
+                        label={'Uid'}
+                        isValid={errors.uid.isValid}
+                        error={errors.uid.errors[0]}
+                        onChange={(e) => setUid(e.target.value)}
+                        value={uid} />
+                    <TemplateErrorInput
+                        label={'Profession'}
+                        isValid={errors.profession.isValid}
+                        error={errors.profession.errors[0]}
+                        onChange={(e) => setProfession(e.target.value)}
+                        value={profession} />
+                    <TemplateErrorInput
+                        label={'School'}
+                        isValid={errors.school.isValid}
+                        error={errors.school.errors[0]}
+                        onChange={(e) => setSchool(e.target.value)}
+                        value={school} />
 
-                    </FormControl>
-                    <FormControl isInvalid={!errors.surname.isValid}>
-                        <FormLabel>Surname</FormLabel>
-                        <Input
-                            isRequired={true}
-                            value={surname}
-                            onChange={(e) => setSurname(e.target.value)}
-                        />
-                        {
-                            !errors.surname.isValid &&
-                            <FormErrorMessage>{errors?.surname.errors[0]}</FormErrorMessage>
-                        }
-                    </FormControl>
-                    <FormControl isInvalid={!errors.uid.isValid}>
-                        <FormLabel>Uid</FormLabel>
-                        <Input
-                            isRequired={true}
-                            value={uid}
-                            onChange={(e) => setUid(e.target.value)}
-                        />
-                        {
-                            !errors.uid.isValid &&
-                            <FormErrorMessage>{errors?.uid.errors[0]}</FormErrorMessage>
-                        }
-                    </FormControl>
-                    <FormControl >
-                        <FormLabel>Profession</FormLabel>
-                        <Input
-                            isRequired={true}
-                            value={profession}
-                            onChange={(e) => setProfession(e.target.value)}
-                        />
-                    </FormControl>
-                    <FormControl >
-                        <FormLabel>School</FormLabel>
-                        <Input
-                            isRequired={true}
-                            value={school}
-                            onChange={(e) => setSchool(e.target.value)}
-                        />
-                    </FormControl>
                     <Grid templateColumns='repeat(2, 1fr)' templateRows='repeat(2, 1fr)' gap={5} width="100%">
                         <GridItem>
-                            <FormControl >
-                                <FormLabel>Country</FormLabel>
-                                <Input
-                                    isRequired={true}
-                                    value={country}
-                                    onChange={(e) => setCountry(e.target.value)}
-                                />
-                            </FormControl>
+                            <TemplateErrorInput
+                                label={'Country'}
+                                isValid={errors.country.isValid}
+                                error={errors.country.errors[0]}
+                                onChange={(e) => setCountry(e.target.value)}
+                                value={country} />
                         </GridItem>
                         <GridItem>
-                            <FormControl >
-                                <FormLabel>City</FormLabel>
-                                <Input
-                                    isRequired={true}
-                                    value={city}
-                                    onChange={(e) => setCity(e.target.value)}
-                                />
-                            </FormControl>
+                            <TemplateErrorInput
+                                label={'City'}
+                                isValid={errors.city.isValid}
+                                error={errors.city.errors[0]}
+                                onChange={(e) => setCity(e.target.value)}
+                                value={city} />
                         </GridItem>
                         <GridItem>
-                            <FormControl >
-                                <FormLabel>Street</FormLabel>
-                                <Input
-                                    isRequired={true}
-                                    value={street}
-                                    onChange={(e) => setStreet(e.target.value)}
-                                />
-                            </FormControl>
+                            <TemplateErrorInput
+                                label={'Street'}
+                                isValid={errors.street.isValid}
+                                error={errors.street.errors[0]}
+                                onChange={(e) => setStreet(e.target.value)}
+                                value={street} />
                         </GridItem>
                         <GridItem>
-                            <FormControl >
-                                <FormLabel>Street Number</FormLabel>
-                                <Input
-                                    isRequired={true}
-                                    value={streetNumber}
-                                    onChange={(e) => setStreetNumber(e.target.value)}
-                                />
-                            </FormControl>
+                            <TemplateErrorInput
+                                label={'Street Number'}
+                                isValid={errors.streetNumber.isValid}
+                                error={errors.streetNumber.errors[0]}
+                                onChange={(e) => setStreetNumber(e.target.value)}
+                                value={streetNumber} />
                         </GridItem>
                     </Grid>
-                    <FormControl isInvalid={!errors.sex.isValid}>
-                        <FormLabel>Sex</FormLabel>
-                        <RadioGroup value={sex} onChange={(val: any) => setSex(val)}>
-                            <Stack direction='row' justifyContent='flex-start' gap={10}>
-                                <Radio value={Sex.MALE}>Male</Radio>
-                                <Radio value={Sex.FEMALE}>Female</Radio>
-                            </Stack>
-                        </RadioGroup>
-                        {
-                            !errors.sex.isValid &&
-                            <FormErrorMessage>{errors?.sex.errors[0]}</FormErrorMessage>
+                    <TemplateErrorRadio
+                        label={'Sex'}
+                        isValid={errors.sex.isValid}
+                        error={errors.sex.errors[0]}
+                        value={sex}
+                        onChange={(val: any) => setSex(val)}
+                        values={
+                            [
+                                { text: 'Male', value: Sex.MALE },
+                                { text: 'Female', value: Sex.FEMALE }
+                            ]
                         }
-                    </FormControl>
+                    />
+
                 </>
             </TemplateForm>
         </Flex>

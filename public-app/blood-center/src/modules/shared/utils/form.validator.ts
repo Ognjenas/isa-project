@@ -13,7 +13,8 @@ export interface ValidationErrorOutput {
 export class FormValidator {
 
     private fields: ValidationField[] = []
-    errors: Map<string, ValidationErrorOutput> = new Map<string, ValidationErrorOutput>()
+    private validationPassed: boolean = true
+    private errors: Map<string, ValidationErrorOutput> = new Map<string, ValidationErrorOutput>()
 
     constructor(fields: ValidationField[]) {
         this.fields = fields;
@@ -51,17 +52,24 @@ export class FormValidator {
             errors: errorList,
             isValid: errorList.length == 0
         }
+
+        if (this.validationPassed && !validationOutput.isValid) this.validationPassed = false
         this.errors.set(obj.field, validationOutput)
     }
 
 
     validate() {
+        this.validationPassed = true
         this.fields.forEach(field => this.validateField(field))
-        return Object.fromEntries(this.errors)
+        return { errors: Object.fromEntries(this.errors), validationPassed: this.validationPassed }
     }
 
     getErrors() {
         return Object.fromEntries(this.errors)
+    }
+
+    didValidationPass() {
+        return this.validationPassed
     }
 
 }
