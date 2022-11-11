@@ -7,9 +7,9 @@ import com.isateam.blooddonationcenter.core.centers.dtos.UpdateCenterDto;
 import com.isateam.blooddonationcenter.core.centers.interfaces.ICenterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/centers")
 @RequiredArgsConstructor

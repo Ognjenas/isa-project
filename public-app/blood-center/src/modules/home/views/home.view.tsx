@@ -1,4 +1,5 @@
 import HomeComponent from "../components/home-component"
+import ShowCentersComponent from "../components/show-centers-component"
 
 
 
@@ -7,8 +8,7 @@ export const HomeView = () => {
 
     return (
         <div>
-            Home View
-            <HomeComponent />
+            <ShowCentersComponent />
         </div>
     )
 }
