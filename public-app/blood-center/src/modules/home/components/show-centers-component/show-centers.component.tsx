@@ -48,7 +48,7 @@ export const ShowCentersComponent = () => {
                                     <Td>{center.averageGrade}</Td>
                                     <Td>{center.address.country}</Td>
                                     <Td>{center.address.city}</Td>
-                                    <Td>{center.address.street + ' ' +center.address.number}</Td>
+                                    <Td>{center.address.street + ' ' +center.address.streetNumber}</Td>
                                 </Tr>
                             ))
                         }
