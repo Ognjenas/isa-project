@@ -5,6 +5,7 @@ import ShowCentersComponent from "../modules/home/components/show-centers-compon
 import ProfilesView from "../modules/profiles/profiles.view"
 import UpdateProfileView from "../modules/profiles/views/update-profile"
 import ErrorComponent from "../modules/shared/components/error"
+import MakeSurveyComponent from "../modules/surveys/components/make-survey.component"
 
 export const routes: RouteObject[] = [
     {
@@ -29,6 +30,10 @@ export const routes: RouteObject[] = [
             {
                 path: "centers",
                 element: <ShowCentersComponent />,
+            },
+            {
+                path: "survey",
+                element: <MakeSurveyComponent />,
             },
         ],
     },
