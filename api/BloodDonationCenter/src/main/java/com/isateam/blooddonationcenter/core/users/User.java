@@ -1,9 +1,11 @@
 package com.isateam.blooddonationcenter.core.users;
 
+import com.isateam.blooddonationcenter.core.surveys.Survey;
 import com.isateam.blooddonationcenter.core.users.utils.Sex;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -29,4 +31,7 @@ public class User {
     private String profession;
     private String school;
     private UserRole role;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Survey> surveys;
 }
