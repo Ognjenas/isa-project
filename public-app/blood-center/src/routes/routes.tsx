@@ -6,6 +6,9 @@ import ProfilesView from "../modules/profiles/profiles.view"
 import UpdateProfileView from "../modules/profiles/views/update-profile"
 import ErrorComponent from "../modules/shared/components/error"
 import MakeSurveyComponent from "../modules/surveys/components/make-survey.component"
+import CenterRegistrationForm from "../modules/centers/components/center-registration-form";
+import UsersView from "../modules/users/components";
+
 
 export const routes: RouteObject[] = [
     {
@@ -35,8 +38,21 @@ export const routes: RouteObject[] = [
                 path: "survey",
                 element: <MakeSurveyComponent />,
             },
-        ],
-    },
+            {
+                path: 'registration',
+                element: <RegistrationForm />
+            },
+            {
+                path: 'centers/registration',
+                element: <CenterRegistrationForm />
+            },
+            {
+                path: 'usersview',
+                element: <UsersView />
+            }
+        ]
+    }
+
 ]
 
 export default routes
