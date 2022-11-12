@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { UpdateProfileDTO } from "../dtos/update-profile.dto";
-
+import axios from "axios"
 
 export class ProfileService {
 
@@ -10,36 +10,25 @@ export class ProfileService {
     async getProfile() {
         const url = `${this.apiUrl}/users/1`
 
-        let response = await fetch(url, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-        })
+        try {
+            let response = await axios.get(url)
+            return response.data
+        } catch(e: any) {
+            toast.error("Something wrong with loading users", {autoClose: 300})
+        }
 
-        if (!response.ok) throw new Error("User doesn't exist!")
-        let data = await response.json()
-        return data
     }
 
     async updateProfile(updateProfileDTO: UpdateProfileDTO, id: number) {
-        const url = `${this.apiUrl}/users/${id}`
+        const url = `${this.apiUrl}/users/${2}`
 
         try {
-            let response = await fetch(url, {
-                method: 'PATCH',
-                body: JSON.stringify(updateProfileDTO),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-
-            if (!response.ok) {
-                let error = await response.json()
-                this.parseError(error)
-            }
+            let response = await axios.patch(url, updateProfileDTO)
             toast.success("Successfully updated profile!", { autoClose: 3000 })
             return true
         } catch (e: any) {
-            toast.error(e.message, { autoClose: 3000 })
+            const message = this.parseError(e.response.data)
+            toast.error(message, { autoClose: 3000 })
             return false
         }
 
@@ -48,9 +37,9 @@ export class ProfileService {
 
     parseError(error: any) {
         if (error.statusCode) {
-            throw new Error(error.message)
+            return error.message
         } else {
-            throw new Error('Date not correct!')
+            return 'Data not correct!'
         }
     }
 }

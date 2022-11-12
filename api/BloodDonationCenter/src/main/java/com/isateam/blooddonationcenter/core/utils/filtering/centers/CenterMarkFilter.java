@@ -15,21 +15,19 @@ import java.util.Map;
 
 public class CenterMarkFilter implements IFilter<Center> {
     private Map<String, String> queryParams;
-    private CriteriaBuilder cb;
 
-    public CenterMarkFilter(Map<String, String> queryParams, CriteriaBuilder cb) {
+    public CenterMarkFilter(Map<String, String> queryParams) {
         this.queryParams = queryParams;
-        this.cb = cb;
     }
 
     @Override
-    public Predicate filter(Root<Center> root) {
+    public Predicate filter(CriteriaBuilder cb, Root<Center> root) {
         boolean hasKey = queryParams.containsKey("mark");
         if(!hasKey) return cb.conjunction();
-        return applyFilter(root);
+        return applyFilter(cb, root);
     }
 
-    public Predicate applyFilter(Root<Center> root) {
+    public Predicate applyFilter(CriteriaBuilder cb, Root<Center> root) {
         try {
             String markStr = queryParams.get("mark");
             double mark = Double.parseDouble(markStr);

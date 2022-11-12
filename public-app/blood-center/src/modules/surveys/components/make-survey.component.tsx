@@ -7,10 +7,9 @@ import {
     RadioGroup,
     Stack,
 } from "@chakra-ui/react"
+import React from "react"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import TemplateForm from "../../shared/components/template-form"
-import TemplateErrorRadio from "../../shared/components/template-form/components/template-error-radio"
 import { AnswerDTO } from "../dtos/AnswerDTO"
 import { MakeSurveyDTO } from "../dtos/MakeSurveyDTO"
 import { SurveyQuestionDTO } from "../dtos/SurveyQuestionDTO"
@@ -90,8 +89,8 @@ export const MakeSurveyComponent = () => {
                 </Flex>
             ))}
 
-            <Flex justifyContent="flex-end" onClick={() => handleOnSubmit()}>
-                <Button>Submit</Button>
+            <Flex justifyContent="flex-end">
+                <Button  onClick={() => handleOnSubmit()}>Submit</Button>
             </Flex>
         </Flex>
     )

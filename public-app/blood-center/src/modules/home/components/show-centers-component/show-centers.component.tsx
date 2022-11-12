@@ -1,81 +1,96 @@
-import { Box, Button, Flex, FormControl, FormLabel, Radio, RadioGroup, Select, Stack, Table, TableCaption, TableContainer, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react"
+import {
+    Box,
+    Button,
+    Flex,
+    FormControl,
+    FormLabel,
+    Radio,
+    RadioGroup,
+    Select,
+    Stack,
+    Table,
+    TableCaption,
+    TableContainer,
+    Tbody,
+    Td,
+    Tfoot,
+    Th,
+    Thead,
+    Tr,
+} from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { useAuthStore } from "../../../../stores/auth-store/auth.store"
-import { CenterDto } from "./dtos/center.dto";
-import { centerService } from "./services/cetner.service";
-
-
+import CenterFilters from "./components/center-filters"
+import { CenterDto } from "./dtos/center.dto"
+import { FilterSort } from "./dtos/filter-sort.dto"
+import { centerService } from "./services/center.service"
 
 export const ShowCentersComponent = () => {
-
-    const [centers, setCenters] = useState<CenterDto[]>();
-    const [field, setField] = useState('');
-    const [sort, setSort] = useState('');
+    const [centers, setCenters] = useState<CenterDto[]>()
 
     const handleOnMounted = async () => {
-        let res = await centerService.getCenters();
-        setCenters(res);
+        let res = await centerService.getCenters()
+        setCenters(res)
     }
 
-    const onSubmit = async () => {
-        let res = await centerService.getCentersSorted(field, sort);
-        setCenters(res);
+    const submit = async (filters: FilterSort) => {
+        let res = await centerService.getCentersFiltered(filters)
+        setCenters(res.centers)
     }
 
-    useEffect(() => { handleOnMounted() }, [])
+    const handleFilterChange = (values: any) => {
+        const sortBy = values.sortBy
+        const sort = values.sort
+        const filterBy = values.filterBy
+        const filterByValue = values.filterByValue
 
+        submit({ sortBy, sort, filterBy, filterByValue })
+    }
+
+    useEffect(() => {
+        handleOnMounted()
+    }, [])
 
     return (
-        <Flex justifyContent="center" flexDirection='column'>
-                <Table variant='simple' margin="auto" width='70%' >
-                    <TableCaption>Blood centers</TableCaption>
-                    <Thead>
+        <Flex
+            flexDirection="column"
+            height="100%"
+            width="100%"
+            justifyContent="flex-start"
+            alignItems="center"
+            gap={10}
+        >
+            <CenterFilters onChange={handleFilterChange} />
+            <Table variant="simple" width="90%">
+                <Thead>
                     <Tr>
-                        <Th>Name</Th>
-                        <Th>Description</Th>
-                        <Th>Average grade</Th>
-                        <Th>Country</Th>
-                        <Th>City</Th>
-                        <Th>Address</Th>
+                        <Th textAlign={"center"}>Name</Th>
+                        <Th textAlign={"center"}>Description</Th>
+                        <Th textAlign={"center"}>Average grade</Th>
+                        <Th textAlign={"center"}>Country</Th>
+                        <Th textAlign={"center"}>City</Th>
+                        <Th textAlign={"center"}>Address</Th>
                     </Tr>
-                    </Thead>
-                    <Tbody>
-                        {
-                            centers?.map((center, index) => (
-                                <Tr key={index}>
-                                    <Td>{center.name}</Td>
-                                    <Td>{center.description}</Td>
-                                    <Td>{center.averageGrade}</Td>
-                                    <Td>{center.address.country}</Td>
-                                    <Td>{center.address.city}</Td>
-                                    <Td>{center.address.street + ' ' +center.address.streetNumber}</Td>
-                                </Tr>
-                            ))
-                        }
-                    </Tbody>
-                </Table>
-            <Flex flexDirection='row' justifyContent='center' margin='auto' width='30%' gap='5' border='1px' padding='10'>
-                    <FormControl >
-                    <FormLabel>Field</FormLabel>
-                        <Select placeholder='Select field' 
-                        value={field} onChange={(e) => setField(e.target.value)}>
-                            <option value='name'>Name</option>
-                            <option value='description'>Description</option>
-                            <option value='averageGrade'>Average grade</option>
-                            <option value='country'>Country</option>
-                            <option value='street'>Address</option>
-                            <option value='city'>City</option>
-                        </Select>
-                    </FormControl>
-                    <FormLabel>By</FormLabel>
-                    <RadioGroup onChange={setSort} value={sort}>
-                        <Stack >
-                        <Radio value='asc'>Ascending</Radio>
-                        <Radio value='desc'>Descending</Radio>
-                        </Stack>
-                    </RadioGroup>    
-                <Button size='lg' onClick={() => onSubmit()} colorScheme='blue'>Sort</Button>
-            </Flex>
+                </Thead>
+                <Tbody>
+                    {centers?.map((center, index) => (
+                        <Tr key={index}>
+                            <Td textAlign={"center"}>{center.name}</Td>
+                            <Td textAlign={"center"}>{center.description}</Td>
+                            <Td textAlign={"center"}>{center.averageGrade}</Td>
+                            <Td textAlign={"center"}>
+                                {center.address.country}
+                            </Td>
+                            <Td textAlign={"center"}>{center.address.city}</Td>
+                            <Td textAlign={"center"}>
+                                {center.address.street +
+                                    " " +
+                                    center.address.number}
+                            </Td>
+                        </Tr>
+                    ))}
+                </Tbody>
+            </Table>
         </Flex>
     )
 }

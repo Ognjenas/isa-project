@@ -1,4 +1,15 @@
-import { Flex, FormControl, FormHelperText, FormLabel, Grid, GridItem, Input, Radio, RadioGroup, Stack } from "@chakra-ui/react"
+import {
+    Flex,
+    FormControl,
+    FormHelperText,
+    FormLabel,
+    Grid,
+    GridItem,
+    Input,
+    Radio,
+    RadioGroup,
+    Stack,
+} from "@chakra-ui/react"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
@@ -6,15 +17,19 @@ import TemplateForm from "../../../shared/components/template-form"
 import TemplateErrorInput from "../../../shared/components/template-form/components/template-error-input"
 import TemplateErrorRadio from "../../../shared/components/template-form/components/template-error-radio"
 import { useValidator } from "../../../shared/utils/form-validator.hook"
-import { FormValidator, ValidationField } from "../../../shared/utils/form.validator"
+import {
+    FormValidator,
+    ValidationField,
+} from "../../../shared/utils/form.validator"
 import { RegistrationDTO } from "../../dtos/registration.dto"
 import { authService } from "../../services/auth.service"
 
-
-enum Sex { MALE = "MALE", FEMALE = "FEMALE" }
+enum Sex {
+    MALE = "MALE",
+    FEMALE = "FEMALE",
+}
 
 export const RegistrationForm = () => {
-
     const [email, setEmail] = useState("")
     const [name, setName] = useState("")
     const [surname, setSurname] = useState("")
@@ -26,7 +41,7 @@ export const RegistrationForm = () => {
     const [school, setSchool] = useState("")
     const [city, setCity] = useState("")
     const [country, setCountry] = useState("")
-    const [streetNumber, setStreetNumber] = useState("")
+    const [number, setNumber] = useState("")
     const [street, setStreet] = useState("")
     const navigate = useNavigate()
 
@@ -45,8 +60,8 @@ export const RegistrationForm = () => {
                     country,
                     city,
                     street,
-                    streetNumber
-                }
+                    number,
+                },
             }
 
             let ok = await authService.registrate(dto)
@@ -56,189 +71,218 @@ export const RegistrationForm = () => {
         } else {
             toast.error("Passwords must be same")
         }
-
     }
 
     const fields: ValidationField[] = [
         {
-            field: 'name',
+            field: "name",
             ref: name,
-            validations: [FormValidator.isRequired]
+            validations: [FormValidator.isRequired],
         },
         {
-            field: 'email',
+            field: "email",
             ref: email,
-            validations: [FormValidator.isEmail, FormValidator.isRequired]
+            validations: [FormValidator.isEmail, FormValidator.isRequired],
         },
         {
-            field: 'surname',
+            field: "surname",
             ref: surname,
-            validations: [FormValidator.isRequired]
+            validations: [FormValidator.isRequired],
         },
         {
-            field: 'password',
+            field: "password",
             ref: password,
-            validations: [FormValidator.isRequired, FormValidator.minLength(8), FormValidator.maxLength(20)]
+            validations: [
+                FormValidator.isRequired,
+                FormValidator.minLength(8),
+                FormValidator.maxLength(20),
+            ],
         },
         {
-            field: 'confirmPassword',
+            field: "confirmPassword",
             ref: confirmPassword,
-            validations: [FormValidator.isRequired, FormValidator.isEqualToField(password, "password")]
+            validations: [
+                FormValidator.isRequired,
+                FormValidator.isEqualToField(password, "password"),
+            ],
         },
         {
-            field: 'uid',
+            field: "uid",
             ref: uid,
-            validations: [FormValidator.isRequired]
+            validations: [FormValidator.isRequired],
         },
         {
-            field: 'sex',
+            field: "sex",
             ref: sex,
-            validations: [FormValidator.isRequired]
+            validations: [FormValidator.isRequired],
         },
         {
-            field: 'profession',
+            field: "profession",
             ref: profession,
-            validations: [FormValidator.isRequired]
+            validations: [FormValidator.isRequired],
         },
         {
-            field: 'school',
+            field: "school",
             ref: school,
-            validations: [FormValidator.isRequired]
+            validations: [FormValidator.isRequired],
         },
         {
-            field: 'country',
+            field: "country",
             ref: country,
-            validations: [FormValidator.isRequired]
+            validations: [FormValidator.isRequired],
         },
         {
-            field: 'city',
+            field: "city",
             ref: city,
-            validations: [FormValidator.isRequired]
+            validations: [FormValidator.isRequired],
         },
         {
-            field: 'street',
+            field: "street",
             ref: street,
-            validations: [FormValidator.isRequired]
+            validations: [FormValidator.isRequired],
         },
         {
-            field: 'streetNumber',
-            ref: streetNumber,
-            validations: [FormValidator.isRequired]
+            field: "number",
+            ref: number,
+            validations: [FormValidator.isRequired],
         },
-
     ]
 
     let [errors, valid] = useValidator(fields)
 
-
     return (
-        <Flex margin='auto' justifyContent='center' width='100%' className="update-profile-form" border='1px solid lightgray' w={600} p={20}>
-            <TemplateForm header={"Registration"} buttonText={"Save"} onSubmit={handleSubmit}>
+        <Flex
+            margin="auto"
+            justifyContent="center"
+            width="100%"
+            className="update-profile-form"
+            border="1px solid lightgray"
+            w={600}
+            p={20}
+        >
+            <TemplateForm
+                header={"Registration"}
+                buttonText={"Save"}
+                onSubmit={handleSubmit}
+            >
                 <>
                     <TemplateErrorInput
-                        label={'Email'}
+                        label={"Email"}
                         isValid={errors.email.isValid}
                         error={errors.email.errors[0]}
                         onChange={(e) => setEmail(e.target.value)}
-                        value={email} />
+                        value={email}
+                    />
                     <TemplateErrorInput
-                        label={'Password'}
+                        label={"Password"}
                         isValid={errors.password.isValid}
                         error={errors.password.errors[0]}
                         onChange={(e) => setPassword(e.target.value)}
-                        type={'password'}
-                        value={password} />
+                        type={"password"}
+                        value={password}
+                    />
                     <TemplateErrorInput
-                        label={'Repeat password'}
+                        label={"Repeat password"}
                         isValid={errors.confirmPassword.isValid}
                         error={errors.confirmPassword.errors[0]}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        type={'password'}
-                        value={confirmPassword} />
+                        type={"password"}
+                        value={confirmPassword}
+                    />
                     <TemplateErrorInput
-                        label={'Name'}
+                        label={"Name"}
                         isValid={errors.name.isValid}
                         error={errors.name.errors[0]}
                         onChange={(e) => setName(e.target.value)}
-                        value={name} />
+                        value={name}
+                    />
                     <TemplateErrorInput
-                        label={'Surname'}
+                        label={"Surname"}
                         isValid={errors.surname.isValid}
                         error={errors.surname.errors[0]}
                         onChange={(e) => setSurname(e.target.value)}
-                        value={surname} />
+                        value={surname}
+                    />
                     <TemplateErrorInput
-                        label={'Uid'}
+                        label={"Uid"}
                         isValid={errors.uid.isValid}
                         error={errors.uid.errors[0]}
                         onChange={(e) => setUid(e.target.value)}
-                        value={uid} />
+                        value={uid}
+                    />
                     <TemplateErrorInput
-                        label={'Profession'}
+                        label={"Profession"}
                         isValid={errors.profession.isValid}
                         error={errors.profession.errors[0]}
                         onChange={(e) => setProfession(e.target.value)}
-                        value={profession} />
+                        value={profession}
+                    />
                     <TemplateErrorInput
-                        label={'School'}
+                        label={"School"}
                         isValid={errors.school.isValid}
                         error={errors.school.errors[0]}
                         onChange={(e) => setSchool(e.target.value)}
-                        value={school} />
+                        value={school}
+                    />
 
-                    <Grid templateColumns='repeat(2, 1fr)' templateRows='repeat(2, 1fr)' gap={5} width="100%">
+                    <Grid
+                        templateColumns="repeat(2, 1fr)"
+                        templateRows="repeat(2, 1fr)"
+                        gap={5}
+                        width="100%"
+                    >
                         <GridItem>
                             <TemplateErrorInput
-                                label={'Country'}
+                                label={"Country"}
                                 isValid={errors.country.isValid}
                                 error={errors.country.errors[0]}
                                 onChange={(e) => setCountry(e.target.value)}
-                                value={country} />
+                                value={country}
+                            />
                         </GridItem>
                         <GridItem>
                             <TemplateErrorInput
-                                label={'City'}
+                                label={"City"}
                                 isValid={errors.city.isValid}
                                 error={errors.city.errors[0]}
                                 onChange={(e) => setCity(e.target.value)}
-                                value={city} />
+                                value={city}
+                            />
                         </GridItem>
                         <GridItem>
                             <TemplateErrorInput
-                                label={'Street'}
+                                label={"Street"}
                                 isValid={errors.street.isValid}
                                 error={errors.street.errors[0]}
                                 onChange={(e) => setStreet(e.target.value)}
-                                value={street} />
+                                value={street}
+                            />
                         </GridItem>
                         <GridItem>
                             <TemplateErrorInput
-                                label={'Street Number'}
-                                isValid={errors.streetNumber.isValid}
-                                error={errors.streetNumber.errors[0]}
-                                onChange={(e) => setStreetNumber(e.target.value)}
-                                value={streetNumber} />
+                                label={"Street Number"}
+                                isValid={errors.number.isValid}
+                                error={errors.number.errors[0]}
+                                onChange={(e) => setNumber(e.target.value)}
+                                value={number}
+                            />
                         </GridItem>
                     </Grid>
                     <TemplateErrorRadio
-                        label={'Sex'}
+                        label={"Sex"}
                         isValid={errors.sex.isValid}
                         error={errors.sex.errors[0]}
                         value={sex}
                         onChange={(val: any) => setSex(val)}
-                        values={
-                            [
-                                { text: 'Male', value: Sex.MALE },
-                                { text: 'Female', value: Sex.FEMALE }
-                            ]
-                        }
+                        values={[
+                            { text: "Male", value: Sex.MALE },
+                            { text: "Female", value: Sex.FEMALE },
+                        ]}
                     />
-
                 </>
             </TemplateForm>
         </Flex>
     )
 }
-
 
 export default RegistrationForm
