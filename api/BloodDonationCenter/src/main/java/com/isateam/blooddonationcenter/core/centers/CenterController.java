@@ -21,12 +21,6 @@ public class CenterController {
     public AllCentersDto getAll(@RequestParam  Map<String, String> queryParams) {
         return centerService.getAll(queryParams);
     }
-
-    @GetMapping("/{field}/{sort}")
-    public AllCentersDto getAll(@PathVariable String field, @PathVariable String sort) {
-        return centerService.sort(field, sort);
-    }
-
     @GetMapping("/{id}")
     public CenterDto getById(@PathVariable long id) {
         return centerService.getById(id);

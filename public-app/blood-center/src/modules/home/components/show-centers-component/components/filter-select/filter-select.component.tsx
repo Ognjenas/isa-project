@@ -18,13 +18,6 @@ interface Props {
 
 export const FilterSelect = ({ placeholder, value, onChange, options }: Props) => {
 
-    const labelStyle = {
-        color: "white",
-        fontWeight: "bold",
-        fontSize: "15px",
-        marginLeft: "17px"
-    }
-
     return (
         <Flex direction="column" alignItems="flex-start" border="1px solid white" padding="2px" borderRadius="3px" height="100%">
             <Select

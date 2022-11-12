@@ -31,7 +31,7 @@ public class FilterPipeline<T> implements IFilterPipeline {
     public Predicate pipe(CriteriaBuilder builder, Root root) {
         Predicate predicate = builder.conjunction();
         for(IFilter<T> f: filters) {
-            predicate = builder.and(predicate, f.filter(root));
+            predicate = builder.and(predicate, f.filter(builder, root));
         }
         return predicate;
     }

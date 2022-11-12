@@ -3,7 +3,8 @@ import { useEffect, useState } from "react"
 import { useAuthStore } from "../../../../stores/auth-store/auth.store"
 import CenterFilters from "./components/center-filters";
 import { CenterDto } from "./dtos/center.dto";
-import { centerService } from "./services/cetner.service";
+import { FilterSort } from "./dtos/filter-sort.dto";
+import { centerService } from "./services/center.service";
 
 
 
@@ -16,47 +17,48 @@ export const ShowCentersComponent = () => {
         setCenters(res);
     }
 
-    const submit = async (field: string, sort: string) => {
-        let res = await centerService.getCentersSorted(field, sort);
-        setCenters(res);
+    const submit = async (filters: FilterSort) => {
+        let res = await centerService.getCentersFiltered(filters)
+        setCenters(res.centers);
     }
 
     const handleFilterChange = (values: any) => {
 
-        const field = values.sortBy
+        const sortBy = values.sortBy
         const sort = values.sort
-        if (field.trim() != "" && sort.trim() != "")
-            submit(field, sort)
+        const filterBy = values.filterBy
+        const filterByValue = values.filterByValue
+
+        submit({ sortBy, sort, filterBy, filterByValue })
     }
 
     useEffect(() => { handleOnMounted() }, [])
 
 
     return (
-        <Flex justifyContent="center" flexDirection='column' height="100%" width="100%">
+        <Flex flexDirection='column' height="100%" width="100%" justifyContent="flex-start" alignItems='center' gap={10}>
             <CenterFilters onChange={handleFilterChange} />
-            <Table variant='simple' margin="auto" width='70%' >
-                <TableCaption>Blood centers</TableCaption>
+            <Table variant='simple' width='90%' >
                 <Thead>
                     <Tr>
-                        <Th>Name</Th>
-                        <Th>Description</Th>
-                        <Th>Average grade</Th>
-                        <Th>Country</Th>
-                        <Th>City</Th>
-                        <Th>Address</Th>
+                        <Th textAlign={'center'}>Name</Th>
+                        <Th textAlign={'center'}>Description</Th>
+                        <Th textAlign={'center'}>Average grade</Th>
+                        <Th textAlign={'center'}>Country</Th>
+                        <Th textAlign={'center'}>City</Th>
+                        <Th textAlign={'center'}>Address</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
                     {
                         centers?.map((center, index) => (
                             <Tr key={index}>
-                                <Td>{center.name}</Td>
-                                <Td>{center.description}</Td>
-                                <Td>{center.averageGrade}</Td>
-                                <Td>{center.address.country}</Td>
-                                <Td>{center.address.city}</Td>
-                                <Td>{center.address.street + ' ' + center.address.streetNumber}</Td>
+                                <Td textAlign={'center'}>{center.name}</Td>
+                                <Td textAlign={'center'}>{center.description}</Td>
+                                <Td textAlign={'center'}>{center.averageGrade}</Td>
+                                <Td textAlign={'center'}>{center.address.country}</Td>
+                                <Td textAlign={'center'}>{center.address.city}</Td>
+                                <Td textAlign={'center'}>{center.address.street + ' ' + center.address.streetNumber}</Td>
                             </Tr>
                         ))
                     }

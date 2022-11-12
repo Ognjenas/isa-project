@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface ICenterService {
     AllCentersDto getAll(Map<String, String> map);
-    AllCentersDto sort(String field, String sort);
+//    AllCentersDto sort(String field, String sort);
     Center create(Center center);
     Center update(Center center);
     CenterDto getById(long id);

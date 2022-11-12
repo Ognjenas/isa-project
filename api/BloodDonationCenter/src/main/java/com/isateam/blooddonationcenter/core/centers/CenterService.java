@@ -30,21 +30,6 @@ public class CenterService implements ICenterService {
     public AllCentersDto getAll(Map<String, String> map) {
         return mapToAllCentersDto(centerCustomDao.getFiltered(map));
     }
-
-    @Override
-    public AllCentersDto sort(String field, String sort) {
-        String[] fields = {"description", "name", "averageGrade", "city", "country", "number", "street"};
-        if (Arrays.stream(fields).noneMatch(f -> f.equals(field))) {
-            throw new BadRequestException("Given field does not exist");
-        }
-        if (!sort.equals("asc") && !sort.equals("desc")) {
-            throw new BadRequestException("Given sort type not supported");
-        }
-
-        List<Center> centers = centerCustomDao.getSorted(field, sort);
-        return mapToAllCentersDto(centers);
-    }
-
     @Override
     public Center create(Center center) {
         return centerDao.save(center);

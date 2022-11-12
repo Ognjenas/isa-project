@@ -6,6 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface ICenterCustomDao {
-    List<Center> getSorted(String field, String sort);
+//    List<Center> getSorted(String field, String sort);
     List<Center> getFiltered(Map<String, String> queryParams);
 }

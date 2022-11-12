@@ -43,7 +43,7 @@ export const CenterFilters = ({ onChange }: Props) => {
         { val: "averageGrade", text: "Average Grade" },
         { val: "city", text: "City" },
         { val: "country", text: "Country" },
-        { val: "address", text: "Address" }
+        { val: "street", text: "Address" }
     ]
 
     const sortItems = [{ val: "asc", text: "Ascending" }, { val: "desc", text: "Descending" }]
