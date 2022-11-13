@@ -1,5 +1,6 @@
 import { SearchUsersDTO } from "../dtos/search-users.dto";
 import { toast } from "react-toastify"
+import axios from "axios"
 
 
 export class UserService {
@@ -10,24 +11,8 @@ export class UserService {
     async getUsers(searchUsersDTO: SearchUsersDTO) {
 
         const url = `${this.apiUrl}/users/search`
-
-        try {
-            let response = await fetch(url, {
-                method: 'POST',
-                body: JSON.stringify(searchUsersDTO),
-                headers: { 'Content-Type': 'application/json' }
-            })
-
-            if (!response.ok) {
-                let error = await response.json()
-                this.parseError(error)
-            }
-            let data = await response.json()
-            return data
-        } catch (e: any) {
-            toast.error(e.message, { autoClose: 3000 })
-            return false
-        }
+        let response = await axios.post(url, searchUsersDTO)
+        return response.data
 
     }
 
