@@ -6,6 +6,8 @@ import ProfilesView from "../modules/profiles/profiles.view"
 import UpdateProfileView from "../modules/profiles/views/update-profile"
 import ErrorComponent from "../modules/shared/components/error"
 import MakeSurveyComponent from "../modules/surveys/components/make-survey.component"
+import UpdateWorkerView from "../modules/worker/views/worker-update";
+import UpdateCenterView from "../modules/center/views/center-update";
 
 export const routes: RouteObject[] = [
     {
@@ -35,6 +37,14 @@ export const routes: RouteObject[] = [
                 path: "survey",
                 element: <MakeSurveyComponent />,
             },
+            {
+                path:"/worker/update/:wid",
+                element: <UpdateWorkerView/>
+            },
+            {
+                path:"/center/update/:cid",
+                element: <UpdateCenterView/>
+            }
         ],
     },
 ]

@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import {UpdateWorkerDto} from "../dtos/update-worker.dto";
-
+import axios from "axios";
 export class WorkerService {
 
     private apiUrl: string = "http://localhost:8000"
@@ -9,38 +9,20 @@ export class WorkerService {
     async getWorker(id:number) {
 
         const url = `${this.apiUrl}/workers/${id}`
-
-        let response = await fetch(url, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json',
-            }
-        })
-
-        if (!response.ok) throw new Error("Worker doesn't exist!")
-        let data = await response.json()
-        return data
+        let response = await axios.get(url)
+        return response.data
     }
 
     async updateWorker(updateWorkerDto: UpdateWorkerDto) {
         const url = `${this.apiUrl}/workers`
 
         try {
-            let response = await fetch(url, {
-                method: 'PUT',
-                body: JSON.stringify(updateWorkerDto),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-
-            if (!response.ok) {
-                let error = await response.json()
-                this.parseError(error)
-            }
+            let response = await axios.put(url,updateWorkerDto)
             toast.success("Successfully updated worker!", { autoClose: 3000 })
             return true
         } catch (e: any) {
-            toast.error(e.message, { autoClose: 3000 })
+            const message=this.parseError(e.response.data)
+            toast.error(message, { autoClose: 3000 })
             return false
         }
 
@@ -48,9 +30,9 @@ export class WorkerService {
 
     parseError(error: any) {
         if (error.statusCode) {
-            throw new Error(error.message)
+            return error.message
         } else {
-            throw new Error('Date not correct!')
+            return 'Data not correct!'
         }
     }
 }
