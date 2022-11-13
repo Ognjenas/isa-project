@@ -1,5 +1,5 @@
-import { Flex, FormControl, FormHelperText, FormLabel, Grid, GridItem, Input, Radio, RadioGroup, Stack} from "@chakra-ui/react"
-import { useState } from "react"
+import { Flex, FormControl, FormHelperText, FormLabel, Grid, GridItem, Input, Radio, RadioGroup, Select, Stack} from "@chakra-ui/react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import TemplateForm from "../../../shared/components/template-form"
@@ -7,15 +7,17 @@ import TemplateErrorInput from "../../../shared/components/template-form/compone
 import TemplateErrorRadio from "../../../shared/components/template-form/components/template-error-radio"
 import { useValidator } from "../../../shared/utils/form-validator.hook"
 import {FormValidator, ValidationField} from "../../../shared/utils/form.validator"
-import { RegistrationDTO } from "../../dtos/registration.dto"
-import { authService } from "../../services/auth.service"
+import { WorkerRegistrationDTO } from "../../dtos/worker-registration.dto"
+import { Center } from "../../model/center"
+import { workerService } from "../../services/worker.service"
 
 enum Sex {
     MALE = "MALE",
     FEMALE = "FEMALE",
 }
 
-export const RegistrationForm = () => {
+export const WorkerRegistrationForm = () => {
+
     const [email, setEmail] = useState("")
     const [name, setName] = useState("")
     const [surname, setSurname] = useState("")
@@ -29,28 +31,34 @@ export const RegistrationForm = () => {
     const [country, setCountry] = useState("")
     const [number, setNumber] = useState("")
     const [street, setStreet] = useState("")
+    const [center, setCenter] = useState(-1)
+    const center1:Center = {id:-1, name:""}
+    const [dropDown, setDropdown] = useState([center1])
     const navigate = useNavigate()
 
     const handleSubmit = async () => {
         if (password === confirmPassword) {
-            const dto: RegistrationDTO = {
-                email,
-                password,
-                name,
-                surname,
-                sex,
-                profession,
-                school,
-                uid,
-                address: {
-                    country,
-                    city,
-                    street,
-                    number,
+            const dto: WorkerRegistrationDTO = {
+                user:{
+                    email: email,
+                    password: password,
+                    name: name,
+                    surname: surname,
+                    sex: sex,
+                    profession: profession,
+                    school: school,
+                    uid: uid,
+                    address: {
+                        country: country,
+                        city: city,
+                        street: street,
+                        number: number,
+                    },
                 },
+                centerId: center
             }
 
-            let ok = await authService.registrate(dto)
+            let ok = await workerService.registrate(dto)
             if (ok) {
                 setTimeout(() => navigate("/"), 3000)
             }
@@ -58,6 +66,15 @@ export const RegistrationForm = () => {
             toast.error("Passwords must be same")
         }
     }
+
+    const handleOnMounted = async () => {
+        let centers: [Center] = await workerService.getCenters()
+        setDropdown([...centers, center1])
+    }
+
+    useEffect(() => {
+        handleOnMounted()
+    }, [])
 
     const fields: ValidationField[] = [
         {
@@ -131,6 +148,11 @@ export const RegistrationForm = () => {
             field: "number",
             ref: number,
             validations: [FormValidator.isRequired],
+        },
+        {
+            field: "center",
+            ref: number,
+            validations: [FormValidator.isCenterSelected],
         },
     ]
 
@@ -253,6 +275,15 @@ export const RegistrationForm = () => {
                                 value={number}
                             />
                         </GridItem>
+                        <GridItem>
+                            <label>Select center</label>
+                            <Select name="Center" defaultValue={-1} onChange={(e) => setCenter(parseInt(e.target.value))}>
+                                {dropDown.map(one => 
+                                <option value={one.id} key={one.id}>
+                                    {one.name}
+                                </option>)}
+                            </Select>
+                        </GridItem>
                     </Grid>
                     <TemplateErrorRadio
                         label={"Sex"}
@@ -269,6 +300,8 @@ export const RegistrationForm = () => {
             </TemplateForm>
         </Flex>
     )
+
 }
 
-export default RegistrationForm
+
+export default WorkerRegistrationForm

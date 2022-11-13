@@ -40,6 +40,17 @@ export class FormValidator {
         return null
     }
 
+    static isCenterSelected(sel: number) {
+        return () => {
+            const isValid = sel >= 0
+            if (!isValid) {
+                let message = "A center has to be picked"
+                return message
+            }
+            return null
+        }
+    }
+
     static minLength(len: number) {
         return (field: string, value: string) => {
             const isValid = value.trim().length >= len

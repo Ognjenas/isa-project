@@ -10,6 +10,7 @@ import UpdateWorkerView from "../modules/worker/views/worker-update";
 import UpdateCenterView from "../modules/center/views/center-update";
 import CenterRegistrationForm from "../modules/centers/components/center-registration-form";
 import UsersView from "../modules/users/components";
+import WorkerRegistrationForm from "../modules/workers/components/worker-registration/worker-registration.component"
 
 
 export const routes: RouteObject[] = [
@@ -60,10 +61,13 @@ export const routes: RouteObject[] = [
             {
                 path: 'usersview',
                 element: <UsersView />
-            }
-        ]
-    }
-
+            },
+            {
+                path: "worker/registration",
+                element: <WorkerRegistrationForm />,
+            },
+        ],
+    },
 ]
 
 export default routes
