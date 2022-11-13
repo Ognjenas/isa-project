@@ -32,7 +32,7 @@ export const CenterRegistrationForm = () => {
         }
         let ok = await centerService.registrate(dto)
         if (ok) {
-            setTimeout(() => navigate("/"), 3000)
+            setTimeout(() => navigate("/centers"), 3000)
         }
     }
 

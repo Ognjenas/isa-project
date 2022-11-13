@@ -20,7 +20,7 @@ export class ProfileService {
     }
 
     async updateProfile(updateProfileDTO: UpdateProfileDTO, id: number) {
-        const url = `${this.apiUrl}/users/${2}`
+        const url = `${this.apiUrl}/users/${id}`
 
         try {
             let response = await axios.patch(url, updateProfileDTO)

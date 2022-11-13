@@ -14,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class CenterDto {
+    private long id;
     private String name;
     private String description;
     private double averageGrade;

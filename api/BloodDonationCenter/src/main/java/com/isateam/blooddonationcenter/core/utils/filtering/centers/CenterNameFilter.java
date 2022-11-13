@@ -24,7 +24,7 @@ public class CenterNameFilter implements IFilter<Center> {
     private Predicate applyFilter(CriteriaBuilder cb, Root<Center> root) {
         String name = queryParams.get("name");
         if(name.trim().equals("")) return cb.conjunction();
-        Predicate pr = cb.like(root.get("name"), name);
+        Predicate pr = cb.like(root.get("name"),"%" + name + "%");
         return pr;
     }
 }

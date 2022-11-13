@@ -17,6 +17,5 @@ public interface ICenterService {
     Center update(Center center);
     CenterDto getById(long id);
     void addWorkTimeToCenter(Set<WorkTime> mapWorkTimeToModel);
-    List<Center> getAllCentersList();
 
 }

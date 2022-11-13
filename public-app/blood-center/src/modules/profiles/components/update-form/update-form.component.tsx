@@ -125,7 +125,7 @@ export const UpdateProfileForm = () => {
         }
         let ok = await profileService.updateProfile(dto, id)
         if (ok) {
-            setTimeout(() => navigate("/"), 3000)
+            setTimeout(() => navigate("/users"), 3000)
         }
     }
 

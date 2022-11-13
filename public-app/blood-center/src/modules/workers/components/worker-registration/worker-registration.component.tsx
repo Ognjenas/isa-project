@@ -32,8 +32,7 @@ export const WorkerRegistrationForm = () => {
     const [number, setNumber] = useState("")
     const [street, setStreet] = useState("")
     const [center, setCenter] = useState(-1)
-    const center1:Center = {id:-1, name:""}
-    const [dropDown, setDropdown] = useState([center1])
+    const [centers, setCenters] = useState<Center[]>([])
     const navigate = useNavigate()
 
     const handleSubmit = async () => {
@@ -60,7 +59,7 @@ export const WorkerRegistrationForm = () => {
 
             let ok = await workerService.registrate(dto)
             if (ok) {
-                setTimeout(() => navigate("/"), 3000)
+                setTimeout(() => navigate("/users"), 3000)
             }
         } else {
             toast.error("Passwords must be same")
@@ -68,8 +67,11 @@ export const WorkerRegistrationForm = () => {
     }
 
     const handleOnMounted = async () => {
-        let centers: [Center] = await workerService.getCenters()
-        setDropdown([...centers, center1])
+        let centers: Center[] = await workerService.getCenters()
+        if(centers.length > 0) {
+            setCenter(centers[0].id)
+        }
+        setCenters(centers)
     }
 
     useEffect(() => {
@@ -278,7 +280,7 @@ export const WorkerRegistrationForm = () => {
                         <GridItem>
                             <label>Select center</label>
                             <Select name="Center" defaultValue={-1} onChange={(e) => setCenter(parseInt(e.target.value))}>
-                                {dropDown.map(one => 
+                                {centers.map(one => 
                                 <option value={one.id} key={one.id}>
                                     {one.name}
                                 </option>)}

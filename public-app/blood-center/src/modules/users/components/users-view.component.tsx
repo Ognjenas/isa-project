@@ -7,28 +7,22 @@ import TemplateForm from "../../../modules/shared/components/template-form"
 import { User } from "../../profiles/model/user"
 import styles from "./users-view.module.css"
 import { useScroll } from "framer-motion"
+import {  UserSearchMenu } from "./user-search-menu/user-filter-menu.component"
 
 
 export const UsersView = () => {
 
-    const [name, setName] = useState("");
-    const [surname, setSurname] = useState("");
-    let user1: User = { id: -1, email: "", name: "", surname: "", uid: "", profession: "", school: "", address: { id: -1, city: "", country: "", street: "", number: "" } }
-    const [users, setUsers] = useState([user1]);
 
-    const starterSearch: SearchUsersDTO = { name, surname }
+    const [users, setUsers] = useState<User[]>([])
 
     const handleOnMounted = async () => {
-        const searchedUsers: [User] = await usersService.getUsers(starterSearch)
+        const starterSearch: SearchUsersDTO = { name: "", surname: "" }
+        const searchedUsers: User[] = await usersService.getUsers(starterSearch)
         setUsers(searchedUsers)
     }
 
-    const handleSubmit = async () => {
-        const dto: SearchUsersDTO = {
-            name,
-            surname
-        }
-        const searchedUsers: [User] = await usersService.getUsers(dto)
+    const handleSubmit = async (params: SearchUsersDTO) => {
+        const searchedUsers: [User] = await usersService.getUsers(params)
         setUsers(searchedUsers)
     }
 
@@ -38,54 +32,29 @@ export const UsersView = () => {
     }, [])
 
     return (
-        <div className={styles["aligner"]}>
-
-            <Flex margin='auto' justifyContent='center' width='100%' className="register-center-form" border='1px solid lightgray' w={700} height={200} p={1}>
-                <FormControl>
-                    <FormLabel>Search by</FormLabel>
-                    <Grid templateColumns='repeat(2, 1fr)' templateRows='repeat(2, 1fr)' gap={5} width="100%">
-                        <GridItem>
-                            <label>By name</label>
-                            <Input
-                                onChange={(e) => setName(e.target.value)}
-                                value={name} />
-                        </GridItem>
-                        <GridItem>
-                            <label>By surname</label>
-                            <Input
-                                onChange={(e) => setSurname(e.target.value)}
-                                value={surname} />
-                            <Button onClick={handleSubmit}>
-                                Search
-                            </Button>
-                        </GridItem>
-                    </Grid>
-                </FormControl>
-            </Flex>
-            <TableContainer>
-                <Table variant='simple'>
-                    <TableCaption>Users view</TableCaption>
+        <Flex direction="column" width="100%" height="100%" justifyContent={'flex-start'} alignItems={'center'} gap={10} >
+            <UserSearchMenu onSubmit={handleSubmit}/>
+                <Table variant='simple' width="90%" alignContent={"center"} marginTop="10px" textAlign={'center'}>
                     <Thead>
                         <Tr>
-                            <Th>Name</Th>
-                            <Th>Surname</Th>
-                            <Th>Email</Th>
-                            <Th>Profession</Th>
+                            <Th textAlign={"center"}>Name</Th>
+                            <Th textAlign={"center"}>Surname</Th>
+                            <Th textAlign={"center"}>Email</Th>
+                            <Th textAlign={"center"}>Profession</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
                         {users.map(user =>
                             <Tr key={user.id}>
-                                <Td>{user.name}</Td>
-                                <Td>{user.surname}</Td>
-                                <Td>{user.email}</Td>
-                                <Td>{user.profession}</Td>
+                                <Td textAlign={"center"}>{user.name}</Td>
+                                <Td textAlign={"center"}>{user.surname}</Td>
+                                <Td textAlign={"center"}>{user.email}</Td>
+                                <Td textAlign={"center"}>{user.profession}</Td>
                             </Tr>
                         )}
                     </Tbody>
                 </Table>
-            </TableContainer>
-        </div>
+        </Flex>
     )
 }
 

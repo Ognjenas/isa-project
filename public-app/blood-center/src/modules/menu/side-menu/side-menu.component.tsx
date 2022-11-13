@@ -28,10 +28,10 @@ export const SideMenu = () => {
                     src={image} />
             </Flex>
             <Flex flex={10} gap={10} alignItems="center" justifyContent="center" direction={'column'}>
-                <NavLink to={'/home'}>
+                <NavLink to={'/centers'}>
                     <FiHome color="white" cursor='pointer' size={40} />
                 </NavLink>
-                <NavLink to={'/profile'}>
+                <NavLink to={'/users'}>
                     <CgProfile color='white' cursor='pointer' size={40} />
                 </NavLink>
                 <NavLink to={'/storage'}>
