@@ -13,7 +13,6 @@ import javax.validation.Valid;
 @CrossOrigin(maxAge = 3600)
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin
 @RequestMapping("/workers")
 public class WorkerController {
     private final IWorkerService workerService;

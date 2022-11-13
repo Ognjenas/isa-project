@@ -1,5 +1,6 @@
 import { toast } from "react-toastify"
 import { WorkerRegistrationDTO } from "../dtos/worker-registration.dto"
+import axios from "axios"
 
 export class WorkerService {
 
@@ -8,41 +9,23 @@ export class WorkerService {
 
     async getCenters() {
         const url = `${this.apiUrl}/centers/select`
-
-        let response = await fetch(url, {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
-        })
-
-        let data = await response.json()
-        return data
+        let response = await axios.get(url)
+        return response.data
     }
 
     async registrate(registrationDto: WorkerRegistrationDTO) {
         const url = `${this.apiUrl}/workers`
-
         try {
-            let response = await fetch(url, {
-                method: 'POST',
-                body: JSON.stringify(registrationDto),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-
-            if (!response.ok) {
-                let error = await response.json()
-                this.parseError(error)
-            }
-            toast.success("Successfully registered!", { autoClose: 3000 })
+            let response = await axios.post(url, registrationDto)
+            toast.success("Succesfully registered!")
             return true
-        } catch (e: any) {
-            toast.error(e.message, { autoClose: 3000 })
+        } catch(e: any) {
+            const message = this.parseError(e.response.data)
+            toast.error(message, {autoClose: 3000})
             return false
         }
-
     }
-
+    
     parseError(error: any) {
         if (error.statusCode) {
             return error.message
