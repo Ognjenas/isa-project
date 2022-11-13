@@ -1,7 +1,12 @@
 package com.isateam.blooddonationcenter.core.centers.dtos;
 
 import com.isateam.blooddonationcenter.core.users.Address;
+import com.isateam.blooddonationcenter.core.worktime.WorkTime;
+import com.isateam.blooddonationcenter.core.worktime.dtos.WorkTimeDto;
 import lombok.*;
+
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -13,4 +18,5 @@ public class CenterDto {
     private String description;
     private double averageGrade;
     private Address address;
+    private List<WorkTimeDto> workTime;
 }

@@ -1,5 +1,4 @@
 import { Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Grid, GridItem, Input, Radio, RadioGroup, Stack } from "@chakra-ui/react"
-import { setuid } from "process"
 import { useEffect, useState } from "react"
 import TemplateErrorInput from "../../../shared/components/template-form/components/template-error-input"
 import TemplateErrorRadio from "../../../shared/components/template-form/components/template-error-radio"
@@ -7,13 +6,15 @@ import TemplateForm from "../../../shared/components/template-form"
 import { Sex } from "../../../shared/utils/constants"
 import { useValidator } from "../../../shared/utils/form-validator.hook"
 import { FormValidator, ValidationField } from "../../../shared/utils/form.validator"
-import { UpdateProfileDTO } from "../../dtos/update-profile.dto"
-import { profileService } from "../../services/profile.service"
-import { useNavigate } from "react-router-dom"
+import {UpdateWorkerDto} from "../../dtos/update-worker.dto";
+import {workerService} from "../../services/worker.service";
+import {useNavigate, useParams} from "react-router-dom"
 
 
-export const UpdateProfileForm = () => {
-    const [id, setId] = useState(-1)
+export const UpdateWorkerForm = () => {
+
+    const {wid} = useParams();
+    const [id, setId] = useState(wid?+wid:-1)
     const [name, setName] = useState("")
     const [surname, setSurname] = useState("")
     const [sex, setSex] = useState<Sex>(Sex.MALE)
@@ -25,23 +26,23 @@ export const UpdateProfileForm = () => {
     const [street, setStreet] = useState("")
     const [streetNumber, setStreetNumber] = useState("")
     const [addressId, setAddressId] = useState(0)
+    const [hospitalName, setHospitalName] = useState("")
     const navigate = useNavigate()
 
     const handleOnMounted = async () => {
-
-        let user = await profileService.getProfile()
-        setId(user.id)
-        setName(user.name)
-        setSurname(user.surname)
-        setSex(user.sex)
-        setUid(user.uid)
-        setProfession(user.profession)
-        setSchool(user.school)
-        setCountry(user.address.country)
-        setCity(user.address.city)
-        setStreet(user.address.street)
-        setStreetNumber(user.address.number)
-        setAddressId(user.address.id)
+        let worker = await workerService.getWorker(id)
+        setName(worker.name)
+        setSurname(worker.surname)
+        setSex(worker.sex)
+        setUid(worker.uid)
+        setProfession(worker.profession)
+        setSchool(worker.school)
+        setCountry(worker.address.country)
+        setCity(worker.address.city)
+        setStreet(worker.address.street)
+        setStreetNumber(worker.address.number)
+        setAddressId(worker.address.id)
+        setHospitalName(worker.hospitalName)
     }
 
 
@@ -108,7 +109,8 @@ export const UpdateProfileForm = () => {
             console.log("Sorry validation not passed")
             return
         }
-        const dto: UpdateProfileDTO = {
+        const dto: UpdateWorkerDto = {
+            id,
             name,
             surname,
             sex,
@@ -123,16 +125,25 @@ export const UpdateProfileForm = () => {
                 number: streetNumber
             }
         }
-        let ok = await profileService.updateProfile(dto, id)
+        let ok = await workerService.updateWorker(dto)
         if (ok) {
             setTimeout(() => navigate("/"), 3000)
         }
     }
 
     return (
-        <Flex margin='auto' borderRadius={10} justifyContent='center' width='100%' className="update-profile-form" border='1px solid lightgray' w={700} p={20}>
-            <TemplateForm header={"Update Profile"} buttonText={"Save"} onSubmit={handleSubmit}>
+        <Flex margin='auto' justifyContent='center' width='100%' className="update-profile-form" border='1px solid lightgray' w={600} p={20}>
+            <TemplateForm header={"Update Worker"} buttonText={"Save"} onSubmit={handleSubmit}>
                 <>
+                    <FormControl>
+                        <FormLabel>My Hospital</FormLabel>
+                        <Input
+                            h={55}
+                            fontSize={18}
+                            value={hospitalName}
+                            readOnly={true}
+                        />
+                    </FormControl>
                     <TemplateErrorInput
                         label={'Name'}
                         isValid={errors.name.isValid}
@@ -219,4 +230,4 @@ export const UpdateProfileForm = () => {
 }
 
 
-export default UpdateProfileForm
+export default UpdateWorkerForm

@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
-@CrossOrigin
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/centers")
 @RequiredArgsConstructor
@@ -33,7 +33,10 @@ public class CenterController {
 
     @PutMapping
     public Center updateCenter(@RequestBody UpdateCenterDto updateCenterDto) {
-        return centerService.update(updateCenterDto.mapToModel());
+        Center center=centerService.update(updateCenterDto.mapToModel());
+        centerService.addWorkTimeToCenter(updateCenterDto.mapWorkTimeToModel(center));
+        return center;
     }
+
 
 }
