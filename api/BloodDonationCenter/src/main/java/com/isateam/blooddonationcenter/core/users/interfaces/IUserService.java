@@ -2,6 +2,7 @@ package com.isateam.blooddonationcenter.core.users.interfaces;
 
 import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
 import com.isateam.blooddonationcenter.core.users.User;
+import com.isateam.blooddonationcenter.core.users.dtos.UserProfileDTO;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ public interface IUserService {
     User updateOne(UpdateUserDTO user);
     void create(User user);
     List<User> getAllUsers();
-    List<User> getSearchedUsers(String name, String surname);
+    List<UserProfileDTO> getSearchedUsers(String name, String surname);
 }

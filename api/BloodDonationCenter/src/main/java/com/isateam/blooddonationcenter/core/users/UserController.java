@@ -42,7 +42,7 @@ public class UserController {
 
 
     @PostMapping ("/search")
-    public List<User> getSearched(@RequestBody SearchUserDTO searchUserDTO) {
+    public List<UserProfileDTO> getSearched(@RequestBody SearchUserDTO searchUserDTO) {
         String name = searchUserDTO.getName();
         String surname = searchUserDTO.getSurname();
         return userService.getSearchedUsers(name, surname);

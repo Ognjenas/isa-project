@@ -71,15 +71,12 @@ public class CenterService implements ICenterService {
 
     private AllCentersDto mapToAllCentersDto(List<Center> centers) {
         return new AllCentersDto(centers.stream().map(c -> CenterDto.builder()
+                .id(c.getId())
                 .address(c.getAddress())
                 .averageGrade(c.getAverageGrade())
                 .description(c.getDescription())
                 .name(c.getName())
                 .build()).collect(Collectors.toList()));
-    }
-    @Override
-    public List<Center> getAllCentersList(){
-       return centerDao.findAll();
     }
 
 }

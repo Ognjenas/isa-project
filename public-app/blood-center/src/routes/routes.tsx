@@ -6,11 +6,13 @@ import ProfilesView from "../modules/profiles/profiles.view"
 import UpdateProfileView from "../modules/profiles/views/update-profile"
 import ErrorComponent from "../modules/shared/components/error"
 import MakeSurveyComponent from "../modules/surveys/components/make-survey.component"
-import UpdateWorkerView from "../modules/worker/views/worker-update";
+import UpdateWorkerView from "../modules/workers/views/worker-update";
 import UpdateCenterView from "../modules/center/views/center-update";
-import CenterRegistrationForm from "../modules/centers/components/center-registration-form";
+import CenterRegistrationForm from "../modules/center/components/center-registration-form";
 import UsersView from "../modules/users/components";
 import WorkerRegistrationForm from "../modules/workers/components/worker-registration/worker-registration.component"
+import CenterComponent from "../modules/center/centers.component"
+import { UsersComponent } from "../modules/users/users.component"
 
 
 export const routes: RouteObject[] = [
@@ -30,12 +32,36 @@ export const routes: RouteObject[] = [
                 ],
             },
             {
-                path: "registration",
-                element: <RegistrationForm />,
+                path: 'centers',
+                element: <CenterComponent/>,
+                children: [
+                    {
+                        path: "",
+                        element: <ShowCentersComponent />,
+                    },
+                    {
+                        path: 'registration',
+                        element: <CenterRegistrationForm />
+                    },
+                    {
+                        path:"update/:cid",
+                        element: <UpdateCenterView/>
+                    }
+                ]
             },
             {
-                path: "centers",
-                element: <ShowCentersComponent />,
+                path: 'users',
+                element: <UsersComponent/>,
+                children: [
+                    {
+                        path: '',
+                        element: <UsersView />
+                    },
+                    {
+                        path: "registration",
+                        element: <RegistrationForm />,
+                    },
+                ]
             },
             {
                 path: "survey",
@@ -44,23 +70,6 @@ export const routes: RouteObject[] = [
             {
                 path:"/worker/update/:wid",
                 element: <UpdateWorkerView/>
-            },
-            {
-                path:"/center/update/:cid",
-                element: <UpdateCenterView/>
-            },
-            {   
-
-                path: 'registration',
-                element: <RegistrationForm />
-            },
-            {
-                path: 'centers/registration',
-                element: <CenterRegistrationForm />
-            },
-            {
-                path: 'usersview',
-                element: <UsersView />
             },
             {
                 path: "worker/registration",

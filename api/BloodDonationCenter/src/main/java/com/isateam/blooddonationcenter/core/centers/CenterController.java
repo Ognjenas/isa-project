@@ -40,9 +40,4 @@ public class CenterController {
         return center;
     }
 
-    @GetMapping("/select")
-    public List<Center> getCenters(){
-        return centerService.getAllCentersList();
-    }
-
 }

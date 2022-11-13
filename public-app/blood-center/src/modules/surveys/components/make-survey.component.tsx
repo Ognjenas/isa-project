@@ -10,6 +10,7 @@ import {
 import React from "react"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 import { AnswerDTO } from "../dtos/AnswerDTO"
 import { MakeSurveyDTO } from "../dtos/MakeSurveyDTO"
 import { SurveyQuestionDTO } from "../dtos/SurveyQuestionDTO"
@@ -46,6 +47,11 @@ export const MakeSurveyComponent = () => {
         const dto: MakeSurveyDTO = {
             answers: answers,
         }
+        if(answers.length != questions?.length) {
+            toast.error("All questions should be answered!")
+            return
+        }
+
         let ok = await surveyService.makeSurvey(dto)
         if (ok) {
             setTimeout(() => navigate("/"), 3000)

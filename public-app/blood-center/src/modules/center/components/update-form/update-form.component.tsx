@@ -24,13 +24,13 @@ export const UpdateCenterForm = () =>{
     const [streetNumber, setStreetNumber] = useState("")
     const [addressId, setAddressId] = useState(0)
     const [workTimes, setWorkTimes] = useState<any>(
-        {monday: { id: -1, startTime: "10:30", endTime: "10:30"},
-                    tuesday: { id: -1, startTime: "10:30", endTime: "10:30"},
-                    wednesday: { id: -1, startTime: "10:30", endTime: "10:30"},
-                    thursday: { id: -1, startTime: "10:30", endTime: "10:30"},
-                    friday: { id: -1, startTime: "10:30", endTime: "10:30"},
-                    saturday: { id: -1, startTime: "10:30", endTime: "10:30"},
-                    sunday: { id: -1, startTime: "10:30", endTime: "10:30"}})
+        {monday: { id: 0, startTime: "10:30", endTime: "10:30"},
+                    tuesday: { id: 0, startTime: "10:30", endTime: "10:30"},
+                    wednesday: { id: 0, startTime: "10:30", endTime: "10:30"},
+                    thursday: { id: 0, startTime: "10:30", endTime: "10:30"},
+                    friday: { id: 0, startTime: "10:30", endTime: "10:30"},
+                    saturday: { id: 0, startTime: "10:30", endTime: "10:30"},
+                    sunday: { id: 0, startTime: "10:30", endTime: "10:30"}})
     const navigate = useNavigate()
 
     const handleOnMounted = async () => {
@@ -114,7 +114,7 @@ export const UpdateCenterForm = () =>{
         }
         let ok = await centerService.updateCenter(dto)
         if (ok) {
-            setTimeout(() => navigate("/"), 3000)
+            setTimeout(() => navigate("/centers"), 3000)
         }
     }
 

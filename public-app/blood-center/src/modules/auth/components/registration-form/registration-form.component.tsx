@@ -52,7 +52,7 @@ export const RegistrationForm = () => {
 
             let ok = await authService.registrate(dto)
             if (ok) {
-                setTimeout(() => navigate("/"), 3000)
+                setTimeout(() => navigate("/users"), 3000)
             }
         } else {
             toast.error("Passwords must be same")

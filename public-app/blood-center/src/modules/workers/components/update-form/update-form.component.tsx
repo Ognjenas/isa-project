@@ -6,9 +6,9 @@ import TemplateForm from "../../../shared/components/template-form"
 import { Sex } from "../../../shared/utils/constants"
 import { useValidator } from "../../../shared/utils/form-validator.hook"
 import { FormValidator, ValidationField } from "../../../shared/utils/form.validator"
-import {UpdateWorkerDto} from "../../dtos/update-worker.dto";
-import {workerService} from "../../services/worker.service";
 import {useNavigate, useParams} from "react-router-dom"
+import { UpdateWorkerDto } from "../../dtos/update-worker.dto"
+import { workerService } from "../../services/worker.service"
 
 
 export const UpdateWorkerForm = () => {
@@ -127,7 +127,7 @@ export const UpdateWorkerForm = () => {
         }
         let ok = await workerService.updateWorker(dto)
         if (ok) {
-            setTimeout(() => navigate("/"), 3000)
+            setTimeout(() => navigate("/users"), 3000)
         }
     }
 

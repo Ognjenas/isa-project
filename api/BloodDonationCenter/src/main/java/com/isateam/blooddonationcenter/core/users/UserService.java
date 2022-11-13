@@ -2,6 +2,7 @@ package com.isateam.blooddonationcenter.core.users;
 
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
 import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
+import com.isateam.blooddonationcenter.core.users.dtos.UserProfileDTO;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserEntityDao;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -54,9 +55,15 @@ public class UserService implements IUserService {
     public List<User> getAllUsers(){
         return userEntityDao.findAll();
     }
-    public List<User> getSearchedUsers(String name, String surname){
-        if( name.trim().equals("") && surname.trim().equals(""))
-            return userEntityDao.findAll();
-        return userEntityDao.findAllByNameContainingIgnoreCaseAndSurnameContainingIgnoreCase(name, surname);
+    public List<UserProfileDTO> getSearchedUsers(String name, String surname){
+        if(name.trim().equals("") && surname.trim().equals(""))
+            return mapUsersToProfileDtos(userEntityDao.findAll());
+        List<User> users = userEntityDao.findAllByNameContainingIgnoreCaseAndSurnameContainingIgnoreCase(name, surname);
+        return mapUsersToProfileDtos(users);
     }
+
+    private List<UserProfileDTO> mapUsersToProfileDtos(List<User> users) {
+        return users.stream().map(u -> new UserProfileDTO(u)).toList();
+    }
+
 }

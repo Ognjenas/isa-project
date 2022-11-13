@@ -1,7 +1,7 @@
 import {toast} from "react-toastify";
 import {UpdateCenterDto} from "../dtos/update-center.dto";
-import {UpdateWorkerDto} from "../../worker/dtos/update-worker.dto";
 import axios from "axios";
+import { CenterRegistrationDTO } from "../dtos/center-registration.dto";
 
 export class CenterService{
 
@@ -19,13 +19,28 @@ export class CenterService{
 
         try {
             let response = await axios.put(url,updateCenterDto)
-            toast.success("Successfully updated worker!", { autoClose: 3000 })
+            toast.success("Successfully updated center!", { autoClose: 3000 })
             return true
         } catch (e: any) {
             const message=this.parseError(e.response.data)
             toast.error(message, { autoClose: 3000 })
             return false
         }
+    }
+
+        async registrate(registrationDto: CenterRegistrationDTO) {
+        const url = `${this.apiUrl}/centers`
+
+        try {
+            let response = await axios.post(url, registrationDto)
+            toast.success("Successfully updated center!", { autoClose: 3000 })
+            return true
+        } catch (e: any) {
+            const message=this.parseError(e.response.data)
+            toast.error(message, { autoClose: 3000 })
+            return false
+        }
+
     }
 
     parseError(error: any) {
