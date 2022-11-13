@@ -6,12 +6,9 @@ import {useParams} from "react-router-dom";
 
 export const UpdateWorkerView = () => {
 
-    let {id}=useParams()
-
     return (
         <Flex width='100%' justifyContent='center' className="update-profile-view">
-            {id}
-            <UpdateWorkerForm/>
+            <UpdateWorkerForm />
         </Flex>
     )
 }

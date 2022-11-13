@@ -3,6 +3,7 @@ import {Sex} from "../../shared/utils/constants";
 
 
 export interface GetWorker2UpdateDto{
+    id:number
     name: string
     surname: string
     sex: Sex

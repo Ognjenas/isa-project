@@ -8,10 +8,12 @@ import { useValidator } from "../../../shared/utils/form-validator.hook"
 import { FormValidator, ValidationField } from "../../../shared/utils/form.validator"
 import {UpdateWorkerDto} from "../../dtos/update-worker.dto";
 import {workerService} from "../../services/worker.service";
-import { useNavigate } from "react-router-dom"
+import {useNavigate, useParams} from "react-router-dom"
 
 
 export const UpdateWorkerForm = () => {
+
+    // const {wid} = useParams();
     const [id, setId] = useState(-1)
     const [name, setName] = useState("")
     const [surname, setSurname] = useState("")
@@ -27,11 +29,12 @@ export const UpdateWorkerForm = () => {
     const [hospitalName, setHospitalName] = useState("")
     const navigate = useNavigate()
 
+
+
     //FIXME: FIX THIS ID
     // HOW TO GET FROM PARAMS?
-    const handleOnMounted = async () => {
+    const initalizeWorker= async ()=>{
         let worker = await workerService.getWorker(id)
-        setId(worker.id)
         setName(worker.name)
         setSurname(worker.surname)
         setSex(worker.sex)
@@ -44,6 +47,15 @@ export const UpdateWorkerForm = () => {
         setStreetNumber(worker.address.number)
         setAddressId(worker.address.id)
         setHospitalName(worker.hospitalName)
+    }
+
+    //FIXME: NECE DA MI DOBAVI PARAMETRE UOPSTE?
+    //  OVO MORAM PRVO DA LOADUJEM DA BIH MOGAO DA UCITAM WORKERA
+    const handleOnMounted = () => {
+        // let {wid} = useParams();
+        // setId(wid!)
+        setId(16)
+        initalizeWorker()
     }
 
 
@@ -111,6 +123,7 @@ export const UpdateWorkerForm = () => {
             return
         }
         const dto: UpdateWorkerDto = {
+            id,
             name,
             surname,
             sex,
@@ -136,6 +149,7 @@ export const UpdateWorkerForm = () => {
             <TemplateForm header={"Update Worker"} buttonText={"Save"} onSubmit={handleSubmit}>
                 <>
                     <h1>{hospitalName}</h1>
+                    <h2>{id}</h2>
                     <TemplateErrorInput
                         label={'Name'}
                         isValid={errors.name.isValid}

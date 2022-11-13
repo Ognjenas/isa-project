@@ -2,19 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2a5df96-a113-4881-91ed-1e607fda23e1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/blood-center.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/profiles/components/update-form/update-form.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/profiles/components/update-form/update-form.component.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/worker/components/update-form/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/components/update-form/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/dtos/UpdateWorkerDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/center/components/update-form/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/center/components/update-form/update-form.component.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/center/dtos/update-center.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/center/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/center/views/center-update/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/center/views/center-update/update-center.view.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/WorkerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/WorkerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/WorkerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/WorkerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/dtos/Worker2UpdateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/dtos/Worker2UpdateDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/interfaces/IWorkerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/interfaces/IWorkerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modules/worker/components/update-form/update-form.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/components/update-form/update-form.component.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modules/worker/dtos/get-worker2update.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/dtos/get-worker2update.dto.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modules/worker/dtos/update-worker.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/dtos/update-worker.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/worker/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modules/worker/services/worker.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/services/worker.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/worker/views/worker-update/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/views/worker-update/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modules/worker/views/worker-update/worker-update.view.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/views/worker-update/worker-update.view.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routing/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routing/routes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +39,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2HM7nolNqh9CRjH7o3xEC3ixw9K" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -60,7 +68,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1668083267250</updated>
-      <workItem from="1668083274571" duration="9516000" />
+      <workItem from="1668083274571" duration="9822000" />
+      <workItem from="1668198512644" duration="10562000" />
     </task>
     <servers />
   </component>

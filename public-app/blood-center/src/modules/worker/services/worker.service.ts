@@ -7,25 +7,23 @@ export class WorkerService {
     constructor() { }
 
     async getWorker(id:number) {
-        //FIXME: CHANGE CONTROLLER ROUTE TO EXACT BACKEND
-        // const url = `${this.apiUrl}/worker/${id}`
-        const url = `FIXME`
+
+        const url = `${this.apiUrl}/workers/${id}`
 
         let response = await fetch(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json',
+                        // 'Access-Control-Allow-Origin':'*'
+            }
         })
 
         if (!response.ok) throw new Error("Worker doesn't exist!")
         let data = await response.json()
         return data
-        return id
     }
 
     async updateWorker(updateWorkerDto: UpdateWorkerDto, id: number) {
-        //FIXME: CHANGE CONTROLLER ROUTE TO EXACT BACKEND
-        // const url = `${this.apiUrl}/worker/${id}`
-        const url = `FIXME`
+        const url = `${this.apiUrl}/workers/${id}`
 
         try {
             let response = await fetch(url, {

@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Worker2UpdateDto {
+public class UpdateWorkerDto {
     @NotNull
     @NotEmpty
     private Long id;
@@ -47,22 +47,17 @@ public class Worker2UpdateDto {
     @NotEmpty
     private Address address;
 
-    @NotNull
-    @NotEmpty
-    private String hospitalName;
-
-
-    public Worker2UpdateDto(Worker worker) {
-        User user=worker.getUser();
-        this.id= worker.getId();
-        this.name=user.getName();
-        this.surname=user.getSurname();
-        this.sex=user.getSex();
-        this.uid=user.getUid();
-        this.profession=user.getProfession();
-        this.school=user.getSchool();
-        this.address=user.getAddress();
-        this.hospitalName=worker.getCenter().getName();
+    public Worker mapToModel(User user){
+        user.setName(name);
+        user.setSurname(surname);
+        user.setSex(sex);
+        user.setUid(uid);
+        user.setProfession(profession);
+        user.setSchool(school);
+        user.setAddress(address);
+        return Worker.builder()
+                .id(id)
+                .user(user)
+                .build();
     }
-
 }
