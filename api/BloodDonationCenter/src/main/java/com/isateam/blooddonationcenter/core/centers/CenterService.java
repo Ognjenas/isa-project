@@ -77,5 +77,9 @@ public class CenterService implements ICenterService {
                 .name(c.getName())
                 .build()).collect(Collectors.toList()));
     }
+    @Override
+    public List<Center> getAllCentersList(){
+       return centerDao.findAll();
+    }
 
 }

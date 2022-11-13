@@ -7,6 +7,8 @@ import com.isateam.blooddonationcenter.core.centers.dtos.UpdateCenterDto;
 import com.isateam.blooddonationcenter.core.centers.interfaces.ICenterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(maxAge = 3600)
@@ -38,5 +40,9 @@ public class CenterController {
         return center;
     }
 
+    @GetMapping("/select")
+    public List<Center> getCenters(){
+        return centerService.getAllCentersList();
+    }
 
 }
