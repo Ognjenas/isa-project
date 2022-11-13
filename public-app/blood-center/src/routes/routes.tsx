@@ -12,7 +12,6 @@ import CenterRegistrationForm from "../modules/centers/components/center-registr
 import UsersView from "../modules/users/components";
 
 
-
 export const routes: RouteObject[] = [
     {
         path: "/",
@@ -42,7 +41,6 @@ export const routes: RouteObject[] = [
                 element: <MakeSurveyComponent />,
             },
             {
-
                 path:"/worker/update/:wid",
                 element: <UpdateWorkerView/>
             },
@@ -51,6 +49,7 @@ export const routes: RouteObject[] = [
                 element: <UpdateCenterView/>
             },
             {   
+
                 path: 'registration',
                 element: <RegistrationForm />
             },
