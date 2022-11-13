@@ -27,7 +27,7 @@ public class CenterCountryFilter implements IFilter<Center> {
         try {
             String country = queryParams.get("country");
             if(country.trim().equals("")) return cb.conjunction();
-            Predicate pr = cb.equal(root.get("address").get("country"), "%" + country + "%");
+            Predicate pr = cb.like(root.get("address").get("country"), "%" + country + "%");
             return pr;
         } catch (Exception e) {
             return cb.conjunction();

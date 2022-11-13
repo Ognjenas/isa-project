@@ -20,7 +20,10 @@ import java.util.Set;
 public class Center {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "center_seq",
+            sequenceName = "center_sequence",
+            initialValue = 3)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "center_seq")
     private Long id;
 
     private String name;
