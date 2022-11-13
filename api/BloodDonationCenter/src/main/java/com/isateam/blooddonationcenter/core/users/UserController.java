@@ -1,6 +1,7 @@
 package com.isateam.blooddonationcenter.core.users;
 
 import com.isateam.blooddonationcenter.core.users.dtos.CreateUserDTO;
+import com.isateam.blooddonationcenter.core.users.dtos.SearchUserDTO;
 import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
 import com.isateam.blooddonationcenter.core.users.dtos.UserProfileDTO;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
@@ -40,8 +41,10 @@ public class UserController {
     }
 
 
-    @GetMapping ("/search/{name}/{surname}")
-    public List<User> getSearched(@PathVariable String name, @PathVariable String surname) {
+    @PostMapping ("/search")
+    public List<User> getSearched(@RequestBody SearchUserDTO searchUserDTO) {
+        String name = searchUserDTO.getName();
+        String surname = searchUserDTO.getSurname();
         return userService.getSearchedUsers(name, surname);
     }
 }
