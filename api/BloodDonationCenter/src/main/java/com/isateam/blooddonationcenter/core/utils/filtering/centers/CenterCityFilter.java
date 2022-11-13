@@ -29,7 +29,7 @@ public class CenterCityFilter implements IFilter {
         try {
             String city = queryParams.get("city");
             if(city.trim().equals("")) return cb.conjunction();
-            Predicate pr = cb.equal(root.get("address").get("city"), "%" + city + "%");
+            Predicate pr = cb.like(root.get("address").get("city"), "%" + city + "%");
             return pr;
         } catch (Exception e) {
             return cb.conjunction();

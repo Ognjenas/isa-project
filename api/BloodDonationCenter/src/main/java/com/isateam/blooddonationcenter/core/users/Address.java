@@ -14,7 +14,10 @@ import javax.persistence.*;
 @Table(name = "address")
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "address_seq",
+            sequenceName = "address_sequence",
+            initialValue = 5)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_seq")
     private Long id;
     private String street;
     private String number;

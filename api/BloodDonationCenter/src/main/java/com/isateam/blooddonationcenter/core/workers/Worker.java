@@ -16,7 +16,10 @@ import javax.persistence.*;
 public class Worker {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "worker_seq",
+            sequenceName = "worker_sequence",
+            initialValue = 2)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "worker_seq")
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY,cascade=CascadeType.ALL)

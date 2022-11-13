@@ -21,7 +21,10 @@ import java.time.LocalTime;
 public class WorkTime {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "work_time_seq",
+            sequenceName = "work_time_sequence",
+            initialValue = 11)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "work_time_seq")
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "center_id", nullable = false)
