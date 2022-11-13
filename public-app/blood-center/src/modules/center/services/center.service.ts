@@ -1,33 +1,32 @@
-import { toast } from "react-toastify";
-import {UpdateWorkerDto} from "../dtos/update-worker.dto";
+import {toast} from "react-toastify";
+import {UpdateCenterDto} from "../dtos/update-center.dto";
+import {UpdateWorkerDto} from "../../worker/dtos/update-worker.dto";
 
-export class WorkerService {
+export class CenterService{
 
     private apiUrl: string = "http://localhost:8000"
     constructor() { }
 
-    async getWorker(id:number) {
-
-        const url = `${this.apiUrl}/workers/${id}`
+    async getCenter(id:number) {
+        const url = `${this.apiUrl}/centers/${id}`
 
         let response = await fetch(url, {
             method: 'GET',
-            headers: { 'Content-Type': 'application/json',
-            }
+            headers: { 'Content-Type': 'application/json' }
         })
 
-        if (!response.ok) throw new Error("Worker doesn't exist!")
+        if (!response.ok) throw new Error("Center doesn't exist!")
         let data = await response.json()
         return data
     }
 
-    async updateWorker(updateWorkerDto: UpdateWorkerDto) {
-        const url = `${this.apiUrl}/workers`
+    async updateCenter(updateCenterDto: UpdateCenterDto) {
+        const url = `${this.apiUrl}/centers/`
 
         try {
             let response = await fetch(url, {
                 method: 'PUT',
-                body: JSON.stringify(updateWorkerDto),
+                body: JSON.stringify(updateCenterDto),
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -37,7 +36,7 @@ export class WorkerService {
                 let error = await response.json()
                 this.parseError(error)
             }
-            toast.success("Successfully updated worker!", { autoClose: 3000 })
+            toast.success("Successfully updated center!", { autoClose: 3000 })
             return true
         } catch (e: any) {
             toast.error(e.message, { autoClose: 3000 })
@@ -55,4 +54,4 @@ export class WorkerService {
     }
 }
 
-export const workerService = new WorkerService()
+export const centerService= new CenterService()

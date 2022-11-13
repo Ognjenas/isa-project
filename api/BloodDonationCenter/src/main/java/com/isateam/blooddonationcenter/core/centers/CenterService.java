@@ -10,12 +10,14 @@ import com.isateam.blooddonationcenter.core.centers.interfaces.ICenterService;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
 import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
 import com.isateam.blooddonationcenter.core.users.Address;
+import com.isateam.blooddonationcenter.core.workers.interfaces.IWorkerDao;
+import com.isateam.blooddonationcenter.core.worktime.WorkTime;
+import com.isateam.blooddonationcenter.core.worktime.dtos.WorkTimeDto;
+import com.isateam.blooddonationcenter.core.worktime.interfaces.IWorkTimeDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,6 +27,7 @@ public class CenterService implements ICenterService {
     private final CenterDao centerDao;
 
     private final ICenterCustomDao centerCustomDao;
+    private final IWorkTimeDao workTimeDao;
 
     @Override
     public AllCentersDto getAll(Map<String, String> map) {
@@ -39,20 +42,32 @@ public class CenterService implements ICenterService {
     public Center update(Center center) {
         Center centerOld = centerDao.findById(center.getId())
                 .orElseThrow(() -> new NotFoundException("Center doesnt exist"));
+
         center.setAverageGrade(centerOld.getAverageGrade());
         return centerDao.save(center);
+    }
+
+
+    @Override
+    public void addWorkTimeToCenter(Set<WorkTime> mapWorkTimeToModel) {
+        workTimeDao.saveAll(mapWorkTimeToModel);
     }
 
     @Override
     public CenterDto getById(long id) {
         Center center=centerDao.findById(id).orElseThrow(() -> new NotFoundException("Center doesnt exist"));
+        List<WorkTimeDto> workTimes= new ArrayList<>();
+        center.getWorkTime().stream().forEach(workTime -> workTimes.add(new WorkTimeDto(workTime)));
+        Collections.sort(workTimes,(a,b)-> { return a.getDay().compareTo(b.getDay()); });
         return CenterDto.builder()
                 .address(center.getAddress())
                 .name(center.getName())
                 .description(center.getDescription())
                 .averageGrade(center.getAverageGrade())
+                .workTime(workTimes)
                 .build();
     }
+
 
     private AllCentersDto mapToAllCentersDto(List<Center> centers) {
         return new AllCentersDto(centers.stream().map(c -> CenterDto.builder()

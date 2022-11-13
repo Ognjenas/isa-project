@@ -13,8 +13,8 @@ import {useNavigate, useParams} from "react-router-dom"
 
 export const UpdateWorkerForm = () => {
 
-    // const {wid} = useParams();
-    const [id, setId] = useState(-1)
+    const {wid} = useParams();
+    const [id, setId] = useState(wid?+wid:-1)
     const [name, setName] = useState("")
     const [surname, setSurname] = useState("")
     const [sex, setSex] = useState<Sex>(Sex.MALE)
@@ -29,11 +29,7 @@ export const UpdateWorkerForm = () => {
     const [hospitalName, setHospitalName] = useState("")
     const navigate = useNavigate()
 
-
-
-    //FIXME: FIX THIS ID
-    // HOW TO GET FROM PARAMS?
-    const initalizeWorker= async ()=>{
+    const handleOnMounted = async () => {
         let worker = await workerService.getWorker(id)
         setName(worker.name)
         setSurname(worker.surname)
@@ -47,15 +43,6 @@ export const UpdateWorkerForm = () => {
         setStreetNumber(worker.address.number)
         setAddressId(worker.address.id)
         setHospitalName(worker.hospitalName)
-    }
-
-    //FIXME: NECE DA MI DOBAVI PARAMETRE UOPSTE?
-    //  OVO MORAM PRVO DA LOADUJEM DA BIH MOGAO DA UCITAM WORKERA
-    const handleOnMounted = () => {
-        // let {wid} = useParams();
-        // setId(wid!)
-        setId(16)
-        initalizeWorker()
     }
 
 
@@ -138,7 +125,7 @@ export const UpdateWorkerForm = () => {
                 number: streetNumber
             }
         }
-        let ok = await workerService.updateWorker(dto, id)
+        let ok = await workerService.updateWorker(dto)
         if (ok) {
             setTimeout(() => navigate("/"), 3000)
         }
@@ -148,8 +135,15 @@ export const UpdateWorkerForm = () => {
         <Flex margin='auto' justifyContent='center' width='100%' className="update-profile-form" border='1px solid lightgray' w={600} p={20}>
             <TemplateForm header={"Update Worker"} buttonText={"Save"} onSubmit={handleSubmit}>
                 <>
-                    <h1>{hospitalName}</h1>
-                    <h2>{id}</h2>
+                    <FormControl>
+                        <FormLabel>My Hospital</FormLabel>
+                        <Input
+                            h={55}
+                            fontSize={18}
+                            value={hospitalName}
+                            readOnly={true}
+                        />
+                    </FormControl>
                     <TemplateErrorInput
                         label={'Name'}
                         isValid={errors.name.isValid}

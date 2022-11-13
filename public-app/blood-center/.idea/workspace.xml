@@ -2,23 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2a5df96-a113-4881-91ed-1e607fda23e1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/dtos/UpdateWorkerDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/center/components/update-form/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/center/components/update-form/update-form.component.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/center/dtos/update-center.dto.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/center/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/center/views/center-update/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/center/views/center-update/update-center.view.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/WorkerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/WorkerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/WorkerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/WorkerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/dtos/Worker2UpdateDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/dtos/Worker2UpdateDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/interfaces/IWorkerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/interfaces/IWorkerService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/worktime/dtos/WorkTimeDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/worktime/interfaces/IWorkTimeDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/center/components/single-time-display/single-time-display.component.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/center/dtos/work-time.dto.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/center/services/center.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/CenterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/CenterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/CenterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/CenterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/dtos/CenterDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/dtos/CenterDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/dtos/UpdateCenterDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/dtos/UpdateCenterDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/interfaces/ICenterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/interfaces/ICenterService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/center/components/update-form/update-form.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/center/components/update-form/update-form.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/center/dtos/update-center.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/center/dtos/update-center.dto.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modules/worker/components/update-form/update-form.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/components/update-form/update-form.component.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/worker/dtos/get-worker2update.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/dtos/get-worker2update.dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/worker/dtos/update-worker.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/dtos/update-worker.dto.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modules/worker/services/worker.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/services/worker.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/worker/views/worker-update/worker-update.view.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/views/worker-update/worker-update.view.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routing/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routing/routes.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -56,6 +54,7 @@
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "D:/PROGRAMI/WORKSPACE/IntelliJ/ISA/isa-project/public-app/blood-center",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
     "ts.external.directory.path": "D:\\PROGRAMI\\WORKSPACE\\IntelliJ\\ISA\\isa-project\\public-app\\blood-center\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -69,7 +68,7 @@
       <option name="presentableId" value="Default" />
       <updated>1668083267250</updated>
       <workItem from="1668083274571" duration="9822000" />
-      <workItem from="1668198512644" duration="10562000" />
+      <workItem from="1668198512644" duration="33140000" />
     </task>
     <servers />
   </component>
