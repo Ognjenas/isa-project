@@ -52,6 +52,7 @@ public class CreateUserDTO {
                 .school(school)
                 .uid(uid)
                 .surname(surname)
+                .activated(false)
                 .role(UserRole.REGULAR)
                 .build();
     }

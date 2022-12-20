@@ -1,20 +1,32 @@
 package com.isateam.blooddonationcenter.core.users;
 
+import com.isateam.blooddonationcenter.core.email.EmailDetails;
+import com.isateam.blooddonationcenter.core.email.IEmailService;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
 import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
 import com.isateam.blooddonationcenter.core.users.dtos.UserProfileDTO;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserEntityDao;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
+import com.isateam.blooddonationcenter.core.users.interfaces.IUserValidationDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class UserService implements IUserService {
 
     private final IUserEntityDao userEntityDao;
+
+    private final IUserValidationDao userValidationDao;
+
+    private final IEmailService emailService;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User getOne(long id) {
@@ -34,8 +46,11 @@ public class UserService implements IUserService {
         if (userEntityDao.findByEmail(user.getEmail()).isPresent()) {
             throw new BadRequestException("Given email is already in use");
         }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userEntityDao.save(user);
+        prepareForValidation(user);
     }
+
 
     private User fillUpdated(User oldUser, UpdateUserDTO newUser) {
         return User.builder()
@@ -52,18 +67,55 @@ public class UserService implements IUserService {
                 .build();
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userEntityDao.findAll();
     }
-    public List<UserProfileDTO> getSearchedUsers(String name, String surname){
-        if(name.trim().equals("") && surname.trim().equals(""))
+
+    public List<UserProfileDTO> getSearchedUsers(String name, String surname) {
+        if (name.trim().equals("") && surname.trim().equals(""))
             return mapUsersToProfileDtos(userEntityDao.findAll());
         List<User> users = userEntityDao.findAllByNameContainingIgnoreCaseAndSurnameContainingIgnoreCase(name, surname);
         return mapUsersToProfileDtos(users);
     }
 
+    @Override
+    public User getByEmail(String email) {
+        return userEntityDao.findByEmail(email).orElseThrow();
+    }
+
+    @Override
+    public void activateUser(String uuid, long id) {
+        UserValidation userValidation = userValidationDao.findByUuid(uuid).orElseThrow();
+        User user = userEntityDao.findById(id).orElseThrow();
+
+        if (userValidation.getUser().getId() == id) {
+            user.setActivated(true);
+            userEntityDao.save(user);
+            userValidationDao.delete(userValidation);
+        }
+    }
+
     private List<UserProfileDTO> mapUsersToProfileDtos(List<User> users) {
         return users.stream().map(u -> new UserProfileDTO(u)).toList();
+    }
+
+    private void prepareForValidation(User user) {
+        String uuid = UUID.randomUUID().toString();
+        userValidationDao.save(
+                UserValidation.builder()
+                        .user(user)
+                        .uuid(uuid)
+                        .build()
+        );
+        emailService.sendSimpleMail(getEmailDetailsForCreating(user.getEmail(), uuid, user.getId()));
+    }
+
+    private EmailDetails getEmailDetailsForCreating(String email, String uuid, long id) {
+        return EmailDetails.builder()
+                .body("http://localhost:8000/validate/" + uuid + "/" + id)
+                .recipient(email)
+                .subject("Activation of account")
+                .build();
     }
 
 }

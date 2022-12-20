@@ -56,8 +56,8 @@ INSERT INTO public.centers (id, average_grade, description, name, address_id) VA
 INSERT INTO public.centers (id, average_grade, description, name, address_id) VALUES (2, 5, 'Neka deskripcija za dobojski', 'Dobojski', 3);
 
 
-INSERT INTO public.users (id, email, name, password, profession, role, school, sex, surname, uid, address_id) VALUES (1, 'stjepanovic@gmail.com', 'Srdjan', '12345678', 'Profesija', 0, 'Skola', 0, 'Stjepanovic', '1234787898789', 1);
-INSERT INTO public.users (id, email, name, password, profession, role, school, sex, surname, uid, address_id) VALUES (2, 'ognjen@gmail.com', 'Ognjen', '12345678', 'Majstor', 0, 'FTN', 0, 'Svraka', '123123123', 4);
+INSERT INTO public.users (id, email, name, password, profession, role, school, sex, surname, uid, address_id, activated) VALUES (1, 'stjepanovic@gmail.com', 'Srdjan', '$2a$10$4Xqed/OjxhMp3XZARYlN9ue7eGwyqqOP1vzPdV2gcXqIAkJcIFZ1u', 'Profesija', 0, 'Skola', 0, 'Stjepanovic', '1234787898789', 1, true);
+INSERT INTO public.users (id, email, name, password, profession, role, school, sex, surname, uid, address_id, activated) VALUES (2, 'ognjen@gmail.com', 'Ognjen', '$2a$10$4Xqed/OjxhMp3XZARYlN9ue7eGwyqqOP1vzPdV2gcXqIAkJcIFZ1u', 'Majstor', 0, 'FTN', 0, 'Svraka', '123123123', 4, false);
 
 
 INSERT INTO public.workers (id, center_id, user_id) VALUES (1, 2, 2);
