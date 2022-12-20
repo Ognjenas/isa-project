@@ -13,4 +13,6 @@ public interface IUserService {
     void create(User user);
     List<User> getAllUsers();
     List<UserProfileDTO> getSearchedUsers(String name, String surname);
+    User getByEmail(String email);
+    void activateUser(String uuid, long id);
 }
