@@ -56,4 +56,9 @@ public class AppointmentService implements IAppointmentService {
     }
 
 
+    public List<Appointment> getAllFutureAppointments() {
+        var s = appointmentDao.getAllByStartTimeAfterAndStateIs(LocalDateTime.now(), AppointmentState.FREE);
+
+        return appointmentDao.getAllByStartTimeAfterAndStateIs(LocalDateTime.now(), AppointmentState.FREE);
+    }
 }

@@ -2,6 +2,7 @@ package com.isateam.blooddonationcenter.core.appointments;
 
 import com.isateam.blooddonationcenter.core.appointments.dtos.CreateAppointmentDTO;
 import com.isateam.blooddonationcenter.core.appointments.dtos.ShowAppointmentDTO;
+import com.isateam.blooddonationcenter.core.appointments.dtos.FreeAppointmentsDTO;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentService;
 import com.isateam.blooddonationcenter.core.centers.Center;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +50,10 @@ public class AppointmentController {
     @PostMapping
     public Appointment create(@Valid @RequestBody CreateAppointmentDTO dto) {
         return appointmentService.create(dto.mapToModel());
+    }
+
+    @GetMapping("/free")
+    public FreeAppointmentsDTO getFreeAppointments() {
+        return new FreeAppointmentsDTO(appointmentService.getAllFutureAppointments());
     }
 }

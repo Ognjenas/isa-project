@@ -73,3 +73,9 @@ INSERT INTO public.work_time (id, day, end_time, start_time, center_id) VALUES (
 INSERT INTO public.work_time (id, day, end_time, start_time, center_id) VALUES (9, 1, '16:00:00', '12:00:00', 2);
 INSERT INTO public.work_time (id, day, end_time, start_time, center_id) VALUES (10, 2, '16:00:00', '12:00:00', 2);
 
+INSERT INTO public.appointments (id, duration, start_time, state, center_id, user_id) VALUES (4, 30, '2022-01-21 11:20:00.000000', 2, 1, null);
+INSERT INTO public.appointments (id, duration, start_time, state, center_id, user_id) VALUES (1, 30, '2023-01-21 11:20:00.000000', 0, 1, null);
+INSERT INTO public.appointments (id, duration, start_time, state, center_id, user_id) VALUES (2, 30, '2023-01-21 11:20:00.000000', 0, 1, null);
+INSERT INTO public.appointments (id, duration, start_time, state, center_id, user_id) VALUES (3, 30, '2023-01-21 12:20:00.000000', 0, 1, null);
+INSERT INTO public.appointments (id, duration, start_time, state, center_id, user_id) VALUES (5, 30, '2023-01-22 11:20:20.000000', 1, 1, 1);
+

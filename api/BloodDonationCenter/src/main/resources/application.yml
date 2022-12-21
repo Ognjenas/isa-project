@@ -32,6 +32,11 @@ spring:
       secret: "opaopa"
 
 
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+
 web:
   cors:
     allowed-origins: "http://localhost:3000"
