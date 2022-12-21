@@ -18,7 +18,7 @@ public class AppointmentController {
     private final IAppointmentService appointmentService;
 
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Appointment findById(@PathVariable long id) {
         return appointmentService.findById(id);
     }
@@ -29,12 +29,12 @@ public class AppointmentController {
         return appointments;
     }
 
-    @PatchMapping("{id}/user/{userId}")
+    @PatchMapping("/{id}/user/{userId}")
     public void reserveAppointment(@PathVariable long id, @PathVariable long userId) {
         appointmentService.reserve(id, userId);
     }
 
-    @PostMapping("")
+    @PostMapping
     public Appointment create(@Valid @RequestBody CreateAppointmentDTO dto) {
         return appointmentService.create(dto.mapToModel());
     }
