@@ -26,10 +26,10 @@ public class Appointment {
     private Center center;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name="user_id", referencedColumnName = "id", nullable = true)
     private User user;
 
     private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private int duration;
     private AppointmentState state;
 }
