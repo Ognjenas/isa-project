@@ -6,14 +6,14 @@ import ProfilesView from "../modules/profiles/profiles.view"
 import UpdateProfileView from "../modules/profiles/views/update-profile"
 import ErrorComponent from "../modules/shared/components/error"
 import MakeSurveyComponent from "../modules/surveys/components/make-survey.component"
-import UpdateWorkerView from "../modules/workers/views/worker-update";
-import UpdateCenterView from "../modules/center/views/center-update";
-import CenterRegistrationForm from "../modules/center/components/center-registration-form";
-import UsersView from "../modules/users/components";
+import UpdateWorkerView from "../modules/workers/views/worker-update"
+import UpdateCenterView from "../modules/center/views/center-update"
+import CenterRegistrationForm from "../modules/center/components/center-registration-form"
+import UsersView from "../modules/users/components"
 import WorkerRegistrationForm from "../modules/workers/components/worker-registration/worker-registration.component"
 import CenterComponent from "../modules/center/centers.component"
 import { UsersComponent } from "../modules/users/users.component"
-
+import LoginForm from "../modules/auth/components/login-form"
 
 export const routes: RouteObject[] = [
     {
@@ -32,48 +32,52 @@ export const routes: RouteObject[] = [
                 ],
             },
             {
-                path: 'centers',
-                element: <CenterComponent/>,
+                path: "centers",
+                element: <CenterComponent />,
                 children: [
                     {
                         path: "",
                         element: <ShowCentersComponent />,
                     },
                     {
-                        path: 'registration',
-                        element: <CenterRegistrationForm />
+                        path: "registration",
+                        element: <CenterRegistrationForm />,
                     },
                     {
-                        path:"update/:cid",
-                        element: <UpdateCenterView/>
-                    }
-                ]
+                        path: "update/:cid",
+                        element: <UpdateCenterView />,
+                    },
+                ],
             },
             {
-                path: 'users',
-                element: <UsersComponent/>,
+                path: "users",
+                element: <UsersComponent />,
                 children: [
                     {
-                        path: '',
-                        element: <UsersView />
+                        path: "",
+                        element: <UsersView />,
                     },
                     {
                         path: "registration",
                         element: <RegistrationForm />,
                     },
-                ]
+                ],
             },
             {
                 path: "survey",
                 element: <MakeSurveyComponent />,
             },
             {
-                path:"/worker/update/:wid",
-                element: <UpdateWorkerView/>
+                path: "/worker/update/:wid",
+                element: <UpdateWorkerView />,
             },
             {
                 path: "worker/registration",
                 element: <WorkerRegistrationForm />,
+            },
+            {
+                path: "/login",
+                element: <LoginForm />,
             },
         ],
     },
