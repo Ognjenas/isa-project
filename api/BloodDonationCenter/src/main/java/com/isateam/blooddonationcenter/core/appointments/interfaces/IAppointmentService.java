@@ -10,7 +10,7 @@ public interface IAppointmentService {
 
     Appointment findById(long id);
 
-    void reserveAppointment(long id);
+    void reserve(long id, long userId);
     List<Appointment> getAllFreeByDateAndCenter(LocalDate date, long centerId);
     List<Appointment> getAllByDateAndCenter(LocalDate date, long centerId);
 }

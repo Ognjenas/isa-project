@@ -3,6 +3,7 @@ package com.isateam.blooddonationcenter.core.appointments;
 import com.isateam.blooddonationcenter.core.appointments.dtos.CreateAppointmentDTO;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,13 +24,14 @@ public class AppointmentController {
     }
 
     @GetMapping("/centers/{id}/date/{date}/free")
-    public List<Appointment> getAllFreeByDateAndCenter(@PathVariable long id, @PathVariable LocalDate date)  {
-        return appointmentService.getAllFreeByDateAndCenter(date, id);
+    public List<Appointment> getAllFreeByDateAndCenter(@PathVariable long id,@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date)  {
+        List<Appointment> appointments = appointmentService.getAllFreeByDateAndCenter(date, id);
+        return appointments;
     }
 
-    @PatchMapping("{id}")
-    public void reserveAppointment(@PathVariable long id) {
-        appointmentService.reserveAppointment(id);
+    @PatchMapping("{id}/user/{userId}")
+    public void reserveAppointment(@PathVariable long id, @PathVariable long userId) {
+        appointmentService.reserve(id, userId);
     }
 
     @PostMapping("")

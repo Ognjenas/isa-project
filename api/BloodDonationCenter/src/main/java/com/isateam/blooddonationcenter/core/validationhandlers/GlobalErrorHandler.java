@@ -12,6 +12,7 @@ public class GlobalErrorHandler {
 
     @ExceptionHandler(BaseException.class)
     public ResponseEntity<?> notFoundExceptionHandler(BaseException exception) {
+        System.out.print(exception.getStackTrace());
         return new ResponseEntity<>(new StandardErrorResponse(exception), exception.getStatusCode());
     }
 }

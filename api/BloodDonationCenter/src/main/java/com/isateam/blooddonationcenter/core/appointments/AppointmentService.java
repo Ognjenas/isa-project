@@ -4,6 +4,7 @@ import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointment
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentService;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
 import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
+import com.isateam.blooddonationcenter.core.users.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +30,13 @@ public class AppointmentService implements IAppointmentService {
     }
 
     @Override
-    public void reserveAppointment(long id) {
-        Appointment app = findById(id);
-        if(app.getState() != AppointmentState.FREE)
+    public void reserve(long id, long userId) {
+        Appointment appointment = findById(id);
+        if(appointment.getState() != AppointmentState.FREE)
             throw new BadRequestException("Appointment is not free!");
-        app.setState(AppointmentState.TAKEN);
+        appointment.setState(AppointmentState.TAKEN);
+        appointment.setUser(User.builder().id(userId).build());
+        appointmentDao.save(appointment);
     }
 
     @Override
