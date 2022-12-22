@@ -4,11 +4,13 @@ import com.isateam.blooddonationcenter.core.appointments.dtos.AppointmentsForSho
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentDao;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentLogDao;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentService;
+import com.isateam.blooddonationcenter.core.centers.interfaces.CenterDao;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
 import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
-import com.isateam.blooddonationcenter.core.surveys.Survey;
 import com.isateam.blooddonationcenter.core.users.User;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserEntityDao;
+import com.isateam.blooddonationcenter.core.workers.Worker;
+import com.isateam.blooddonationcenter.core.workers.interfaces.IWorkerDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,8 @@ public class AppointmentService implements IAppointmentService {
     private final IAppointmentDao appointmentDao;
     private final IUserEntityDao userEntityDao;
     private final IAppointmentLogDao appointmentLogDao;
+    private final IWorkerDao workerDao;
+
 
     @Override
     public Appointment create(Appointment appointment) {
@@ -128,10 +132,12 @@ public class AppointmentService implements IAppointmentService {
     }
 
     @Override
-    public List<AppointmentsForShowDto> getAllAppointmentsForCenter(long centerId) {
-        List<Appointment> apps = appointmentDao.findAllByCenter_Id(centerId);
-        List<AppointmentsForShowDto> retList = packShowAppointmentsDto(apps);
-        return retList;
+    public List<AppointmentsForShowDto> getAllAppointmentsForCenter(long userId) {
+        Worker worker = workerDao.findByUser_Id(userId);
+        long centerId = worker.getCenter().getId();
+        List<Appointment> inputList = appointmentDao.findAllByCenter_Id(centerId);
+        List<AppointmentsForShowDto> returnList = packShowAppointmentsDto(inputList);
+        return returnList;
     }
 
     private List<AppointmentsForShowDto> packShowAppointmentsDto(List<Appointment> appointments){

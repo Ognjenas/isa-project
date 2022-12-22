@@ -1,14 +1,14 @@
-import {toast} from "react-toastify";
-import {UpdateCenterDto} from "../dtos/update-center.dto";
+import { toast } from "react-toastify";
+import { UpdateCenterDto } from "../dtos/update-center.dto";
 import axios from "axios";
 import { CenterRegistrationDTO } from "../dtos/center-registration.dto";
 
-export class CenterService{
+export class CenterService {
 
     private apiUrl: string = "http://localhost:8000"
     constructor() { }
 
-    async getCenter(id:number) {
+    async getCenter(id: number) {
         const url = `${this.apiUrl}/centers/${id}`
         let response = await axios.get(url)
         return response.data
@@ -18,17 +18,17 @@ export class CenterService{
         const url = `${this.apiUrl}/centers/`
 
         try {
-            let response = await axios.put(url,updateCenterDto)
+            let response = await axios.put(url, updateCenterDto)
             toast.success("Successfully updated center!", { autoClose: 3000 })
             return true
         } catch (e: any) {
-            const message=this.parseError(e.response.data)
+            const message = this.parseError(e.response.data)
             toast.error(message, { autoClose: 3000 })
             return false
         }
     }
 
-        async registrate(registrationDto: CenterRegistrationDTO) {
+    async registrate(registrationDto: CenterRegistrationDTO) {
         const url = `${this.apiUrl}/centers`
 
         try {
@@ -36,7 +36,7 @@ export class CenterService{
             toast.success("Successfully updated center!", { autoClose: 3000 })
             return true
         } catch (e: any) {
-            const message=this.parseError(e.response.data)
+            const message = this.parseError(e.response.data)
             toast.error(message, { autoClose: 3000 })
             return false
         }
@@ -52,4 +52,4 @@ export class CenterService{
     }
 }
 
-export const centerService= new CenterService()
+export const centerService = new CenterService()

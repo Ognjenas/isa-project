@@ -58,9 +58,11 @@ INSERT INTO public.centers (id, average_grade, description, name, address_id) VA
 
 INSERT INTO public.users (id, email, name, password, profession, role, school, sex, surname, uid, address_id, activated) VALUES (1, 'stjepanovic@gmail.com', 'Srdjan', '$2a$10$4Xqed/OjxhMp3XZARYlN9ue7eGwyqqOP1vzPdV2gcXqIAkJcIFZ1u', 'Profesija', 0, 'Skola', 0, 'Stjepanovic', '1234787898789', 1, true);
 INSERT INTO public.users (id, email, name, password, profession, role, school, sex, surname, uid, address_id, activated) VALUES (2, 'ognjen@gmail.com', 'Ognjen', '$2a$10$4Xqed/OjxhMp3XZARYlN9ue7eGwyqqOP1vzPdV2gcXqIAkJcIFZ1u', 'Majstor', 0, 'FTN', 0, 'Svraka', '123123123', 4, false);
+INSERT INTO public.users (id, email, name, password, profession, role, school, sex, surname, uid, address_id, activated) VALUES (3, 'david@gmail.com', 'David', '$2a$10$4Xqed/OjxhMp3XZARYlN9ue7eGwyqqOP1vzPdV2gcXqIAkJcIFZ1u', 'Majstor', 1, 'FTN', 0, 'Maka', '123123123', 4, true);
 
 
 INSERT INTO public.workers (id, center_id, user_id) VALUES (1, 2, 2);
+INSERT INTO public.workers (id, center_id, user_id) VALUES (2, 1, 3);
 
 INSERT INTO public.work_time (id, day, end_time, start_time, center_id) VALUES (1, 0, '16:00:00', '12:00:00', 1);
 INSERT INTO public.work_time (id, day, end_time, start_time, center_id) VALUES (2, 1, '16:00:00', '12:00:00', 1);
@@ -73,9 +75,10 @@ INSERT INTO public.work_time (id, day, end_time, start_time, center_id) VALUES (
 INSERT INTO public.work_time (id, day, end_time, start_time, center_id) VALUES (9, 1, '16:00:00', '12:00:00', 2);
 INSERT INTO public.work_time (id, day, end_time, start_time, center_id) VALUES (10, 2, '16:00:00', '12:00:00', 2);
 
-INSERT INTO public.appointments (id, duration, start_time, state, center_id, user_id) VALUES (4, 30, '2022-01-21 11:20:00.000000', 2, 1, null);
-INSERT INTO public.appointments (id, duration, start_time, state, center_id, user_id) VALUES (1, 30, '2023-01-21 11:20:00.000000', 0, 1, null);
-INSERT INTO public.appointments (id, duration, start_time, state, center_id, user_id) VALUES (2, 30, '2023-01-21 11:20:00.000000', 0, 1, null);
-INSERT INTO public.appointments (id, duration, start_time, state, center_id, user_id) VALUES (3, 30, '2023-01-21 12:20:00.000000', 0, 1, null);
+
+INSERT INTO public.appointments (id, duration, start_time, state, center_id, user_id) VALUES (4, 30, '2022-01-21 11:20:00.000000', 2, 1, 1);
+INSERT INTO public.appointments (id, duration, start_time, state, center_id, user_id) VALUES (1, 30, '2023-01-21 11:20:00.000000', 0, 1, 1);
+INSERT INTO public.appointments (id, duration, start_time, state, center_id, user_id) VALUES (2, 30, '2023-01-21 11:20:00.000000', 0, 1, 1);
+INSERT INTO public.appointments (id, duration, start_time, state, center_id, user_id) VALUES (3, 30, '2023-01-21 12:20:00.000000', 0, 1, 1);
 INSERT INTO public.appointments (id, duration, start_time, state, center_id, user_id) VALUES (5, 30, '2023-01-22 11:20:20.000000', 1, 1, 1);
 

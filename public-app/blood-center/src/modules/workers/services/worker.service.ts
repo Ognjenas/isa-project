@@ -2,6 +2,7 @@ import { toast } from "react-toastify"
 import { WorkerRegistrationDTO } from "../dtos/worker-registration.dto"
 import axios from "axios"
 import { UpdateWorkerDto } from "../dtos/update-worker.dto"
+import { getAxios } from "../../../util/axios-wrapper"
 
 export class WorkerService {
 
@@ -13,7 +14,7 @@ export class WorkerService {
             const url = `${this.apiUrl}/centers`
             let response = await axios.get(url)
             return response.data.centers
-        } catch(e: any) {
+        } catch (e: any) {
             toast.error(e.response.data)
         }
 
@@ -25,14 +26,14 @@ export class WorkerService {
             let response = await axios.post(url, registrationDto)
             toast.success("Succesfully registered!")
             return true
-        } catch(e: any) {
+        } catch (e: any) {
             const message = this.parseError(e.response.data)
-            toast.error(message, {autoClose: 3000})
+            toast.error(message, { autoClose: 3000 })
             return false
         }
     }
 
-    async getWorker(id:number) {
+    async getWorker(id: number) {
 
         const url = `${this.apiUrl}/workers/${id}`
         let response = await axios.get(url)
@@ -43,17 +44,30 @@ export class WorkerService {
         const url = `${this.apiUrl}/workers`
 
         try {
-            let response = await axios.put(url,updateWorkerDto)
+            let response = await axios.put(url, updateWorkerDto)
             toast.success("Successfully updated worker!", { autoClose: 3000 })
             return true
         } catch (e: any) {
-            const message=this.parseError(e.response.data)
+            const message = this.parseError(e.response.data)
             toast.error(message, { autoClose: 3000 })
             return false
         }
 
     }
-    
+
+    async getEvents() {
+        try {
+            const url = `${this.apiUrl}/appointments/for-worker`
+            let response = await getAxios().get(url)
+            return response.data
+        }
+        catch (e: any) {
+            const message = this.parseError(e.response.data)
+            toast.error(message, { autoClose: 3000 })
+            return false
+        }
+    }
+
     parseError(error: any) {
         if (error.statusCode) {
             return error.message
