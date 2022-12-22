@@ -62,7 +62,7 @@ public class AppointmentController {
     public FreeAppointmentsDTO getFreeAppointmentsFromCenter(@PathVariable("centerId") long centerId, @RequestParam(name="sortby") String orderBy) {
         return new FreeAppointmentsDTO(appointmentService.getAllFutureAppointments(centerId, orderBy));
     }
-    
+
     @GetMapping("/by-user")
     public FreeAppointmentsDTO getAppointmentsByUser() {
         return new FreeAppointmentsDTO(appointmentService.getAllFutureAppointmentsByUser(userUtils.getLoggedId()));
