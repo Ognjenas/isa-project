@@ -19,6 +19,7 @@ import {
     Tr,
 } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
+import { NavLink, Router, useNavigate } from "react-router-dom"
 import { useAuthStore } from "../../../../stores/auth-store/auth.store"
 import CenterFilters from "./components/center-filters"
 import { CenterDto } from "./dtos/center.dto"
@@ -29,6 +30,7 @@ import {useNavigate} from "react-router-dom";
 
 export const ShowCentersComponent = () => {
     const [centers, setCenters] = useState<CenterDto[]>()
+    const nav = useNavigate()
 
     const handleOnMounted = async () => {
         let res = await centerService.getCenters()
@@ -78,7 +80,16 @@ export const ShowCentersComponent = () => {
                 </Thead>
                 <Tbody>
                     {centers?.map((center, index) => (
-                        <Tr key={index}>
+                        <Tr
+                            key={index}
+                            onClick={() =>
+                                nav(
+                                    "/centers/" +
+                                        center.id +
+                                        "/free-appointments"
+                                )
+                            }
+                        >
                             <Td textAlign={"center"}>{center.name}</Td>
                             <Td textAlign={"center"}>{center.description}</Td>
                             <Td textAlign={"center"}>{center.averageGrade}</Td>

@@ -14,8 +14,10 @@ import CenterComponent from "../modules/center/centers.component"
 import { UsersComponent } from "../modules/users/users.component"
 import LoginForm from "../modules/auth/components/login-form"
 import ShowAppointmentsView from "../modules/appointments/views"
-import ShowCentersComponent from "../modules/center/components/show-centers";
-import {ProtectedWrapper} from "../util/protected-wrapper";
+import ShowCentersComponent from "../modules/center/components/show-centers"
+import { ProtectedWrapper } from "../util/protected-wrapper"
+import path from "path"
+import FreeAppointments from "../modules/appointments/components/free-appointments"
 
 export const routes: RouteObject[] = [
     {
@@ -29,7 +31,13 @@ export const routes: RouteObject[] = [
                 children: [
                     {
                         path: "update",
-                        element:<ProtectedWrapper roles={["REGULAR","WORKER","ADMINISTRATOR"]}><UpdateProfileView/></ProtectedWrapper>,
+                        element: (
+                            <ProtectedWrapper
+                                roles={["REGULAR", "WORKER", "ADMINISTRATOR"]}
+                            >
+                                <UpdateProfileView />
+                            </ProtectedWrapper>
+                        ),
                     },
                 ],
             },
@@ -43,11 +51,29 @@ export const routes: RouteObject[] = [
                     },
                     {
                         path: "registration",
-                        element:<ProtectedWrapper roles={["ADMINISTRATOR"]}><><CenterRegistrationForm/></></ProtectedWrapper>,
+                        element: (
+                            <ProtectedWrapper roles={["ADMINISTRATOR"]}>
+                                <>
+                                    <CenterRegistrationForm />
+                                </>
+                            </ProtectedWrapper>
+                        ),
                     },
                     {
                         path: "update/:cid",
-                        element:<ProtectedWrapper roles={["WORKER","ADMINISTRATOR"]}><><UpdateCenterView/></></ProtectedWrapper>,
+                        element: (
+                            <ProtectedWrapper
+                                roles={["WORKER", "ADMINISTRATOR"]}
+                            >
+                                <>
+                                    <UpdateCenterView />
+                                </>
+                            </ProtectedWrapper>
+                        ),
+                    },
+                    {
+                        path: ":cid/free-appointments",
+                        element: <FreeAppointments />,
                     },
                 ],
             },
@@ -57,7 +83,15 @@ export const routes: RouteObject[] = [
                 children: [
                     {
                         path: "",
-                        element:<ProtectedWrapper roles={["WORKER","ADMINISTRATOR"]}><><UsersView /></></ProtectedWrapper>,
+                        element: (
+                            <ProtectedWrapper
+                                roles={["WORKER", "ADMINISTRATOR"]}
+                            >
+                                <>
+                                    <UsersView />
+                                </>
+                            </ProtectedWrapper>
+                        ),
                     },
                     {
                         path: "registration",
@@ -67,15 +101,27 @@ export const routes: RouteObject[] = [
             },
             {
                 path: "survey",
-                element: <ProtectedWrapper roles={["REGULAR"]}><MakeSurveyComponent /></ProtectedWrapper>,
+                element: (
+                    <ProtectedWrapper roles={["REGULAR"]}>
+                        <MakeSurveyComponent />
+                    </ProtectedWrapper>
+                ),
             },
             {
                 path: "/worker/update/:wid",
-                element: <ProtectedWrapper roles={["ADMINISTRATOR"]}><UpdateWorkerView/></ProtectedWrapper>,
+                element: (
+                    <ProtectedWrapper roles={["ADMINISTRATOR"]}>
+                        <UpdateWorkerView />
+                    </ProtectedWrapper>
+                ),
             },
             {
                 path: "worker/registration",
-                element: <ProtectedWrapper roles={["WORKER","ADMINISTRATOR"]}><WorkerRegistrationForm /></ProtectedWrapper>,
+                element: (
+                    <ProtectedWrapper roles={["WORKER", "ADMINISTRATOR"]}>
+                        <WorkerRegistrationForm />
+                    </ProtectedWrapper>
+                ),
             },
             {
                 path: "/login",
@@ -83,8 +129,12 @@ export const routes: RouteObject[] = [
             },
             {
                 path: "/appointments",
-                element:<ProtectedWrapper roles={["WORKER","ADMINISTRATOR"]}><ShowAppointmentsView/></ProtectedWrapper>
-            }
+                element: (
+                    <ProtectedWrapper roles={["WORKER", "ADMINISTRATOR"]}>
+                        <ShowAppointmentsView />
+                    </ProtectedWrapper>
+                ),
+            },
         ],
     },
 ]
