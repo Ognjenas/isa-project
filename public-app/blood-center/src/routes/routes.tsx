@@ -13,8 +13,8 @@ import WorkerRegistrationForm from "../modules/workers/components/worker-registr
 import CenterComponent from "../modules/center/centers.component"
 import { UsersComponent } from "../modules/users/users.component"
 import LoginForm from "../modules/auth/components/login-form"
-import ShowCentersComponent from "../modules/center/components/show-centers"
 import ShowAppointmentsView from "../modules/appointments/views"
+import ShowCentersComponent from "../modules/center/components/show-centers";
 
 export const routes: RouteObject[] = [
     {

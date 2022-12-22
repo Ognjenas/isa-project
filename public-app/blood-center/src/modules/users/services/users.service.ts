@@ -1,6 +1,7 @@
 import { SearchUsersDTO } from "../dtos/search-users.dto";
 import { toast } from "react-toastify"
 import axios from "axios"
+import {getAxios} from "../../../util/axios-wrapper";
 
 
 export class UserService {
@@ -9,9 +10,8 @@ export class UserService {
     constructor() { }
 
     async getUsers(searchUsersDTO: SearchUsersDTO) {
-
         const url = `${this.apiUrl}/users/search`
-        let response = await axios.post(url, searchUsersDTO)
+        let response = await getAxios().post(url, searchUsersDTO)
         return response.data
 
     }
