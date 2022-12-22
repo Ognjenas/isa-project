@@ -1,7 +1,7 @@
 import { Box, Flex, Select } from "@chakra-ui/react"
 
 
-interface SelectOption {
+export interface SelectOption {
     val: any,
     text: string,
 }
