@@ -6,19 +6,24 @@ import { appointmentService } from "../../services/appointment.service"
 
 interface Props {
     onChanged: (value: Date) => void
+    onSortChanged: (value: string) => void
 }
 
-export const AppointmentCenterFilterComponent = ({onChanged}:Props) => {
+export const AppointmentCenterFilterComponent = ({onChanged, onSortChanged}:Props) => {
 
 
     const [sort, setSort] = useState("")
     const [dateTime, setDateTime] = useState(new Date());
 
     const handleChange = (event: any) => {
-        console.log(event.target.value)
         const newDate = new Date(event.target.value)
         setDateTime(newDate);
         onChanged(newDate)      
+    }
+
+    const handleSortChanged = (e: any) => {
+        setSort(e.target.value)
+        onSortChanged(e.target.value)
     }
 
     const convertDate = (date: Date) => {
@@ -64,7 +69,7 @@ export const AppointmentCenterFilterComponent = ({onChanged}:Props) => {
             <Box>
                 <FilterSelect
                     value={sort}
-                    onChange={(e: any) => setSort(e.target.value)}
+                    onChange={handleSortChanged}
                     placeholder="Sort by field"
                     options={sortItems} />
             </Box>

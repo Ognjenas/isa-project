@@ -26,7 +26,7 @@ export class FormValidator {
     }
 
     static isRequired(field: string, value: string) {
-        const isValid = value.trim() !== ''
+        const isValid = value.toString().trim() !== ''
         if (!isValid) {
             let message = field + " is required!"
             return message.charAt(0).toUpperCase() + message.slice(1);
@@ -79,6 +79,17 @@ export class FormValidator {
             if (!isValid) {
                 let message = field + " doesn't match " + foreignName
                 return message.charAt(0).toUpperCase() + message.slice(1);
+            }
+            return null
+        }
+    }
+
+    static minValue(minVal: number) {
+        return (field: string, value: string) => {
+            const isValid = (+value) >= minVal
+            if (!isValid) {
+                let message = field + " should have minimum value " + minVal
+                return message.charAt(0).toUpperCase() + message.slice(1)
             }
             return null
         }

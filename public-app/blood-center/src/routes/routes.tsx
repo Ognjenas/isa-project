@@ -23,6 +23,8 @@ import AdminRegistrationForm from "../modules/system_admins/components/register-
 import AdminChangePasswordForm from "../modules/system_admins/components/change-password"
 import CalendarViewComponent from "../modules/workers/components/calendar"
 
+import CreateAppointmentView from "../modules/appointments/views/create-appointment.view"
+import AppointmentsComponent from "../modules/appointments/appointments.component"
 
 export const routes: RouteObject[] = [
     {
@@ -136,9 +138,23 @@ export const routes: RouteObject[] = [
                 path: "/appointments",
                 element: (
                     <ProtectedWrapper roles={["WORKER", "ADMINISTRATOR"]}>
-                        <ShowAppointmentsView />
+                        <AppointmentsComponent />
                     </ProtectedWrapper>
                 ),
+                children: [
+                    {
+                        path: '',
+                        element: <ShowAppointmentsView/>
+                    },
+                    {
+                        path: 'create',
+                        element: (
+                            <ProtectedWrapper roles={["ADMINISTRATOR"]}>
+                                <CreateAppointmentView/>
+                            </ProtectedWrapper>
+                        )
+                    }
+                ]
             },
             {
 

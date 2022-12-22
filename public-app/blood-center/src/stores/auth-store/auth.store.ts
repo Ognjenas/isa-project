@@ -10,7 +10,8 @@ import jwt_decode from "jwt-decode";
 type AuthStore = AuthStoreActions & AuthStoreState
 
 const state: AuthStoreState = {
-    token: "",
+    token: null,
+    role: null
 }
 
 export const authStoreSlice: StateCreator<
@@ -30,7 +31,13 @@ export const authStoreSlice: StateCreator<
         })
         return true
     },
-    register: () => {},
+    register: () => { },
+    logout: () => {
+        set(state => {
+            state.token = null
+            state.role = null
+        })
+    }
 })
 
 
@@ -38,6 +45,6 @@ export const authStoreSlice: StateCreator<
 export const useAuthStore = create<AuthStore>()(
     persist(immer(authStoreSlice), {
         name: "auth",
-        partialize: (state) => ({ token: state.token , role: state.role}),
+        partialize: (state) => ({ token: state.token, role: state.role }),
     })
 )

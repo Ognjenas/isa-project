@@ -1,6 +1,8 @@
 import moment from "moment";
 import { getAxios } from "../../../util/axios-wrapper";
 import { toast } from "react-toastify"
+import { FreeAppointmentsParams } from "../components/free-appointments/free-appointment.component";
+import { CreateAppointmentDTO } from "../dtos/create-appointment.dto";
 
 
 
@@ -22,12 +24,24 @@ export class AppointmentService {
             return []
         }
     }
+    async createAppointment(dto: CreateAppointmentDTO) {
+        try {
+            const url = `${this.url}/appointments`
+            const response = await getAxios().post(url, dto)
+            return true
+        } catch (e) {
+            const message = this.parseError(e)
+            toast.error(message)
+            return false
+        }
+    }
 
-    async getFreeAppointmentsForDateTime(datetime: Date) {
+
+    async getFreeAppointmentsForDateTime(datetime: Date, sort = "asc") {
         try {
             const formated = moment(datetime).format("YYYY-MM-DD HH:mm:ss")
             const url = `${this.url}/appointments/date/${formated}/free`
-            const response = await getAxios().get(url)
+            const response = await getAxios().get(url, { params: { direction: sort } })
             return response.data
         } catch (e) {
             const message = this.parseError(e)

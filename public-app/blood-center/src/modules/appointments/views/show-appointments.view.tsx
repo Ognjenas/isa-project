@@ -5,7 +5,7 @@ import { CenterDto } from "../../center/components/show-centers/dtos/center.dto"
 import AppointmentCenterFilterComponent from "../components/appointment-center-filter"
 import { appointmentService } from "../services/appointment.service"
 
-interface ShowAppointmentDTO {
+export interface ShowAppointmentDTO {
     id: number,
     startTime: Date,
     duration: number,
@@ -16,9 +16,18 @@ export const ShowAppointmentsView = () => {
 
 
     const [appointments, setAppointments] = useState<ShowAppointmentDTO[]>([]);
+    const [sort, setSort] = useState("")
+    const [startTime, setStartTime] = useState<Date>(new Date());
 
     const updateAppointments = async (value: Date) =>{
+        setStartTime(value)
         const data = await appointmentService.getFreeAppointmentsForDateTime(value);
+        setAppointments(data)
+    }
+
+    const updateSort = async (value: string) => {
+        setSort(value)
+        const data = await appointmentService.getFreeAppointmentsForDateTime(startTime, value)
         setAppointments(data)
     }
 
@@ -39,7 +48,7 @@ export const ShowAppointmentsView = () => {
         alignItems="center"
         gap={10}
     >
-        <AppointmentCenterFilterComponent onChanged={updateAppointments}/>
+        <AppointmentCenterFilterComponent onSortChanged={updateSort} onChanged={updateAppointments}/>
         <Table variant="simple" width="90%">
             <Thead>
                 <Tr>
