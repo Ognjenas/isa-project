@@ -52,7 +52,7 @@ public class CreateUserManagerDTO {
                 .school(school)
                 .uid(uid)
                 .surname(surname)
-                .activated(false)
+                .activated(true)
                 .role(UserRole.WORKER)
                 .build();
     }

@@ -52,7 +52,7 @@ public class CreateUserAdminDTO {
                 .school(school)
                 .uid(uid)
                 .surname(surname)
-                .activated(false)
+                .activated(true)
                 .role(UserRole.ADMINISTRATOR)
                 .build();
     }
