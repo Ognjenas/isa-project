@@ -24,6 +24,8 @@ import CenterFilters from "./components/center-filters"
 import { CenterDto } from "./dtos/center.dto"
 import { FilterSort } from "./dtos/filter-sort.dto"
 import { centerService } from "./services/center.service"
+import jwt_decode from "jwt-decode"
+import {useNavigate} from "react-router-dom";
 
 export const ShowCentersComponent = () => {
     const [centers, setCenters] = useState<CenterDto[]>()
@@ -32,6 +34,8 @@ export const ShowCentersComponent = () => {
         let res = await centerService.getCenters()
         setCenters(res)
     }
+
+
 
     const submit = async (filters: FilterSort) => {
         let res = await centerService.getCentersFiltered(filters)

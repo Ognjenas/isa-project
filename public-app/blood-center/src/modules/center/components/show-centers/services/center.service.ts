@@ -8,7 +8,7 @@ export class CenterService {
     constructor() { }
 
     async getCenters() {
-        const url = `${this.apiUrl}/centers`
+        const url = `${this.apiUrl}/centers/list`
 
         let response = await fetch(url, {
             method: 'GET',
@@ -33,7 +33,7 @@ export class CenterService {
 
 
     async getCentersFiltered(filters?: FilterSort) {
-        const url = `${this.apiUrl}/centers`
+        const url = `${this.apiUrl}/centers/list`
 
         try {
             let response = await axios.get(url, {

@@ -8,6 +8,8 @@ import { User } from "../../profiles/model/user"
 import styles from "./users-view.module.css"
 import { useScroll } from "framer-motion"
 import {  UserSearchMenu } from "./user-search-menu/user-filter-menu.component"
+import {useAuthStore} from "../../../stores/auth-store/auth.store";
+import jwt_decode from "jwt-decode";
 
 
 export const UsersView = () => {

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="b2a5df96-a113-4881-91ed-1e607fda23e1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/util/protected-wrapper.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/center/services/center.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/center/services/center.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/worker/services/worker.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/worker/services/worker.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/users/components/users-view.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/users/components/users-view.component.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/routes.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -42,7 +44,12 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/PROGRAMI/WORKSPACE/IntelliJ/ISA/isa-project/public-app/blood-center&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\PROGRAMI\\WORKSPACE\\IntelliJ\\ISA\\isa-project\\public-app\\blood-center\\node_modules\\prettier&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
     &quot;ts.external.directory.path&quot;: &quot;D:\\PROGRAMI\\WORKSPACE\\IntelliJ\\ISA\\isa-project\\public-app\\blood-center\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
@@ -58,6 +65,10 @@
       <updated>1668083267250</updated>
       <workItem from="1668083274571" duration="9822000" />
       <workItem from="1668198512644" duration="33140000" />
+      <workItem from="1668457400815" duration="501000" />
+      <workItem from="1668960029003" duration="1504000" />
+      <workItem from="1671567521057" duration="1423000" />
+      <workItem from="1671569864522" duration="2644000" />
     </task>
     <servers />
   </component>

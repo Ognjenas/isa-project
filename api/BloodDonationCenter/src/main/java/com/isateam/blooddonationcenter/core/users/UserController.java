@@ -6,6 +6,8 @@ import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
 import com.isateam.blooddonationcenter.core.users.dtos.UserProfileDTO;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,7 +42,7 @@ public class UserController {
         userService.create(createUserDTO.map());
     }
 
-
+    @Secured({"WORKER","ADMINISTRATOR"})
     @PostMapping ("/search")
     public List<UserProfileDTO> getSearched(@RequestBody SearchUserDTO searchUserDTO) {
         String name = searchUserDTO.getName();

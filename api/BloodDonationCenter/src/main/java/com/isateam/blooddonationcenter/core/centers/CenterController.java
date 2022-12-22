@@ -19,7 +19,7 @@ public class CenterController {
 
     private final ICenterService centerService;
 
-    @GetMapping
+    @GetMapping("/list")
     public AllCentersDto getAll(@RequestParam  Map<String, String> queryParams) {
         return centerService.getAll(queryParams);
     }
