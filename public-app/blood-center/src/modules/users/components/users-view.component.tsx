@@ -16,20 +16,11 @@ export const UsersView = () => {
 
 
     const [users, setUsers] = useState<User[]>([])
-    const navigate = useNavigate()
 
     const handleOnMounted = async () => {
-        checkRole()
         const starterSearch: SearchUsersDTO = { name: "", surname: "" }
         const searchedUsers: User[] = await usersService.getUsers(starterSearch)
         setUsers(searchedUsers)
-    }
-
-    const checkRole = () =>
-    {
-        const role = useAuthStore.getState().role
-        if(role!="WORKER" && role!="ADMINISTRATOR")
-            navigate("/centers")
     }
 
     const handleSubmit = async (params: SearchUsersDTO) => {

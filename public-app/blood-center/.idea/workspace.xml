@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2a5df96-a113-4881-91ed-1e607fda23e1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/util/protected-wrapper.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/center/components/show-centers/show-centers.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/center/components/show-centers/show-centers.component.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modules/users/components/users-view.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/users/components/users-view.component.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/users/services/users.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/users/services/users.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/routes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stores/auth-store/auth.store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/auth-store/auth.store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stores/auth-store/interfaces/auth-store-actions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/auth-store/interfaces/auth-store-actions.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stores/auth-store/interfaces/auth-store-state.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores/auth-store/interfaces/auth-store-state.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
