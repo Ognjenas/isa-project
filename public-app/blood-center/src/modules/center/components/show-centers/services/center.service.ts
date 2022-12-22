@@ -16,6 +16,7 @@ export class CenterService {
         })
 
         let data = await response.json()
+        console.log(data.centers)
         return data.centers
     }
 

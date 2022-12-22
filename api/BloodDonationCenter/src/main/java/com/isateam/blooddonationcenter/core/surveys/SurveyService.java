@@ -6,6 +6,7 @@ import com.isateam.blooddonationcenter.core.surveys.interfaces.ISurveyDao;
 import com.isateam.blooddonationcenter.core.surveys.interfaces.ISurveyQuestionDao;
 import com.isateam.blooddonationcenter.core.surveys.interfaces.ISurveyService;
 import com.isateam.blooddonationcenter.core.users.User;
+import com.isateam.blooddonationcenter.core.utils.session.UserUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,8 @@ public class SurveyService implements ISurveyService {
     private final ISurveyQuestionDao surveyQuestionDao;
 
     private final ISurveyAnswerDao surveyAnswerDao;
+
+    private final UserUtils userUtils;
 
     private final ISurveyDao surveyDao;
 
@@ -41,7 +44,7 @@ public class SurveyService implements ISurveyService {
         Survey survey = Survey.builder()
                 .answers(answersToSave)
                 .user(User.builder()
-                        .id(1L)
+                        .id(userUtils.getLoggedId())
                         .build())
                 .writingTime(LocalDateTime.now())
                 .build();

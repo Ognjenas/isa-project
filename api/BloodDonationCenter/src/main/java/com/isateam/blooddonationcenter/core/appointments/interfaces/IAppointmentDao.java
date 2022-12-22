@@ -19,5 +19,10 @@ public interface IAppointmentDao extends JpaRepository<Appointment, Long> {
     List<Appointment> getAllFreeByCenterAndDate(LocalDate dt, long centerId);
 
     List<Appointment> findAllByStartTimeAndStateEquals(LocalDateTime date, AppointmentState state);
+    List<Appointment> getAllByStartTimeAfterAndStateIsAndCenterIdOrderByStartTimeAsc(LocalDateTime from, AppointmentState state, long id);
+    List<Appointment> getAllByStartTimeAfterAndStateIsAndCenterIdOrderByStartTimeDesc(LocalDateTime from, AppointmentState state, long id);
+
+    List<Appointment> findAllByUserIdAndStartTimeIsAfter(long userId, LocalDateTime startTime);
+
 
 }

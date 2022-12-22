@@ -16,7 +16,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+@CrossOrigin(maxAge = 3600)
 @RequiredArgsConstructor
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -46,8 +50,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeHttpRequests().antMatchers("/auth", "/users", "/validate/{uuid}/{id}", "/centers/list" ).permitAll().anyRequest().authenticated()
-                .and().exceptionHandling().and().sessionManagement()
+                .and().cors().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+
 
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
     }
