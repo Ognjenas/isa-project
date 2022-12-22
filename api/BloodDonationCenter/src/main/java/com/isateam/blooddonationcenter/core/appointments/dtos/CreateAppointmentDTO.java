@@ -27,6 +27,7 @@ public class CreateAppointmentDTO {
                 .center(Center.builder().id(centerId).build())
                 .startTime(startTime)
                 .duration(duration)
+                .endTime(startTime.plusMinutes(duration))
                 .build();
     }
 }
