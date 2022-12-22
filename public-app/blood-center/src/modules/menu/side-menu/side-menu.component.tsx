@@ -4,11 +4,20 @@ import { FiLogOut, FiHome, FiSettings } from 'react-icons/fi'
 import { CgProfile } from 'react-icons/cg'
 import { MdOutlineBloodtype } from 'react-icons/md'
 import image from "../../../logo.svg"
-import { NavLink } from "react-router-dom"
+import { Navigate, NavLink, useNavigate } from "react-router-dom"
+import { useAuthStore } from "../../../stores/auth-store/auth.store"
 
 
 
 export const SideMenu = () => {
+
+    const logout = useAuthStore(state => state.logout)
+    const navigate = useNavigate()
+    const handleLogout = () => {
+        logout()
+        navigate("/login")
+    }
+
     return (
         <Flex
             width='100px'
@@ -41,7 +50,7 @@ export const SideMenu = () => {
                 <NavLink to={'/settings'}>
                     <FiSettings color='white' size={40} cursor='pointer'></FiSettings>
                 </NavLink>
-                <FiLogOut color='white' size={40} cursor='pointer' />
+                <FiLogOut color='white' size={40} cursor='pointer' onClick={handleLogout} />
             </Flex>
         </Flex>
     )

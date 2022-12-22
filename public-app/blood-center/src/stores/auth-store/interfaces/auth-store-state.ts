@@ -1,4 +1,4 @@
 export interface AuthStoreState {
-    token?: string
-    role? : string
+    token?: string | null
+    role?: string | null
 }

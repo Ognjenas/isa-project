@@ -38,4 +38,5 @@ public class Appointment {
     private LocalDateTime startTime;
     private int duration;
     private AppointmentState state;
+    private LocalDateTime endTime;
 }

@@ -4,7 +4,8 @@ import com.isateam.blooddonationcenter.core.appointments.dtos.AppointmentsForSho
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentDao;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentLogDao;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentService;
-import com.isateam.blooddonationcenter.core.centers.interfaces.CenterDao;
+import com.isateam.blooddonationcenter.core.email.EmailDetails;
+import com.isateam.blooddonationcenter.core.email.IEmailService;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
 import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
 import com.isateam.blooddonationcenter.core.users.User;
@@ -20,7 +21,6 @@ import java.util.Comparator;
 import java.util.ArrayList;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,9 +30,12 @@ public class AppointmentService implements IAppointmentService {
     private final IAppointmentLogDao appointmentLogDao;
     private final IWorkerDao workerDao;
 
+    private final IEmailService emailService;
+
 
     @Override
     public Appointment create(Appointment appointment) {
+        validateCreation(appointment);
         return appointmentDao.save(appointment);
     }
 
@@ -48,12 +51,16 @@ public class AppointmentService implements IAppointmentService {
         checkUsersSurvey(userId);
         checkIfAlreadyReservedInCenter(id, userId);
         checkUsersGaveDonations(userId);
+        User user = userEntityDao.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User doesn't exist!"));
+
         Appointment appointment = findById(id);
         if (appointment.getState() != AppointmentState.FREE)
             throw new BadRequestException("Appointment is not free!");
         appointment.setState(AppointmentState.TAKEN);
-        appointment.setUser(User.builder().id(userId).build());
+        appointment.setUser(user);
         appointmentDao.save(appointment);
+        sendReservationEmail(appointment, user);
         saveAppointmentLog(userId, appointment);
     }
 
@@ -86,25 +93,9 @@ public class AppointmentService implements IAppointmentService {
         appointmentLogDao.save(appointmentLog);
     }
 
-    private void checkUsersGaveDonations(long userId) {
-        var appointments = appointmentDao.findAllByUserIdAndStartTimeIsAfter(userId,
-                LocalDateTime.now().minusMonths(6));
-        if (!appointments.isEmpty()) {
-            throw new BadRequestException("You already gave blood in last 6 months or already reserver appointment");
-        }
-
-    }
-
-    private void checkUsersSurvey(long userId) {
-        User user = userEntityDao.findById(userId).orElseThrow(() -> new BadRequestException("User does not exist"));
-        if (user.getSurveys().isEmpty()) {
-            throw new BadRequestException("You must do the survey first");
-        }
-    }
-
     @Override
     public List<Appointment> getAllFreeByDateAndCenter(LocalDate date, long centerId) {
-        return appointmentDao.getAllFreeByCenterAndDate(date, centerId);
+        return appointmentDao.getAllFreeByCenterAndDateAsc(date, centerId);
     }
 
     @Override
@@ -113,8 +104,10 @@ public class AppointmentService implements IAppointmentService {
     }
 
     @Override
-    public List<Appointment> getAllFreeByDateTime(LocalDateTime date) {
-        return appointmentDao.findAllByStartTimeAndStateEquals(date, AppointmentState.FREE);
+    public List<Appointment> getAllFreeByDateTime(LocalDateTime date, String order) {
+        if(order.equalsIgnoreCase("asc"))
+            return appointmentDao.findAllByStartTimeAndStateOrderByCenter_AverageGradeAsc(date, AppointmentState.FREE);
+        return appointmentDao.findAllByStartTimeAndStateOrderByCenter_AverageGradeDesc(date, AppointmentState.FREE);
     }
 
     @Override
@@ -154,4 +147,43 @@ public class AppointmentService implements IAppointmentService {
         }
         return showList;
     }
+    private void sendReservationEmail(Appointment appointment, User user) {
+        String content = formatReservedEmail(appointment);
+        EmailDetails mail = EmailDetails.builder()
+                .body(content)
+                .recipient(user.getEmail())
+                .subject("Appointment reservation")
+                .build();
+        emailService.sendSimpleMail(mail);
+    }
+
+    private String formatReservedEmail(Appointment appointment) {
+        return "Your appointment starts at " + appointment.getStartTime().toString();
+    }
+
+    private void checkUsersGaveDonations(long userId) {
+        var appointments = appointmentDao.findAllByUserIdAndStartTimeIsAfter(userId,
+                LocalDateTime.now().minusMonths(6));
+        if (!appointments.isEmpty()) {
+            throw new BadRequestException("You already gave blood in last 6 months or already reserver appointment");
+        }
+    }
+
+    private void checkUsersSurvey(long userId) {
+        User user = userEntityDao.findById(userId).orElseThrow(() -> new BadRequestException("User does not exist"));
+        if (user.getSurveys().isEmpty()) {
+            throw new BadRequestException("You must do the survey first");
+        }
+    }
+
+    private void validateCreation(Appointment appointment) {
+        LocalDateTime startTime = appointment.getStartTime();
+        LocalDateTime endTime = startTime.plusMinutes(appointment.getDuration());
+
+        List<Appointment> overlapings = appointmentDao.findOverlapping(startTime, endTime, appointment.getCenter().getId());
+
+        if(overlapings.size() > 0)
+            throw new BadRequestException("There is an interval overlapping with given start time and duration!");
+    }
+
 }

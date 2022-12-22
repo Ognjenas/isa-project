@@ -13,8 +13,8 @@ public interface IAppointmentService {
     void reserve(long id, long userId);
     List<Appointment> getAllFreeByDateAndCenter(LocalDate date, long centerId);
     List<Appointment> getAllByDateAndCenter(LocalDate date, long centerId);
-    List<Appointment> getAllFreeByDateTime(LocalDateTime date);
 
+    List<Appointment> getAllFreeByDateTime(LocalDateTime date, String order);
     List<Appointment> getAllFutureAppointments(long centerId, String orderBy);
 
     List<Appointment> getAllFutureAppointmentsByUser(long userId);

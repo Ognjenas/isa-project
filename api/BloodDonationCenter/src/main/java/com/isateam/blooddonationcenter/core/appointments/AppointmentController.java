@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,15 +35,16 @@ public class AppointmentController {
     }
 
     @GetMapping("/centers/{id}/date/{date}/free")
-    public List<ShowAppointmentDTO> getAllFreeByDateAndCenter(@PathVariable long id,@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date)  {
+    public List<ShowAppointmentDTO> getAllFreeByDateAndCenter(@PathVariable long id, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date)  {
         return appointmentService.getAllFreeByDateAndCenter(date, id)
                 .stream()
                 .map(a -> new ShowAppointmentDTO(a)).toList();
     }
 
     @GetMapping("/date/{date}/free")
-    public List<ShowAppointmentDTO> getAllFreeAppointmentsWithCenters(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")LocalDateTime date) {
-        return appointmentService.getAllFreeByDateTime(date)
+    public List<ShowAppointmentDTO> getAllFreeAppointmentsWithCenters(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")LocalDateTime date, @PathParam("direction") String direction) {
+        String orderDirection = direction == null? "desc": direction;
+        return appointmentService.getAllFreeByDateTime(date, orderDirection)
                 .stream()
                 .map(a -> new ShowAppointmentDTO(a)).toList();
 
