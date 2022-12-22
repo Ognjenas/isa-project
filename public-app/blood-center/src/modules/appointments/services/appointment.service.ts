@@ -1,7 +1,6 @@
 import moment from "moment";
 import { getAxios } from "../../../util/axios-wrapper";
 import { toast } from "react-toastify"
-import { FreeAppointmentsParams } from "../components/free-appointments/free-appointment.component";
 
 
 
@@ -12,6 +11,17 @@ export class AppointmentService {
 
     }
 
+    async getMyAppointments() {
+        try {
+            const url = `${this.url}/appointments/by-user`
+            const response = await getAxios().get(url)
+            return response.data
+        } catch (e) {
+            const message = this.parseError(e)
+            toast.error(message)
+            return []
+        }
+    }
 
     async getFreeAppointmentsForDateTime(datetime: Date) {
         try {
@@ -41,6 +51,18 @@ export class AppointmentService {
     async reserveAppointment(appointmentId: number, userId: number) {
         try {
             const url = `${this.url}/appointments/${appointmentId}/user/${userId}`
+            const response = await getAxios().patch(url)
+            if (response.status == 200) return true;
+        } catch (e: any) {
+            const message = this.parseError(e.response.data)
+            toast.error(message, { autoClose: 3000 })
+            return false
+        }
+    }
+
+    async cancelAppointment(appointmentId: number) {
+        try {
+            const url = `${this.url}/appointments/cancel/${appointmentId}`
             const response = await getAxios().patch(url)
             if (response.status == 200) return true;
         } catch (e: any) {

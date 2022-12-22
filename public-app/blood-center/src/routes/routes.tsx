@@ -18,6 +18,7 @@ import ShowCentersComponent from "../modules/center/components/show-centers"
 import { ProtectedWrapper } from "../util/protected-wrapper"
 import path from "path"
 import FreeAppointments from "../modules/appointments/components/free-appointments"
+import MyAppointments from "../modules/appointments/components/my-appointments"
 
 export const routes: RouteObject[] = [
     {
@@ -132,6 +133,14 @@ export const routes: RouteObject[] = [
                 element: (
                     <ProtectedWrapper roles={["WORKER", "ADMINISTRATOR"]}>
                         <ShowAppointmentsView />
+                    </ProtectedWrapper>
+                ),
+            },
+            {
+                path: "/my-appointments",
+                element: (
+                    <ProtectedWrapper roles={["REGULAR"]}>
+                        <MyAppointments />
                     </ProtectedWrapper>
                 ),
             },

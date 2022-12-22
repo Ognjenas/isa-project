@@ -1,6 +1,7 @@
 package com.isateam.blooddonationcenter.core.appointments;
 
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentDao;
+import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentLogDao;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentService;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
 import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
@@ -22,6 +23,7 @@ public class AppointmentService implements IAppointmentService {
     private final IAppointmentDao appointmentDao;
 
     private final IUserEntityDao userEntityDao;
+    private final IAppointmentLogDao appointmentLogDao;
 
 
     @Override
@@ -39,6 +41,7 @@ public class AppointmentService implements IAppointmentService {
     @Override
     public void reserve(long id, long userId) {
         checkUsersSurvey(userId);
+        checkIfAlreadyReservedInCenter(id, userId);
         checkUsersGaveDonations(userId);
         Appointment appointment = findById(id);
         if (appointment.getState() != AppointmentState.FREE)
@@ -46,6 +49,36 @@ public class AppointmentService implements IAppointmentService {
         appointment.setState(AppointmentState.TAKEN);
         appointment.setUser(User.builder().id(userId).build());
         appointmentDao.save(appointment);
+        saveAppointmentLog(userId, appointment);
+    }
+
+    private void checkIfAlreadyReservedInCenter(long id, long userId) {
+        List<AppointmentLog> logs = appointmentLogDao.findAllByAppointmentId(id);
+        if(logs.stream().anyMatch(a -> a.getUser().getId().equals(userId))) {
+            throw new BadRequestException("You already made this appointment before");
+        }
+    }
+
+    @Override
+    public void cancel(long appointmentId, long userId) {
+        User user = userEntityDao.findById(userId).orElseThrow();
+        Appointment appointment = appointmentDao.findById(appointmentId).orElseThrow(() ->
+                new BadRequestException("Appointment does not exist"));
+        if (!appointment.getUser().getId().equals(user.getId())) {
+            throw new BadRequestException("Cannot do that");
+        }
+        appointment.setState(AppointmentState.FREE);
+        appointment.setUser(null);
+        appointmentDao.save(appointment);
+    }
+
+    private void saveAppointmentLog(long userId, Appointment appointment) {
+        AppointmentLog appointmentLog = AppointmentLog.builder()
+                .user(User.builder().id(userId).build())
+                .appointment(appointment)
+                .time(LocalDateTime.now())
+                .build();
+        appointmentLogDao.save(appointmentLog);
     }
 
     private void checkUsersGaveDonations(long userId) {
@@ -86,5 +119,10 @@ public class AppointmentService implements IAppointmentService {
                         AppointmentState.FREE, centerId) :
                 appointmentDao.getAllByStartTimeAfterAndStateIsAndCenterIdOrderByStartTimeDesc(LocalDateTime.now(),
                         AppointmentState.FREE, centerId);
+    }
+
+    @Override
+    public List<Appointment> getAllFutureAppointmentsByUser(long userId) {
+        return appointmentDao.findAllByUserIdAndStartTimeIsAfter(userId, LocalDateTime.now());
     }
 }

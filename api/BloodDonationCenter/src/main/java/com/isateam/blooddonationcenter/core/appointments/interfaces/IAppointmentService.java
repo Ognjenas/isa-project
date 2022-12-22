@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface IAppointmentService {
     Appointment create(Appointment appointment);
-
     Appointment findById(long id);
-
     void reserve(long id, long userId);
     List<Appointment> getAllFreeByDateAndCenter(LocalDate date, long centerId);
     List<Appointment> getAllByDateAndCenter(LocalDate date, long centerId);
     List<Appointment> getAllFreeByDateTime(LocalDateTime date);
     List<Appointment> getAllFutureAppointments(long centerId, String orderBy);
+    List<Appointment> getAllFutureAppointmentsByUser(long userId);
+    void cancel(long appointmentId, long userId);
 }

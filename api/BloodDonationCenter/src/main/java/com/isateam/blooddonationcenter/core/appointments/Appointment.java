@@ -9,6 +9,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -30,6 +31,9 @@ public class Appointment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id", referencedColumnName = "id", nullable = true)
     private User user;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<AppointmentLog> logs;
 
     private LocalDateTime startTime;
     private int duration;
