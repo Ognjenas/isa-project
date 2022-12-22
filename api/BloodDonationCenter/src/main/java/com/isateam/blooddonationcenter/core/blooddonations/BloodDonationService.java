@@ -62,7 +62,7 @@ public class BloodDonationService implements IBloodDonationService {
     private void fillBloodStorage(BloodDonation bloodDonation) {
         Appointment appointment = appointmentDao.findById(bloodDonation.getAppointment().getId()).orElseThrow(() -> new BadRequestException("Appointment does not exist"));
 //        BloodStorage bloodStorage = bloodStorageDao.findBloodStorageByBloodTypeAndCenter_Id(bloodDonation.getDonationSurvey().getBloodType(),appointment.getCenter().getId());
-        BloodStorage bloodStorage = bloodStorageDao.findBloodStorageByBloodTypeAndCenter_Id(bloodDonation.getDonationSurvey().getBloodType(),1);
+        BloodStorage bloodStorage = bloodStorageDao.findBloodStorageByBloodTypeAndCenter_Id(bloodDonation.getDonationSurvey().getBloodType(),(long)1);
         bloodStorage.setQuantity(bloodStorage.getQuantity()+bloodDonation.getDonationSurvey().getDonatedAmount());
         bloodStorageDao.save(bloodStorage);
     }
