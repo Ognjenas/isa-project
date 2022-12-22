@@ -1,5 +1,4 @@
-import HomeComponent from "../components/home-component"
-import ShowCentersComponent from "../components/show-centers-component"
+import ShowCentersComponent from "../../center/components/show-centers"
 
 
 

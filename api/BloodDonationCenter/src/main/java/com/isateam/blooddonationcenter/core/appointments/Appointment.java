@@ -1,6 +1,8 @@
 package com.isateam.blooddonationcenter.core.appointments;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.isateam.blooddonationcenter.core.centers.Center;
 import com.isateam.blooddonationcenter.core.users.User;
 import lombok.*;
@@ -22,7 +24,7 @@ public class Appointment {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="center_id", nullable=false)
+    @JsonManagedReference
     private Center center;
 
     @ManyToOne(fetch = FetchType.LAZY)

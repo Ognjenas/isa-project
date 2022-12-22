@@ -1,5 +1,7 @@
 package com.isateam.blooddonationcenter.core.centers;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.isateam.blooddonationcenter.core.appointments.Appointment;
 import com.isateam.blooddonationcenter.core.bloodstorage.BloodStorage;
 import com.isateam.blooddonationcenter.core.users.Address;

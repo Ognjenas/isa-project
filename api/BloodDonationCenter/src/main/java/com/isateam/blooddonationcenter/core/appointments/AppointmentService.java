@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -48,4 +49,11 @@ public class AppointmentService implements IAppointmentService {
     public List<Appointment> getAllByDateAndCenter(LocalDate date, long centerId) {
         return appointmentDao.getAllByCenterAndDate(date, centerId);
     }
+
+    @Override
+    public List<Appointment> getAllFreeByDateTime(LocalDateTime date) {
+        return appointmentDao.findAllByStartTimeAndStateEquals(date, AppointmentState.FREE);
+    }
+
+
 }
