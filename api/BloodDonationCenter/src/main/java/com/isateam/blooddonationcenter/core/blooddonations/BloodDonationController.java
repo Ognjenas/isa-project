@@ -18,7 +18,7 @@ import javax.validation.Valid;
 public class BloodDonationController {
     private final IBloodDonationService bloodDonationService;
 
-    @PreAuthorize("hasRole('REGULAR')")
+    @PreAuthorize("hasRole('WORKER')")
     @PostMapping
     public void create(@RequestBody CreateBloodDonationDTO dto) {
         bloodDonationService.create(dto.mapToModel());
