@@ -87,14 +87,11 @@ export class AppointmentService {
     }
 
     parseError(error: any) {
-        if (error.statusCode) {
+        if (error.statusCode)
             return error.message
-        } else {
-            return error.response.data
-        }
+        return error.response.data.message
     }
+
 }
-
-
 
 export const appointmentService = new AppointmentService()

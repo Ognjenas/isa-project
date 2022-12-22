@@ -28,8 +28,8 @@ public interface IAppointmentDao extends PagingAndSortingRepository<Appointment,
 
     List<Appointment> findAllByUserIdAndStartTimeIsAfter(long userId, LocalDateTime startTime);
     List<Appointment> findAllByCenter_Id(long centerId);
-    @Query(value = "SELECT * FROM appointments WHERE (startTime BETWEEN ?1 AND ?2) OR (endTime BETWEEN ?1 AND ?2) OR (startTime < :?1 AND endTime > ?2)",nativeQuery = true)
-    List<Appointment> findOverlapping(LocalDateTime start, LocalDateTime end);
+    @Query(value = "SELECT * FROM appointments WHERE center_id = ?3 and ((start_time BETWEEN ?1 AND ?2) OR (end_time BETWEEN ?1 AND ?2) OR (start_time < ?1 AND end_time > ?2))",nativeQuery = true)
+    List<Appointment> findOverlapping(LocalDateTime start, LocalDateTime end, long centerId);
 
 
 }

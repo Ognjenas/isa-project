@@ -60,6 +60,7 @@ public class AppointmentService implements IAppointmentService {
         appointment.setState(AppointmentState.TAKEN);
         appointment.setUser(user);
         appointmentDao.save(appointment);
+        sendReservationEmail(appointment, user);
         saveAppointmentLog(userId, appointment);
     }
 
@@ -92,14 +93,6 @@ public class AppointmentService implements IAppointmentService {
         appointmentLogDao.save(appointmentLog);
     }
 
-//    private void checkUsersGaveDonations(long userId) {
-//        var appointments = appointmentDao.findAllByUserIdAndStartTimeIsAfter(userId,
-//                LocalDateTime.now().minusMonths(6));
-//        if (!appointments.isEmpty()) {
-//            throw new BadRequestException("You already gave blood in last 6 months or already reserver appointment");      }
-//        sendReservationEmail(appointment, user);
-//    }
-
     @Override
     public List<Appointment> getAllFreeByDateAndCenter(LocalDate date, long centerId) {
         return appointmentDao.getAllFreeByCenterAndDateAsc(date, centerId);
@@ -112,7 +105,6 @@ public class AppointmentService implements IAppointmentService {
 
     @Override
     public List<Appointment> getAllFreeByDateTime(LocalDateTime date, String order) {
-        System.out.println(order);
         if(order.equalsIgnoreCase("asc"))
             return appointmentDao.findAllByStartTimeAndStateOrderByCenter_AverageGradeAsc(date, AppointmentState.FREE);
         return appointmentDao.findAllByStartTimeAndStateOrderByCenter_AverageGradeDesc(date, AppointmentState.FREE);
@@ -188,7 +180,7 @@ public class AppointmentService implements IAppointmentService {
         LocalDateTime startTime = appointment.getStartTime();
         LocalDateTime endTime = startTime.plusMinutes(appointment.getDuration());
 
-        List<Appointment> overlapings = appointmentDao.findOverlapping(startTime, endTime);
+        List<Appointment> overlapings = appointmentDao.findOverlapping(startTime, endTime, appointment.getCenter().getId());
 
         if(overlapings.size() > 0)
             throw new BadRequestException("There is an interval overlapping with given start time and duration!");
