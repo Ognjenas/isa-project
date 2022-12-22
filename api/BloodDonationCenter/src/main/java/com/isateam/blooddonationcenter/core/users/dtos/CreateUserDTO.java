@@ -54,6 +54,7 @@ public class CreateUserDTO {
                 .surname(surname)
                 .activated(false)
                 .role(UserRole.REGULAR)
+                .penaltyPoints(0)
                 .build();
     }
 }
