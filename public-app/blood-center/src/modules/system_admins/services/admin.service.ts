@@ -2,6 +2,7 @@ import { toast } from "react-toastify"
 import { RegistrationDTO } from "../../auth/dtos/registration.dto"
 import axios from "axios"
 import { AdminRegistrationDTO } from "../dtos/admin-registration.dto"
+import { getAxios } from "../../../util/axios-wrapper"
 
 export class AdminService {
 
@@ -12,26 +13,26 @@ export class AdminService {
         const url = `${this.apiUrl}/system-admin`
 
         try {
-            let response = await axios.post(url, registrationDto)
+            let response = await getAxios().post(url, registrationDto)
             toast.success("Succesfully registered!")
             return true
-        } catch(e: any) {
+        } catch (e: any) {
             const message = this.parseError(e.response.data)
-            toast.error(message, {autoClose: 3000})
+            toast.error(message, { autoClose: 3000 })
             return false
         }
     }
 
-    async changePassword(password : string) {
+    async changePassword(password: string) {
         const url = `${this.apiUrl}/system-admin/change-password`
 
         try {
-            let response = await axios.put(url, password)
+            let response = await getAxios().put(url, password)
             toast.success("Succesfully changed password!")
             return true
-        } catch(e: any) {
+        } catch (e: any) {
             const message = this.parseError(e.response.data)
-            toast.error(message, {autoClose: 3000})
+            toast.error(message, { autoClose: 3000 })
             return false
         }
     }
@@ -43,7 +44,7 @@ export class AdminService {
             return 'Data not correct!'
         }
     }
-    
+
 }
 
 export const adminService = new AdminService()
