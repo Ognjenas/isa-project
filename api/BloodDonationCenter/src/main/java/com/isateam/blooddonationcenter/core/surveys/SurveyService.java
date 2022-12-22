@@ -47,6 +47,7 @@ public class SurveyService implements ISurveyService {
                         .id(userUtils.getLoggedId())
                         .build())
                 .writingTime(LocalDateTime.now())
+                .isUsed(false)
                 .build();
 
         surveyDao.save(survey);
