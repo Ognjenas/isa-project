@@ -2,7 +2,7 @@ package com.isateam.blooddonationcenter.core.bloodstorage;
 
 
 import com.isateam.blooddonationcenter.core.centers.Center;
-import com.isateam.blooddonationcenter.core.donations.BloodType;
+import com.isateam.blooddonationcenter.core.blooddonations.BloodType;
 import lombok.*;
 
 import javax.persistence.*;

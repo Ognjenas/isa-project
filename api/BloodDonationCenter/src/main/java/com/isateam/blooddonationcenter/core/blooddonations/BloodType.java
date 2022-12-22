@@ -1,4 +1,4 @@
-package com.isateam.blooddonationcenter.core.donations;
+package com.isateam.blooddonationcenter.core.blooddonations;
 
 public enum BloodType {
     NULL_POSITIVE,
