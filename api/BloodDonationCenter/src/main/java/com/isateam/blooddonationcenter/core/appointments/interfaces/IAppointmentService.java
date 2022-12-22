@@ -1,6 +1,7 @@
 package com.isateam.blooddonationcenter.core.appointments.interfaces;
 
 import com.isateam.blooddonationcenter.core.appointments.Appointment;
+import com.isateam.blooddonationcenter.core.appointments.dtos.AppointmentsForShowDto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,7 +14,12 @@ public interface IAppointmentService {
     List<Appointment> getAllFreeByDateAndCenter(LocalDate date, long centerId);
     List<Appointment> getAllByDateAndCenter(LocalDate date, long centerId);
     List<Appointment> getAllFreeByDateTime(LocalDateTime date);
+
     List<Appointment> getAllFutureAppointments(long centerId, String orderBy);
+
     List<Appointment> getAllFutureAppointmentsByUser(long userId);
     void cancel(long appointmentId, long userId);
+
+    List<AppointmentsForShowDto> getAllAppointmentsForCenter(long centerId);
+
 }

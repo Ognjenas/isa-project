@@ -2,6 +2,7 @@ package com.isateam.blooddonationcenter.core.workers.dtos;
 
 import com.isateam.blooddonationcenter.core.centers.Center;
 import com.isateam.blooddonationcenter.core.users.dtos.CreateUserDTO;
+import com.isateam.blooddonationcenter.core.users.dtos.CreateUserManagerDTO;
 import com.isateam.blooddonationcenter.core.workers.Worker;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 public class CreateWorkerDto {
-    CreateUserDTO user;
+    CreateUserManagerDTO user;
     @NotNull
     long centerId;
 

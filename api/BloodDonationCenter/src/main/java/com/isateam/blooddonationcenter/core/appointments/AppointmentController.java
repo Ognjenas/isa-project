@@ -1,13 +1,15 @@
 package com.isateam.blooddonationcenter.core.appointments;
 
+import com.isateam.blooddonationcenter.core.appointments.dtos.AppointmentsForShowDto;
 import com.isateam.blooddonationcenter.core.appointments.dtos.CreateAppointmentDTO;
 import com.isateam.blooddonationcenter.core.appointments.dtos.ShowAppointmentDTO;
 import com.isateam.blooddonationcenter.core.appointments.dtos.FreeAppointmentsDTO;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentService;
-import com.isateam.blooddonationcenter.core.centers.Center;
 import com.isateam.blooddonationcenter.core.utils.session.UserUtils;
+import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,6 +24,8 @@ import java.util.List;
 public class AppointmentController {
     private final IAppointmentService appointmentService;
     private final UserUtils userUtils;
+
+    private final IUserService userService;
 
 
     @GetMapping("/{id}")
@@ -68,4 +72,11 @@ public class AppointmentController {
     public void cancelAppointment(@PathVariable long appointmentId) {
         appointmentService.cancel(appointmentId, userUtils.getLoggedId());
     }
+
+    @PreAuthorize("hasRole('WORKER')")
+    @GetMapping("/for-worker")
+    public List<AppointmentsForShowDto> getShowAppointments(){
+        return appointmentService.getAllAppointmentsForCenter(userUtils.getLoggedId());
+    }
+
 }
