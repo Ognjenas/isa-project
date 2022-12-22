@@ -22,6 +22,7 @@ import MyAppointments from "../modules/appointments/components/my-appointments"
 import AdminRegistrationForm from "../modules/system_admins/components/register-new-system-admin"
 import AdminChangePasswordForm from "../modules/system_admins/components/change-password"
 import CalendarViewComponent from "../modules/workers/components/calendar"
+import CheckFirstLoginAdmin from "../modules/system_admins/components/check-first-loggin/check-first-loggin.component"
 
 import CreateAppointmentView from "../modules/appointments/views/create-appointment.view"
 import AppointmentsComponent from "../modules/appointments/appointments.component"
@@ -42,7 +43,9 @@ export const routes: RouteObject[] = [
                             <ProtectedWrapper
                                 roles={["REGULAR", "WORKER", "ADMINISTRATOR"]}
                             >
-                                <UpdateProfileView />
+                                <CheckFirstLoginAdmin>
+                                    <UpdateProfileView />
+                                </CheckFirstLoginAdmin>
                             </ProtectedWrapper>
                         ),
                     },
@@ -60,9 +63,9 @@ export const routes: RouteObject[] = [
                         path: "registration",
                         element: (
                             <ProtectedWrapper roles={["ADMINISTRATOR"]}>
-                                <>
+                                <CheckFirstLoginAdmin>
                                     <CenterRegistrationForm />
-                                </>
+                                </CheckFirstLoginAdmin>
                             </ProtectedWrapper>
                         ),
                     },
@@ -72,9 +75,9 @@ export const routes: RouteObject[] = [
                             <ProtectedWrapper
                                 roles={["WORKER", "ADMINISTRATOR"]}
                             >
-                                <>
+                                <CheckFirstLoginAdmin>
                                     <UpdateCenterView />
-                                </>
+                                </CheckFirstLoginAdmin>
                             </ProtectedWrapper>
                         ),
                     },
@@ -94,9 +97,9 @@ export const routes: RouteObject[] = [
                             <ProtectedWrapper
                                 roles={["WORKER", "ADMINISTRATOR"]}
                             >
-                                <>
+                                <CheckFirstLoginAdmin>
                                     <UsersView />
-                                </>
+                                </CheckFirstLoginAdmin>
                             </ProtectedWrapper>
                         ),
                     },
@@ -110,7 +113,9 @@ export const routes: RouteObject[] = [
                 path: "survey",
                 element: (
                     <ProtectedWrapper roles={["REGULAR"]}>
-                        <MakeSurveyComponent />
+                        <CheckFirstLoginAdmin>
+                            <MakeSurveyComponent />
+                        </CheckFirstLoginAdmin>
                     </ProtectedWrapper>
                 ),
             },
@@ -118,7 +123,9 @@ export const routes: RouteObject[] = [
                 path: "/worker/update/:wid",
                 element: (
                     <ProtectedWrapper roles={["ADMINISTRATOR"]}>
-                        <UpdateWorkerView />
+                        <CheckFirstLoginAdmin>
+                            <UpdateWorkerView />
+                        </CheckFirstLoginAdmin>
                     </ProtectedWrapper>
                 ),
             },
@@ -126,7 +133,9 @@ export const routes: RouteObject[] = [
                 path: "worker/registration",
                 element: (
                     <ProtectedWrapper roles={["WORKER", "ADMINISTRATOR"]}>
-                        <WorkerRegistrationForm />
+                        <CheckFirstLoginAdmin>
+                            <WorkerRegistrationForm />
+                        </CheckFirstLoginAdmin>  
                     </ProtectedWrapper>
                 ),
             },
@@ -138,7 +147,9 @@ export const routes: RouteObject[] = [
                 path: "/appointments",
                 element: (
                     <ProtectedWrapper roles={["WORKER", "ADMINISTRATOR"]}>
-                        <AppointmentsComponent />
+                        <CheckFirstLoginAdmin>
+                            <AppointmentsComponent />
+                        </CheckFirstLoginAdmin>
                     </ProtectedWrapper>
                 ),
                 children: [
@@ -161,13 +172,20 @@ export const routes: RouteObject[] = [
                 path: "/my-appointments",
                 element: (
                     <ProtectedWrapper roles={["REGULAR"]}>
-                        <MyAppointments />
+                        <CheckFirstLoginAdmin>
+                            <MyAppointments />
+                        </CheckFirstLoginAdmin>
                     </ProtectedWrapper>
                 )
             },
             {
                 path: "admin/registration",
-                element: <AdminRegistrationForm />,
+                element:(
+                    <ProtectedWrapper roles={["ADMINISTRATOR"]}>
+                        <CheckFirstLoginAdmin>
+                            <AdminRegistrationForm />
+                        </CheckFirstLoginAdmin>
+                    </ProtectedWrapper>),
             },
             {
                 path: "password-change",
@@ -175,7 +193,12 @@ export const routes: RouteObject[] = [
             },
             {
                 path: "calendar-view",
-                element: <CalendarViewComponent />,
+                element: (
+                    <ProtectedWrapper roles={["WORKER"]}>
+                        <CheckFirstLoginAdmin>
+                            <CalendarViewComponent />
+                        </CheckFirstLoginAdmin>
+                    </ProtectedWrapper>),
             },
         ],
     },

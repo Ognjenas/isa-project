@@ -75,7 +75,7 @@ public class AppointmentController {
         appointmentService.cancel(appointmentId, userUtils.getLoggedId());
     }
 
-    @PreAuthorize("hasRole('WORKER')")
+
     @GetMapping("/for-worker")
     public List<AppointmentsForShowDto> getShowAppointments(){
         return appointmentService.getAllAppointmentsForCenter(userUtils.getLoggedId());

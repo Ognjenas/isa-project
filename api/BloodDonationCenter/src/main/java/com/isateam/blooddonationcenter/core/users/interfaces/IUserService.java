@@ -15,4 +15,5 @@ public interface IUserService {
     List<UserProfileDTO> getSearchedUsers(String name, String surname);
     User getByEmail(String email);
     void activateUser(String uuid, long id);
+    boolean checkFirstLoginAdmin(long loggedId);
 }

@@ -3,6 +3,8 @@ package com.isateam.blooddonationcenter.core.users;
 import com.isateam.blooddonationcenter.core.email.EmailDetails;
 import com.isateam.blooddonationcenter.core.email.IEmailService;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
+import com.isateam.blooddonationcenter.core.systemadmins.SystemAdmin;
+import com.isateam.blooddonationcenter.core.systemadmins.interfaces.ISystemAdminDao;
 import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
 import com.isateam.blooddonationcenter.core.users.dtos.UserProfileDTO;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserEntityDao;
@@ -27,6 +29,8 @@ public class UserService implements IUserService {
     private final IEmailService emailService;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final ISystemAdminDao adminDao;
 
     @Override
     public User getOne(long id) {
@@ -93,6 +97,16 @@ public class UserService implements IUserService {
             userEntityDao.save(user);
             userValidationDao.delete(userValidation);
         }
+    }
+
+    @Override
+    public boolean checkFirstLoginAdmin(long loggedId) {
+        User user = userEntityDao.getById(loggedId);
+        if(user.getRole().equals(UserRole.ADMINISTRATOR)){
+            SystemAdmin admin = adminDao.getSystemAdminByUser_Id(loggedId);
+            boolean firstLog = admin.isFirstLogin();
+            return firstLog;
+        }else return false;
     }
 
     private List<UserProfileDTO> mapUsersToProfileDtos(List<User> users) {

@@ -37,6 +37,18 @@ export class AdminService {
         }
     }
 
+    async checkFirstLogin() {
+        const url = `${this.apiUrl}/users/first-login`
+        try {
+            let response = await getAxios().get(url)
+            return response.data
+        } catch (e: any) {
+            const message = this.parseError(e.response.data)
+            toast.error(message, { autoClose: 3000 })
+            return false
+        }
+    }
+
     parseError(error: any) {
         if (error.statusCode) {
             return error.message

@@ -5,8 +5,10 @@ import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
 import com.isateam.blooddonationcenter.core.systemadmins.dtos.ChangeSystemAdminPasswordDto;
 import com.isateam.blooddonationcenter.core.systemadmins.interfaces.ISystemAdminDao;
 import com.isateam.blooddonationcenter.core.systemadmins.interfaces.ISystemAdminService;
+import com.isateam.blooddonationcenter.core.users.User;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserEntityDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +17,7 @@ public class SystemAdminService implements ISystemAdminService {
 
     private final ISystemAdminDao systemAdminDao;
     private final IUserEntityDao userEntityDao;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public SystemAdmin create(SystemAdmin systemAdmin) {
@@ -32,12 +35,12 @@ public class SystemAdminService implements ISystemAdminService {
     }
 
     @Override
-    public SystemAdmin changePassword(String password) {
-        //dobavljanje ulogovanog
-        SystemAdmin admin = new SystemAdmin();
-        //izmedju treba dobaviti ulogovanog admina
-        admin.getUser().setPassword(password);
+    public SystemAdmin changePassword(String password, long idUser) {
+        SystemAdmin admin = systemAdminDao.getSystemAdminByUser_Id(idUser);
+        User user = admin.getUser();
+        user.setPassword(passwordEncoder.encode(password));
         admin.setFirstLogin(false);
+        admin.setUser(user);
         systemAdminDao.save(admin);
         return admin;
     }
