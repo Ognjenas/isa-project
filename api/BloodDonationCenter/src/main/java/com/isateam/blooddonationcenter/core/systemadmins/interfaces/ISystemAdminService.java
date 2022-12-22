@@ -9,5 +9,5 @@ public interface ISystemAdminService {
 
     SystemAdmin getById(long id);
 
-    SystemAdmin changePassword(ChangeSystemAdminPasswordDto updateWorkerDto);
+    SystemAdmin changePassword(String password);
 }

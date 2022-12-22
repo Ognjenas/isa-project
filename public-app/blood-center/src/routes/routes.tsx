@@ -18,7 +18,14 @@ import ShowCentersComponent from "../modules/center/components/show-centers"
 import { ProtectedWrapper } from "../util/protected-wrapper"
 import path from "path"
 import FreeAppointments from "../modules/appointments/components/free-appointments"
+<<<<<<< HEAD
 import MyAppointments from "../modules/appointments/components/my-appointments"
+=======
+import AdminRegistrationForm from "../modules/system_admins/components/register-new-system-admin"
+import AdminChangePasswordForm from "../modules/system_admins/components/change-password"
+import CalendarViewComponent from "../modules/workers/components/calendar"
+
+>>>>>>> 691dca4 (work on calendar)
 
 export const routes: RouteObject[] = [
     {
@@ -137,12 +144,25 @@ export const routes: RouteObject[] = [
                 ),
             },
             {
+<<<<<<< HEAD
                 path: "/my-appointments",
                 element: (
                     <ProtectedWrapper roles={["REGULAR"]}>
                         <MyAppointments />
                     </ProtectedWrapper>
                 ),
+=======
+                path: "admin/registration",
+                element: <AdminRegistrationForm />,
+            },
+            {
+                path: "password-change",
+                element: <AdminChangePasswordForm />,
+            },
+            {
+                path: "calendar-view",
+                element: <CalendarViewComponent />,
+>>>>>>> 691dca4 (work on calendar)
             },
         ],
     },

@@ -32,8 +32,13 @@ public class SystemAdminService implements ISystemAdminService {
     }
 
     @Override
-    public SystemAdmin changePassword(ChangeSystemAdminPasswordDto updateWorkerDto) {
-        //dobavljanje ulogovanog i promena sifre ako je prvi put ulogovan i setovanje flega na false
-        return null;
+    public SystemAdmin changePassword(String password) {
+        //dobavljanje ulogovanog
+        SystemAdmin admin = new SystemAdmin();
+        //izmedju treba dobaviti ulogovanog admina
+        admin.getUser().setPassword(password);
+        admin.setFirstLogin(false);
+        systemAdminDao.save(admin);
+        return admin;
     }
 }

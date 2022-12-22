@@ -1,5 +1,6 @@
 package com.isateam.blooddonationcenter.core.appointments;
 
+import com.isateam.blooddonationcenter.core.appointments.dtos.AppointmentsForShowDto;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentDao;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentLogDao;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentService;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.ArrayList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,10 +24,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AppointmentService implements IAppointmentService {
     private final IAppointmentDao appointmentDao;
-
     private final IUserEntityDao userEntityDao;
     private final IAppointmentLogDao appointmentLogDao;
-
 
     @Override
     public Appointment create(Appointment appointment) {
@@ -124,5 +125,25 @@ public class AppointmentService implements IAppointmentService {
     @Override
     public List<Appointment> getAllFutureAppointmentsByUser(long userId) {
         return appointmentDao.findAllByUserIdAndStartTimeIsAfter(userId, LocalDateTime.now());
+    }
+
+    @Override
+    public List<AppointmentsForShowDto> getAllAppointmentsForCenter(long centerId) {
+        List<Appointment> apps = appointmentDao.findAllByCenter_Id(centerId);
+        List<AppointmentsForShowDto> retList = packShowAppointmentsDto(apps);
+        return retList;
+    }
+
+    private List<AppointmentsForShowDto> packShowAppointmentsDto(List<Appointment> appointments){
+        List<AppointmentsForShowDto> showList = new ArrayList<AppointmentsForShowDto>();
+        for (Appointment app: appointments){
+            AppointmentsForShowDto appointment = new AppointmentsForShowDto();
+            appointment.setTitle(app.getUser().getName()+" "+app.getUser().getSurname());
+            appointment.setStart(app.getStartTime());
+            appointment.setEnd(app.getStartTime().plusMinutes(app.getDuration()));
+            appointment.setAllDay(false);
+            showList.add(appointment);
+        }
+        return showList;
     }
 }

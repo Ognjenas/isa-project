@@ -22,7 +22,7 @@ public class SystemAdminController {
     }
 
     @PutMapping("/change-password")
-    public SystemAdmin updateSystemAdminPassword(@RequestBody ChangeSystemAdminPasswordDto passwordChangeDto){
-        return systemAdminService.changePassword(passwordChangeDto);
+    public SystemAdmin updateSystemAdminPassword(@RequestBody String password ){
+        return systemAdminService.changePassword(password);
     }
 }

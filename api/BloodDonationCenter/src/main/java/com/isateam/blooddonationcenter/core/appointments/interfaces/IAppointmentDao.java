@@ -25,4 +25,6 @@ public interface IAppointmentDao extends JpaRepository<Appointment, Long> {
     List<Appointment> findAllByUserIdAndStartTimeIsAfter(long userId, LocalDateTime startTime);
 
 
+    List<Appointment> findAllByCenter_Id(Number id);
+
 }

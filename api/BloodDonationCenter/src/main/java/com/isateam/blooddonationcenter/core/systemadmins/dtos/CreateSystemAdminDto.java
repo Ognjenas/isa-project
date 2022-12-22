@@ -1,6 +1,6 @@
 package com.isateam.blooddonationcenter.core.systemadmins.dtos;
 import com.isateam.blooddonationcenter.core.systemadmins.SystemAdmin;
-import com.isateam.blooddonationcenter.core.users.dtos.CreateUserDTO;
+import com.isateam.blooddonationcenter.core.users.dtos.CreateUserAdminDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,9 +12,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 
 public class CreateSystemAdminDto {
-    CreateUserDTO user;
-    @NotNull
-    long systemAdminId;
+    CreateUserAdminDTO user;
 
     public SystemAdmin map() {
         return SystemAdmin.builder()

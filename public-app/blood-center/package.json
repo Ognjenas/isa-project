@@ -19,11 +19,12 @@
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react-big-calendar": "^1.5.2",
     "react-dom": "^18.2.0",
     "react-icons": "^4.6.0",
     "react-moment": "^1.1.2",
     "react-router-dom": "^6.4.3",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-toastify": "^9.1.1",
     "typescript": "^4.8.4",
     "web-vitals": "^2.1.4",
@@ -54,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-big-calendar": "^0.38.3",
     "prettier": "^2.7.1"
   }
 }

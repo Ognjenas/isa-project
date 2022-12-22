@@ -1,10 +1,10 @@
 package com.isateam.blooddonationcenter.core.appointments;
 
+import com.isateam.blooddonationcenter.core.appointments.dtos.AppointmentsForShowDto;
 import com.isateam.blooddonationcenter.core.appointments.dtos.CreateAppointmentDTO;
 import com.isateam.blooddonationcenter.core.appointments.dtos.ShowAppointmentDTO;
 import com.isateam.blooddonationcenter.core.appointments.dtos.FreeAppointmentsDTO;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentService;
-import com.isateam.blooddonationcenter.core.centers.Center;
 import com.isateam.blooddonationcenter.core.utils.session.UserUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -67,5 +67,9 @@ public class AppointmentController {
     @PatchMapping("/cancel/{appointmentId}")
     public void cancelAppointment(@PathVariable long appointmentId) {
         appointmentService.cancel(appointmentId, userUtils.getLoggedId());
+    }
+    @GetMapping("/for-worker")
+    public List<AppointmentsForShowDto> getShowAppointments() {
+        return appointmentService.getAllAppointmentsForCenter(userUtils.getLoggedId());
     }
 }
