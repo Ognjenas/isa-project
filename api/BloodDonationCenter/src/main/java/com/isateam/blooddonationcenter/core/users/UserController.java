@@ -5,6 +5,7 @@ import com.isateam.blooddonationcenter.core.users.dtos.SearchUserDTO;
 import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
 import com.isateam.blooddonationcenter.core.users.dtos.UserProfileDTO;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
+import com.isateam.blooddonationcenter.core.utils.session.UserUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +21,7 @@ import java.util.List;
 public class UserController {
 
     private final IUserService userService;
+    private final UserUtils userUtils;
 
     @GetMapping("/{id}")
     public UserProfileDTO getOne(@PathVariable("id") long id) {
@@ -48,5 +50,10 @@ public class UserController {
         String name = searchUserDTO.getName();
         String surname = searchUserDTO.getSurname();
         return userService.getSearchedUsers(name, surname);
+    }
+
+    @GetMapping("/first-login")
+    public boolean getFirstLoginState() {
+        return userService.checkFirstLoginAdmin(userUtils.getLoggedId());
     }
 }

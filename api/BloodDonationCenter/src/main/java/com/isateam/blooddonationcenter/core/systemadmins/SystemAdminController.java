@@ -3,6 +3,7 @@ package com.isateam.blooddonationcenter.core.systemadmins;
 import com.isateam.blooddonationcenter.core.systemadmins.dtos.ChangeSystemAdminPasswordDto;
 import com.isateam.blooddonationcenter.core.systemadmins.dtos.CreateSystemAdminDto;
 import com.isateam.blooddonationcenter.core.systemadmins.interfaces.ISystemAdminService;
+import com.isateam.blooddonationcenter.core.utils.session.UserUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import javax.validation.Valid;
 public class SystemAdminController {
 
     private final ISystemAdminService systemAdminService;
+    private final UserUtils userUtils;
 
     @PostMapping
     public void register(@Valid @RequestBody CreateSystemAdminDto createSystemAdminDto) {
@@ -23,6 +25,7 @@ public class SystemAdminController {
 
     @PutMapping("/change-password")
     public SystemAdmin updateSystemAdminPassword(@RequestBody String password ){
-        return systemAdminService.changePassword(password);
+        long idUser = userUtils.getLoggedId();
+        return systemAdminService.changePassword(password, idUser);
     }
 }
