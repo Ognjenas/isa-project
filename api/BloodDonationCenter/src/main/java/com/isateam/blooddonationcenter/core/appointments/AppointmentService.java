@@ -4,18 +4,24 @@ import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointment
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentService;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
 import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
+import com.isateam.blooddonationcenter.core.surveys.Survey;
 import com.isateam.blooddonationcenter.core.users.User;
+import com.isateam.blooddonationcenter.core.users.interfaces.IUserEntityDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AppointmentService implements IAppointmentService {
     private final IAppointmentDao appointmentDao;
+
+    private final IUserEntityDao userEntityDao;
 
 
     @Override
@@ -26,18 +32,36 @@ public class AppointmentService implements IAppointmentService {
     @Override
     public Appointment findById(long id) {
         return appointmentDao.findById(id).orElseThrow(
-                () ->  new NotFoundException("Appointment not found!")
+                () -> new NotFoundException("Appointment not found!")
         );
     }
 
     @Override
     public void reserve(long id, long userId) {
+        checkUsersSurvey(userId);
+        checkUsersGaveDonations(userId);
         Appointment appointment = findById(id);
-        if(appointment.getState() != AppointmentState.FREE)
+        if (appointment.getState() != AppointmentState.FREE)
             throw new BadRequestException("Appointment is not free!");
         appointment.setState(AppointmentState.TAKEN);
         appointment.setUser(User.builder().id(userId).build());
         appointmentDao.save(appointment);
+    }
+
+    private void checkUsersGaveDonations(long userId) {
+        var appointments = appointmentDao.findAllByUserIdAndStartTimeIsAfter(userId,
+                LocalDateTime.now().minusMonths(6));
+        if (!appointments.isEmpty()) {
+            throw new BadRequestException("You already gave blood in last 6 months or already reserver appointment");
+        }
+
+    }
+
+    private void checkUsersSurvey(long userId) {
+        User user = userEntityDao.findById(userId).orElseThrow(() -> new BadRequestException("User does not exist"));
+        if (user.getSurveys().isEmpty()) {
+            throw new BadRequestException("You must do the survey first");
+        }
     }
 
     @Override
@@ -55,10 +79,12 @@ public class AppointmentService implements IAppointmentService {
         return appointmentDao.findAllByStartTimeAndStateEquals(date, AppointmentState.FREE);
     }
 
-
-    public List<Appointment> getAllFutureAppointments() {
-        var s = appointmentDao.getAllByStartTimeAfterAndStateIs(LocalDateTime.now(), AppointmentState.FREE);
-
-        return appointmentDao.getAllByStartTimeAfterAndStateIs(LocalDateTime.now(), AppointmentState.FREE);
+    @Override
+    public List<Appointment> getAllFutureAppointments(long centerId, String orderBy) {
+        return orderBy.equals("asc") ? appointmentDao
+                .getAllByStartTimeAfterAndStateIsAndCenterIdOrderByStartTimeAsc(LocalDateTime.now(),
+                        AppointmentState.FREE, centerId) :
+                appointmentDao.getAllByStartTimeAfterAndStateIsAndCenterIdOrderByStartTimeDesc(LocalDateTime.now(),
+                        AppointmentState.FREE, centerId);
     }
 }

@@ -15,5 +15,5 @@ public interface IAppointmentService {
     List<Appointment> getAllFreeByDateAndCenter(LocalDate date, long centerId);
     List<Appointment> getAllByDateAndCenter(LocalDate date, long centerId);
     List<Appointment> getAllFreeByDateTime(LocalDateTime date);
-    List<Appointment> getAllFutureAppointments();
+    List<Appointment> getAllFutureAppointments(long centerId, String orderBy);
 }

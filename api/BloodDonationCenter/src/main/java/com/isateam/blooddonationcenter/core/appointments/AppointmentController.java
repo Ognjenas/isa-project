@@ -5,6 +5,7 @@ import com.isateam.blooddonationcenter.core.appointments.dtos.ShowAppointmentDTO
 import com.isateam.blooddonationcenter.core.appointments.dtos.FreeAppointmentsDTO;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentService;
 import com.isateam.blooddonationcenter.core.centers.Center;
+import com.isateam.blooddonationcenter.core.utils.session.UserUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AppointmentController {
     private final IAppointmentService appointmentService;
+    private final UserUtils userUtils;
 
 
     @GetMapping("/{id}")
@@ -44,7 +46,7 @@ public class AppointmentController {
 
     @PatchMapping("/{id}/user/{userId}")
     public void reserveAppointment(@PathVariable long id, @PathVariable long userId) {
-        appointmentService.reserve(id, userId);
+        appointmentService.reserve(id, userUtils.getLoggedId());
     }
 
     @PostMapping
@@ -52,8 +54,8 @@ public class AppointmentController {
         return appointmentService.create(dto.mapToModel());
     }
 
-    @GetMapping("/free")
-    public FreeAppointmentsDTO getFreeAppointments() {
-        return new FreeAppointmentsDTO(appointmentService.getAllFutureAppointments());
+    @GetMapping("/{centerId}/free")
+    public FreeAppointmentsDTO getFreeAppointmentsFromCenter(@PathVariable("centerId") long centerId, @RequestParam(name="sortby") String orderBy) {
+        return new FreeAppointmentsDTO(appointmentService.getAllFutureAppointments(centerId, orderBy));
     }
 }
