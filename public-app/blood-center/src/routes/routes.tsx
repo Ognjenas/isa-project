@@ -27,7 +27,7 @@ import DonateBloodView from "../modules/blood_donation/views/donate-blood";
 
 import CreateAppointmentView from "../modules/appointments/views/create-appointment.view"
 import AppointmentsComponent from "../modules/appointments/appointments.component"
-import WorkerComponent from "../modules/worker"
+import WorkerComponent from "../modules/workers/worker.component"
 
 export const routes: RouteObject[] = [
     {

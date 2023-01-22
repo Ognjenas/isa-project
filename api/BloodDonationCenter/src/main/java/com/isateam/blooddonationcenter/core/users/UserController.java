@@ -35,12 +35,11 @@ public class UserController {
         return new UserProfileDTO(user);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("")
     public UserProfileDTO updateOne(
-            @Valid @RequestBody UpdateUserDTO user,
-            @PathVariable("id") long id
+            @Valid @RequestBody UpdateUserDTO user
     ) {
-        user.setId(id);
+        user.setId(userUtils.getLoggedId());
         User updated = userService.updateOne(user);
         return new UserProfileDTO(updated);
     }

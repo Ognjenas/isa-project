@@ -31,6 +31,7 @@ export class AuthService {
             return response.data
         } catch (e: any) {
             const message = this.parseError(e.response.data)
+            console.log('auth error')
             toast.error(message, { autoClose: 3000 })
             return null
         }

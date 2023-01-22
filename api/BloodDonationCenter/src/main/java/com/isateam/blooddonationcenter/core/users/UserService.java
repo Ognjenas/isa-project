@@ -68,6 +68,8 @@ public class UserService implements IUserService {
                 .address(newUser.getAddress())
                 .profession(newUser.getProfession())
                 .school(newUser.getSchool())
+                .role(oldUser.getRole())
+                .activated(oldUser.isActivated())
                 .build();
     }
 

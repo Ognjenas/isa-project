@@ -26,11 +26,13 @@ export const CalendarViewComponent = () => {
 
     return (
         <Flex
-            justify-content={'center'}
-            align-items={'center'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            width="100%"
+            height="100%"
         >
             <Calendar
-                onSelectEvent={event => navigate("/blood-donation/:" + event.id)}
+                onSelectEvent={event => navigate("/blood-donation/" + event.id)}
                 localizer={localizer}
                 events={events}
                 startAccessor={(event) => { return new Date(event.start) }}

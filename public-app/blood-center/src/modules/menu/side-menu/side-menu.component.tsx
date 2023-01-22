@@ -172,82 +172,16 @@ export const SideMenu = () => {
                         </Flex>
                     </>
                 }
-                {/* 
-               
-                {
-                    role == null &&
-                    <>
-                        <Flex>
-                            <Tooltip label={'Register'}>
-                                <NavLink to={'/users/registration'}>
-                                    <BiUserPlus color='white' size={50} cursor='pointer' />
-                                </NavLink>
-                            </Tooltip>
-                        </Flex>
-                        <Flex>
-                            <Tooltip label={'Login'}>
-                                <NavLink to={'/login'}>
-                                    <CgProfile color='white' cursor='pointer' size={40} />
-                                </NavLink>
-                            </Tooltip>
-                        </Flex>
-                    </>
-                }
-                {
-                    (!isAdministrator && role != null)
-                    &&
-
-                    (<>
-                        <Flex>
-                            <Tooltip label={'Users'}>
-                                <NavLink to={'/users'}>
-                                    <CgProfile color='white' cursor='pointer' size={40} onClick={handleProfile} />
-                                </NavLink>
-                            </Tooltip>
-                        </Flex>
-                        <Flex>
-                            <Tooltip label={'Appointments'}>
-                                <NavLink to={'/appointments'}>
-                                    <BsFillCalendar2WeekFill color='white' size={40} cursor='pointer'></BsFillCalendar2WeekFill>
-                                </NavLink>
-                            </Tooltip>
-                        </Flex>
-                        <Flex>
-                            <Tooltip label={'My Appointments'}>
-                                <NavLink to={'/my-appointments'}>
-                                    <BsBookmarkCheckFill color='white' size={40} cursor='pointer'></BsBookmarkCheckFill>
-                                </NavLink>
-                            </Tooltip>
-                        </Flex>
-
-
-                    </>)
-
-                }
-
-                {
-                    (isAdministrator && role != null) &&
-
-
-                }
-
-                {
-                    (isRegular && role != null) &&
-                    <Flex>
-                        <Tooltip label={'Surveys'}>
-                            <NavLink to={'/survey'}>
-                                <MdOutlineBloodtype color="white" cursor='pointer' size={50} />
-                            </NavLink>
-                        </Tooltip>
-                    </Flex>
-                } */}
-
                 <Spacer />
                 {
                     (role != null) &&
                     <>
-                        <Flex background="green" borderRadius={"50%"} color="white" width="50" minWidth="50" height="50" alignItems='center' justifyContent="center" fontSize='20'>
-                            {loggedUser?.name[0]}
+                        <Flex background="green" onClick={(e) => navigate('/profile/update')} cursor='pointer' borderRadius={"50%"} color="white" width="50" minWidth="50" height="50" alignItems='center' justifyContent="center" fontSize='20'>
+                            <Tooltip label="Profile">
+                                <NavLink to="/profile/update">
+                                    {loggedUser?.name[0]}
+                                </NavLink>
+                            </Tooltip>
                         </Flex>
                         <Flex>
                             <Tooltip label={'Settings'}>
