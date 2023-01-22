@@ -78,6 +78,8 @@ export const ShowCentersComponent = () => {
                 <Tbody>
                     {centers?.map((center, index) => (
                         <Tr
+                            cursor={'pointer'}
+                            _hover={{ background: 'lightgray' }}
                             key={index}
                             onClick={() =>
                                 nav(
