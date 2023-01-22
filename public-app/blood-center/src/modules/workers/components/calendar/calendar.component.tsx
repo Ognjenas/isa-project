@@ -40,7 +40,7 @@ export const CalendarViewComponent = () => {
                     week: true,
                     month: true,
                 }}
-                style={{ height: 900, width: 1200 }}
+                style={{ height: '90%', width: '90%' }}
             />
         </Flex>
     )

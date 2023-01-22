@@ -144,6 +144,13 @@ export const SideMenu = () => {
                                 </NavLink>
                             </Tooltip>
                         </Flex>
+                        <Flex>
+                            <Tooltip label={'Calendar'}>
+                                <NavLink to={'/calendar-view'}>
+                                    <BsFillCalendar2WeekFill color='white' size={40} cursor='pointer'></BsFillCalendar2WeekFill>
+                                </NavLink>
+                            </Tooltip>
+                        </Flex>
                     </>
                 }
                 {

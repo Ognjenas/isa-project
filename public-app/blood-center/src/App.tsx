@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <Flex flex={1}>
         <SideMenu />
-        <Flex width='100%' maxH='100vh' height='100vh' overflowY='scroll'>
+        <Flex width='100%' maxH='100vh' height='100vh' overflowY='scroll' alignItems={'center'}>
           <Outlet />
         </Flex>
       </Flex>
