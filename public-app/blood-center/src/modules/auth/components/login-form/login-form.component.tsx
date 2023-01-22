@@ -56,7 +56,7 @@ export const LoginForm = () => {
         const ok = await login(dto)
 
         if (ok) {
-            setTimeout(() => navigate("/users"), 3000)
+            setTimeout(() => navigate("/users"), 200)
         }
     }
 

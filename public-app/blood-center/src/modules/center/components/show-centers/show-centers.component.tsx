@@ -64,15 +64,15 @@ export const ShowCentersComponent = () => {
             gap={10}
         >
             <CenterFilters onChange={handleFilterChange} />
-            <Table variant="simple" width="90%">
+            <Table variant="simple" width="90%" maxWidth="90%" minWidth="90%" sx={{ tableLayout: 'fixed' }}>
                 <Thead>
                     <Tr>
-                        <Th textAlign={"center"}>Name</Th>
-                        <Th textAlign={"center"}>Description</Th>
-                        <Th textAlign={"center"}>Average grade</Th>
-                        <Th textAlign={"center"}>Country</Th>
-                        <Th textAlign={"center"}>City</Th>
-                        <Th textAlign={"center"}>Address</Th>
+                        <Th textAlign={"center"} >Name</Th>
+                        <Th textAlign={"center"} >Description</Th>
+                        <Th textAlign={"center"} >Average grade</Th>
+                        <Th textAlign={"center"} >Country</Th>
+                        <Th textAlign={"center"} >City</Th>
+                        <Th textAlign={"center"} >Address</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
@@ -82,8 +82,8 @@ export const ShowCentersComponent = () => {
                             onClick={() =>
                                 nav(
                                     "/centers/" +
-                                        center.id +
-                                        "/free-appointments"
+                                    center.id +
+                                    "/free-appointments"
                                 )
                             }
                         >

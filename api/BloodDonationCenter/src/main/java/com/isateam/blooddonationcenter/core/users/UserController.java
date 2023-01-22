@@ -23,6 +23,12 @@ public class UserController {
     private final IUserService userService;
     private final UserUtils userUtils;
 
+    @GetMapping("/me")
+    public UserProfileDTO getMyself() {
+        long id = userUtils.getLoggedId();
+        User user = userService.getOne(id);
+        return new UserProfileDTO(user);
+    }
     @GetMapping("/{id}")
     public UserProfileDTO getOne(@PathVariable("id") long id) {
         User user = userService.getOne(id);
@@ -56,4 +62,6 @@ public class UserController {
     public boolean getFirstLoginState() {
         return userService.checkFirstLoginAdmin(userUtils.getLoggedId());
     }
+
+
 }
