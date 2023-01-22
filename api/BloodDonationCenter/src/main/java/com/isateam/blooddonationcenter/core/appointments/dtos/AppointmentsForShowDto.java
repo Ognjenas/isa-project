@@ -22,5 +22,7 @@ public class AppointmentsForShowDto {
     @NotNull
     private LocalDateTime end;
     private Boolean allDay;
+    @NotNull
+    private long Id;
 
 }

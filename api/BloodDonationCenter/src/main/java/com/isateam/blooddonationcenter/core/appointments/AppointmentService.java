@@ -161,11 +161,12 @@ public class AppointmentService implements IAppointmentService {
         for (Appointment app: appointments){
             AppointmentsForShowDto appointment = new AppointmentsForShowDto();
             if(app.getUser() != null){
-            appointment.setTitle(app.getUser().getName()+" "+app.getUser().getSurname());
-            appointment.setStart(app.getStartTime());
-            appointment.setEnd(app.getStartTime().plusMinutes(app.getDuration()));
-            appointment.setAllDay(false);
-            showList.add(appointment);
+                appointment.setId(app.getId());
+                appointment.setTitle(app.getUser().getName()+" "+app.getUser().getSurname());
+                appointment.setStart(app.getStartTime());
+                appointment.setEnd(app.getStartTime().plusMinutes(app.getDuration()));
+                appointment.setAllDay(false);
+                showList.add(appointment);
             }
         }
         return showList;
