@@ -147,7 +147,7 @@ export const routes: RouteObject[] = [
             {
                 path: "/appointments",
                 element: (
-                    <ProtectedWrapper roles={["WORKER", "ADMINISTRATOR"]}>
+                    <ProtectedWrapper roles={["WORKER", "ADMINISTRATOR", "REGULAR"]}>
                         <CheckFirstLoginAdmin>
                             <AppointmentsComponent />
                         </CheckFirstLoginAdmin>
