@@ -83,6 +83,11 @@ public class AppointmentService implements IAppointmentService {
         if (!appointment.getUser().getId().equals(user.getId())) {
             throw new BadRequestException("Cannot do that");
         }
+
+        if(appointment.getStartTime().minusHours(24).isBefore(LocalDateTime.now())) {
+            throw new BadRequestException("Cannot cancel if less than 24h");
+        }
+
         appointment.setState(AppointmentState.FREE);
         appointment.setUser(null);
         appointmentDao.save(appointment);
