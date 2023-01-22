@@ -1,4 +1,4 @@
-import { Flex, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
+import { Button, Flex, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
 import moment from "moment"
 import { useState } from "react"
 import { CenterDto } from "../../center/components/show-centers/dtos/center.dto"
@@ -31,12 +31,28 @@ export const ShowAppointmentsView = () => {
         setAppointments(data)
     }
 
+    const loadData = async () => {
+        const data = await appointmentService.getFreeAppointmentsForDateTime(startTime, sort)
+        setAppointments(data)
+    }
+
     const convertDate = (date: Date) => {
         if(!date) return ""
         const dt = new Date(date)
         const tzoffset = (new Date()).getTimezoneOffset() * 60000; 
         const localISOTime = moment(new Date(dt.getTime() - tzoffset)).format("YYYY-MM-DD HH:mm")
         return localISOTime
+    }
+
+    
+    const reserveAppointment = async (appointmentId: number) => {
+        const res = await appointmentService.reserveAppointment(
+            appointmentId,
+            1
+        )
+        if (res == true) {
+            loadData()
+        }
     }
 
     return (
@@ -63,7 +79,7 @@ export const ShowAppointmentsView = () => {
                 </Tr>
             </Thead>
             <Tbody>
-                {appointments?.map(({startTime, duration, center}, index) => (
+                {appointments?.map(({startTime, duration, center, id}, index) => (
                     <Tr key={index}>
                         <Td textAlign={"center"}>{center.name}</Td>
                         <Td textAlign={"center"}>{center.description}</Td>
@@ -79,7 +95,15 @@ export const ShowAppointmentsView = () => {
                         </Td>
                         <Td textAlign={"center"}>{convertDate(startTime)}</Td>
                         <Td textAlign={"center"}>{duration}</Td>
-
+                        <Td textAlign={"center"}>
+                                <Button
+                                    colorScheme="teal"
+                                    variant="ghost"
+                                    onClick={() => reserveAppointment(id)}
+                                >
+                                    Reserve
+                                </Button>
+                            </Td>
                     </Tr>
                 ))}
             </Tbody>

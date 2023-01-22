@@ -8,6 +8,7 @@ import com.isateam.blooddonationcenter.core.email.EmailDetails;
 import com.isateam.blooddonationcenter.core.email.IEmailService;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
 import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
+import com.isateam.blooddonationcenter.core.surveys.Survey;
 import com.isateam.blooddonationcenter.core.users.User;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserEntityDao;
 import com.isateam.blooddonationcenter.core.workers.Worker;
@@ -21,6 +22,8 @@ import java.util.Comparator;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -57,6 +60,7 @@ public class AppointmentService implements IAppointmentService {
         Appointment appointment = findById(id);
         if (appointment.getState() != AppointmentState.FREE)
             throw new BadRequestException("Appointment is not free!");
+
         appointment.setState(AppointmentState.TAKEN);
         appointment.setUser(user);
         appointmentDao.save(appointment);
@@ -91,6 +95,24 @@ public class AppointmentService implements IAppointmentService {
                 .time(LocalDateTime.now())
                 .build();
         appointmentLogDao.save(appointmentLog);
+    }
+
+
+    private void checkUsersGaveDonations(long userId) {
+        var appointments = appointmentDao.findAllByUserIdAndStartTimeIsAfter(userId,
+                LocalDateTime.now().minusMonths(6));
+        if (!appointments.isEmpty()) {
+            throw new BadRequestException("You already gave blood in last 6 months or already reserver appointment");
+        }
+
+    }
+
+    private void checkUsersSurvey(long userId) {
+        User user = userEntityDao.findById(userId).orElseThrow(() -> new BadRequestException("User does not exist"));
+        Set<Survey> surveys= user.getSurveys();
+        if(surveys.isEmpty() || surveys.stream().allMatch(Survey::isUsed)){
+            throw new BadRequestException("You must do the survey first");
+        }
     }
 
     @Override
@@ -128,6 +150,7 @@ public class AppointmentService implements IAppointmentService {
     public List<AppointmentsForShowDto> getAllAppointmentsForCenter(long userId) {
         Worker worker = workerDao.findByUser_Id(userId);
         long centerId = worker.getCenter().getId();
+        System.out.println(centerId);
         List<Appointment> inputList = appointmentDao.findAllByCenter_Id(centerId);
         List<AppointmentsForShowDto> returnList = packShowAppointmentsDto(inputList);
         return returnList;
@@ -161,20 +184,20 @@ public class AppointmentService implements IAppointmentService {
         return "Your appointment starts at " + appointment.getStartTime().toString();
     }
 
-    private void checkUsersGaveDonations(long userId) {
-        var appointments = appointmentDao.findAllByUserIdAndStartTimeIsAfter(userId,
-                LocalDateTime.now().minusMonths(6));
-        if (!appointments.isEmpty()) {
-            throw new BadRequestException("You already gave blood in last 6 months or already reserver appointment");
-        }
-    }
-
-    private void checkUsersSurvey(long userId) {
-        User user = userEntityDao.findById(userId).orElseThrow(() -> new BadRequestException("User does not exist"));
-        if (user.getSurveys().isEmpty()) {
-            throw new BadRequestException("You must do the survey first");
-        }
-    }
+//    private void checkUsersGaveDonations(long userId) {
+//        var appointments = appointmentDao.findAllByUserIdAndStartTimeIsAfter(userId,
+//                LocalDateTime.now().minusMonths(6));
+//        if (!appointments.isEmpty()) {
+//            throw new BadRequestException("You already gave blood in last 6 months or already reserver appointment");
+//        }
+//    }
+//
+//    private void checkUsersSurvey(long userId) {
+//        User user = userEntityDao.findById(userId).orElseThrow(() -> new BadRequestException("User does not exist"));
+//        if (user.getSurveys().isEmpty()) {
+//            throw new BadRequestException("You must do the survey first");
+//        }
+//    }
 
     private void validateCreation(Appointment appointment) {
         LocalDateTime startTime = appointment.getStartTime();

@@ -78,6 +78,7 @@ public class AppointmentController {
 
     @GetMapping("/for-worker")
     public List<AppointmentsForShowDto> getShowAppointments(){
+        System.out.println(userUtils.getLoggedId());
         return appointmentService.getAllAppointmentsForCenter(userUtils.getLoggedId());
     }
 

@@ -66,7 +66,9 @@ export class AppointmentService {
         try {
             const url = `${this.url}/appointments/${appointmentId}/user/${userId}`
             const response = await getAxios().patch(url)
+            toast.success("Successfully reserved appointment!")
             if (response.status == 200) return true;
+
         } catch (e: any) {
             const message = this.parseError(e.response.data)
             toast.error(message, { autoClose: 3000 })

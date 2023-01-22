@@ -23,6 +23,7 @@ import AdminRegistrationForm from "../modules/system_admins/components/register-
 import AdminChangePasswordForm from "../modules/system_admins/components/change-password"
 import CalendarViewComponent from "../modules/workers/components/calendar"
 import CheckFirstLoginAdmin from "../modules/system_admins/components/check-first-loggin/check-first-loggin.component"
+import DonateBloodView from "../modules/blood_donation/views/donate-blood";
 
 import CreateAppointmentView from "../modules/appointments/views/create-appointment.view"
 import AppointmentsComponent from "../modules/appointments/appointments.component"
@@ -146,7 +147,7 @@ export const routes: RouteObject[] = [
             {
                 path: "/appointments",
                 element: (
-                    <ProtectedWrapper roles={["WORKER", "ADMINISTRATOR"]}>
+                    <ProtectedWrapper roles={["WORKER", "ADMINISTRATOR", "REGULAR"]}>
                         <CheckFirstLoginAdmin>
                             <AppointmentsComponent />
                         </CheckFirstLoginAdmin>
@@ -199,6 +200,10 @@ export const routes: RouteObject[] = [
                             <CalendarViewComponent />
                         </CheckFirstLoginAdmin>
                     </ProtectedWrapper>),
+            },
+            {
+                path: "blood-donation/:cid",
+                element: <DonateBloodView/>,
             },
         ],
     },

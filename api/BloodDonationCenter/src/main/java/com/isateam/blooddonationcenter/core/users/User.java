@@ -1,5 +1,6 @@
 package com.isateam.blooddonationcenter.core.users;
 
+import com.isateam.blooddonationcenter.core.blooddonations.BloodDonation;
 import com.isateam.blooddonationcenter.core.surveys.Survey;
 import com.isateam.blooddonationcenter.core.users.utils.Sex;
 import lombok.*;
@@ -37,11 +38,12 @@ public class User {
     private String profession;
     private String school;
     private UserRole role;
-
     private boolean activated;
-
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Survey> surveys;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<BloodDonation> bloodDonations;
+    private int penaltyPoints;
 
     public List<GrantedAuthority> getGrantedAuthorities() {
         return AuthorityUtils.createAuthorityList("ROLE_"+role.name());

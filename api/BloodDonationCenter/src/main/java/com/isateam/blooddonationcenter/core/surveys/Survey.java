@@ -26,6 +26,8 @@ public class Survey {
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 
+    private boolean isUsed;
+
     @ManyToMany
     @JoinTable(
             name = "survey_answers",
