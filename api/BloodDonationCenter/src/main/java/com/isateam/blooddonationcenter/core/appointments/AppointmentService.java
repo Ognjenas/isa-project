@@ -110,7 +110,7 @@ public class AppointmentService implements IAppointmentService {
     private void checkUsersSurvey(long userId) {
         User user = userEntityDao.findById(userId).orElseThrow(() -> new BadRequestException("User does not exist"));
         Set<Survey> surveys= user.getSurveys();
-        if(surveys.isEmpty() || surveys.stream().noneMatch(Survey::isUsed)){
+        if(surveys.isEmpty() || surveys.stream().allMatch(Survey::isUsed)){
             throw new BadRequestException("You must do the survey first");
         }
     }
@@ -150,6 +150,7 @@ public class AppointmentService implements IAppointmentService {
     public List<AppointmentsForShowDto> getAllAppointmentsForCenter(long userId) {
         Worker worker = workerDao.findByUser_Id(userId);
         long centerId = worker.getCenter().getId();
+        System.out.println(centerId);
         List<Appointment> inputList = appointmentDao.findAllByCenter_Id(centerId);
         List<AppointmentsForShowDto> returnList = packShowAppointmentsDto(inputList);
         return returnList;
