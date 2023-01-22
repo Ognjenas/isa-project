@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import { UpdateProfileDTO } from "../dtos/update-profile.dto";
 import axios from "axios"
+import { getAxios } from "../../../util/axios-wrapper";
 
 export class ProfileService {
 
@@ -8,22 +9,23 @@ export class ProfileService {
     constructor() { }
 
     async getProfile() {
-        const url = `${this.apiUrl}/users/1`
+        const url = `${this.apiUrl}/users/me`
 
         try {
-            let response = await axios.get(url)
+            let response = await getAxios().get(url)
             return response.data
-        } catch(e: any) {
-            toast.error("Something wrong with loading users", {autoClose: 300})
+        } catch (e: any) {
+            console.log(e)
+            toast.error("Something wrong with loading users", { autoClose: 300 })
         }
 
     }
 
     async updateProfile(updateProfileDTO: UpdateProfileDTO, id: number) {
-        const url = `${this.apiUrl}/users/${id}`
+        const url = `${this.apiUrl}/users`
 
         try {
-            let response = await axios.patch(url, updateProfileDTO)
+            let response = await getAxios().patch(url, updateProfileDTO)
             toast.success("Successfully updated profile!", { autoClose: 3000 })
             return true
         } catch (e: any) {

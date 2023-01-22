@@ -6,7 +6,7 @@ import { getAxios } from "../../../util/axios-wrapper"
 
 export class AuthService {
     private apiUrl: string = "http://localhost:8000"
-    constructor() {}
+    constructor() { }
 
     async registrate(registrationDto: RegistrationDTO) {
         const url = `${this.apiUrl}/users`
@@ -31,8 +31,19 @@ export class AuthService {
             return response.data
         } catch (e: any) {
             const message = this.parseError(e.response.data)
+            console.log('auth error')
             toast.error(message, { autoClose: 3000 })
             return null
+        }
+    }
+
+    async getLoggedUser() {
+        const url = `${this.apiUrl}/users/me`
+        try {
+            let response = await getAxios().get(url)
+            return response.data
+        } catch (e: any) {
+            console.log('user not logged')
         }
     }
 

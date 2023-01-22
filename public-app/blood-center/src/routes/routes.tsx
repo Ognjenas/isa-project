@@ -27,6 +27,7 @@ import DonateBloodView from "../modules/blood_donation/views/donate-blood";
 
 import CreateAppointmentView from "../modules/appointments/views/create-appointment.view"
 import AppointmentsComponent from "../modules/appointments/appointments.component"
+import WorkerComponent from "../modules/workers/worker.component"
 
 export const routes: RouteObject[] = [
     {
@@ -121,25 +122,35 @@ export const routes: RouteObject[] = [
                 ),
             },
             {
-                path: "/worker/update/:wid",
+                path: '/worker',
                 element: (
-                    <ProtectedWrapper roles={["ADMINISTRATOR"]}>
-                        <CheckFirstLoginAdmin>
-                            <UpdateWorkerView />
-                        </CheckFirstLoginAdmin>
-                    </ProtectedWrapper>
-                ),
+                    <ProtectedWrapper roles={["ADMINISTRATOR", "WORKER"]}>
+                        <WorkerComponent />
+                    </ProtectedWrapper>),
+                children: [
+                    {
+                        path: "update/:wid",
+                        element: (
+                            <ProtectedWrapper roles={["ADMINISTRATOR"]}>
+                                <CheckFirstLoginAdmin>
+                                    <UpdateWorkerView />
+                                </CheckFirstLoginAdmin>
+                            </ProtectedWrapper>
+                        ),
+                    },
+                    {
+                        path: "registration",
+                        element: (
+                            <ProtectedWrapper roles={["WORKER", "ADMINISTRATOR"]}>
+                                <CheckFirstLoginAdmin>
+                                    <WorkerRegistrationForm />
+                                </CheckFirstLoginAdmin>
+                            </ProtectedWrapper>
+                        ),
+                    },
+                ]
             },
-            {
-                path: "worker/registration",
-                element: (
-                    <ProtectedWrapper roles={["WORKER", "ADMINISTRATOR"]}>
-                        <CheckFirstLoginAdmin>
-                            <WorkerRegistrationForm />
-                        </CheckFirstLoginAdmin>  
-                    </ProtectedWrapper>
-                ),
-            },
+
             {
                 path: "/login",
                 element: <LoginForm />,
@@ -156,13 +167,13 @@ export const routes: RouteObject[] = [
                 children: [
                     {
                         path: '',
-                        element: <ShowAppointmentsView/>
+                        element: <ShowAppointmentsView />
                     },
                     {
                         path: 'create',
                         element: (
-                            <ProtectedWrapper roles={["ADMINISTRATOR"]}>
-                                <CreateAppointmentView/>
+                            <ProtectedWrapper roles={["ADMINISTRATOR", "REGULAR"]}>
+                                <CreateAppointmentView />
                             </ProtectedWrapper>
                         )
                     }
@@ -181,7 +192,7 @@ export const routes: RouteObject[] = [
             },
             {
                 path: "admin/registration",
-                element:(
+                element: (
                     <ProtectedWrapper roles={["ADMINISTRATOR"]}>
                         <CheckFirstLoginAdmin>
                             <AdminRegistrationForm />
@@ -203,7 +214,7 @@ export const routes: RouteObject[] = [
             },
             {
                 path: "blood-donation/:cid",
-                element: <DonateBloodView/>,
+                element: <DonateBloodView />,
             },
         ],
     },

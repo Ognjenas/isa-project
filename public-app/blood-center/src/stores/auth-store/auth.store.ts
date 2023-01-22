@@ -11,7 +11,8 @@ type AuthStore = AuthStoreActions & AuthStoreState
 
 const state: AuthStoreState = {
     token: null,
-    role: null
+    role: null,
+    loggedUser: null
 }
 
 export const authStoreSlice: StateCreator<
@@ -22,13 +23,15 @@ export const authStoreSlice: StateCreator<
     login: async (authRequest: AuthRequestDTO) => {
         const response = await authService.auth(authRequest)
         if (!response) return false
-        var decoded = jwt_decode(response)
+        let decoded = jwt_decode(response)
         // @ts-ignore
-        var role = decoded.role
+        let role = decoded.role
         set((state) => {
             state.token = response
             state.role = role
         })
+
+        get().getLoggedUser()
         return true
     },
     register: () => { },
@@ -37,7 +40,14 @@ export const authStoreSlice: StateCreator<
             state.token = null
             state.role = null
         })
+    },
+    getLoggedUser: async () => {
+        let logged = await authService.getLoggedUser()
+        set((state) => {
+            state.loggedUser = logged
+        })
     }
+
 })
 
 

@@ -1,0 +1,7 @@
+.side-item .tooltip {
+    display: none;
+}
+
+.side-item:hover > .tooltip {
+    display: flex;
+}

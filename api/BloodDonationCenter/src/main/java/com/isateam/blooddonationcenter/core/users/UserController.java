@@ -23,18 +23,23 @@ public class UserController {
     private final IUserService userService;
     private final UserUtils userUtils;
 
+    @GetMapping("/me")
+    public UserProfileDTO getMyself() {
+        long id = userUtils.getLoggedId();
+        User user = userService.getOne(id);
+        return new UserProfileDTO(user);
+    }
     @GetMapping("/{id}")
     public UserProfileDTO getOne(@PathVariable("id") long id) {
         User user = userService.getOne(id);
         return new UserProfileDTO(user);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("")
     public UserProfileDTO updateOne(
-            @Valid @RequestBody UpdateUserDTO user,
-            @PathVariable("id") long id
+            @Valid @RequestBody UpdateUserDTO user
     ) {
-        user.setId(id);
+        user.setId(userUtils.getLoggedId());
         User updated = userService.updateOne(user);
         return new UserProfileDTO(updated);
     }
@@ -56,4 +61,6 @@ public class UserController {
     public boolean getFirstLoginState() {
         return userService.checkFirstLoginAdmin(userUtils.getLoggedId());
     }
+
+
 }
