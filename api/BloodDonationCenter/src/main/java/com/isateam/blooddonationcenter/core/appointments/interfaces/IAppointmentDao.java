@@ -2,6 +2,7 @@ package com.isateam.blooddonationcenter.core.appointments.interfaces;
 
 import com.isateam.blooddonationcenter.core.appointments.Appointment;
 import com.isateam.blooddonationcenter.core.appointments.AppointmentState;
+import com.isateam.blooddonationcenter.core.users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -26,6 +27,8 @@ public interface IAppointmentDao extends PagingAndSortingRepository<Appointment,
     List<Appointment> getAllByStartTimeAfterAndStateIsAndCenterIdOrderByStartTimeAsc(LocalDateTime from, AppointmentState state, long id);
     List<Appointment> getAllByStartTimeAfterAndStateIsAndCenterIdOrderByStartTimeDesc(LocalDateTime from, AppointmentState state, long id);
 
+    @Query(value="select * from appointments where user_id=?1 and state=2 and center_id=?2", nativeQuery = true)
+    List<Appointment> getUserDonationHistory(long userId, long centerId);
     List<Appointment> findAllByUserIdAndStartTimeIsAfter(long userId, LocalDateTime startTime);
     List<Appointment> findAllByCenter_Id(long centerId);
     @Query(value = "SELECT * FROM appointments WHERE center_id = ?3 and ((start_time BETWEEN ?1 AND ?2) OR (end_time BETWEEN ?1 AND ?2) OR (start_time < ?1 AND end_time > ?2))",nativeQuery = true)

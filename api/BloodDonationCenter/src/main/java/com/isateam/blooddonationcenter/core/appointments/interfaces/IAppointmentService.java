@@ -22,4 +22,6 @@ public interface IAppointmentService {
 
     List<AppointmentsForShowDto> getAllAppointmentsForCenter(long centerId);
 
+    List<Appointment> getUserDonationHistory(long userId, long workerId);
+
 }

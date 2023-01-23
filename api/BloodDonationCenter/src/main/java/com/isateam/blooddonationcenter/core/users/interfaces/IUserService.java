@@ -12,7 +12,7 @@ public interface IUserService {
     User updateOne(UpdateUserDTO user);
     void create(User user);
     List<User> getAllUsers();
-    List<UserProfileDTO> getSearchedUsers(String name, String surname);
+    List<UserProfileDTO> getSearchedUsers(long workerId, String name, String surname);
     User getByEmail(String email);
     void activateUser(String uuid, long id);
     boolean checkFirstLoginAdmin(long loggedId);

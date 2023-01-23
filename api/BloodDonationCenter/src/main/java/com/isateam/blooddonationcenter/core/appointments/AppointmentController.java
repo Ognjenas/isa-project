@@ -1,9 +1,6 @@
 package com.isateam.blooddonationcenter.core.appointments;
 
-import com.isateam.blooddonationcenter.core.appointments.dtos.AppointmentsForShowDto;
-import com.isateam.blooddonationcenter.core.appointments.dtos.CreateAppointmentDTO;
-import com.isateam.blooddonationcenter.core.appointments.dtos.ShowAppointmentDTO;
-import com.isateam.blooddonationcenter.core.appointments.dtos.FreeAppointmentsDTO;
+import com.isateam.blooddonationcenter.core.appointments.dtos.*;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentService;
 import com.isateam.blooddonationcenter.core.utils.session.UserUtils;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
@@ -80,6 +77,12 @@ public class AppointmentController {
     public List<AppointmentsForShowDto> getShowAppointments(){
         System.out.println(userUtils.getLoggedId());
         return appointmentService.getAllAppointmentsForCenter(userUtils.getLoggedId());
+    }
+
+    @GetMapping("donation-history/{userId}")
+    public List<DonationHistoryDTO> getDonationHistory(@PathVariable long userId) {
+        List<Appointment> appointments =  appointmentService.getUserDonationHistory(userId, userUtils.getLoggedId());
+        return appointments.stream().map(a -> new DonationHistoryDTO(a)).toList();
     }
 
 }

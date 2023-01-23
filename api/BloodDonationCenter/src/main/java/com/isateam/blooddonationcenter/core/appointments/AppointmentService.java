@@ -161,6 +161,13 @@ public class AppointmentService implements IAppointmentService {
         return returnList;
     }
 
+    @Override
+    public List<Appointment> getUserDonationHistory(long userId, long workerId) {
+        Worker worker = workerDao.findById(workerId).orElseThrow();
+        long centerId = worker.getCenter().getId();
+        return appointmentDao.getUserDonationHistory(userId, centerId);
+    }
+
     private List<AppointmentsForShowDto> packShowAppointmentsDto(List<Appointment> appointments){
         List<AppointmentsForShowDto> showList = new ArrayList<AppointmentsForShowDto>();
         for (Appointment app: appointments){

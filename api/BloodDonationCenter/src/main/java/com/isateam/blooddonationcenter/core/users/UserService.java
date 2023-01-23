@@ -10,6 +10,8 @@ import com.isateam.blooddonationcenter.core.users.dtos.UserProfileDTO;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserEntityDao;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserValidationDao;
+import com.isateam.blooddonationcenter.core.workers.Worker;
+import com.isateam.blooddonationcenter.core.workers.interfaces.IWorkerDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,8 @@ public class UserService implements IUserService {
     private final PasswordEncoder passwordEncoder;
 
     private final ISystemAdminDao adminDao;
+
+    private final IWorkerDao workerDao;
 
     @Override
     public User getOne(long id) {
@@ -77,10 +81,16 @@ public class UserService implements IUserService {
         return userEntityDao.findAll();
     }
 
-    public List<UserProfileDTO> getSearchedUsers(String name, String surname) {
+    public List<UserProfileDTO> getSearchedUsers(long workerId, String name, String surname) {
+        Worker worker = workerDao.findById(workerId).orElseThrow();
+        long centerId = worker.getCenter().getId();
         if (name.trim().equals("") && surname.trim().equals(""))
-            return mapUsersToProfileDtos(userEntityDao.findAll());
-        List<User> users = userEntityDao.findAllByNameContainingIgnoreCaseAndSurnameContainingIgnoreCase(name, surname);
+//            return mapUsersToProfileDtos(userEntityDao.findAll());
+            return mapUsersToProfileDtos(userEntityDao.findUsersThatDonatedInCenter(centerId));
+//        List<User> users = userEntityDao.findAllByNameContainingIgnoreCaseAndSurnameContainingIgnoreCase(name, surname);
+        String nameSearch = "%".concat(name).concat("%");
+        String surnameSearch = "%".concat(surname).concat("%");
+        List<User> users = userEntityDao.findUsersThatDonatedInCenterBySearch(centerId, nameSearch, surnameSearch);
         return mapUsersToProfileDtos(users);
     }
 

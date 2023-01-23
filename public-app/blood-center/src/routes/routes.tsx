@@ -28,6 +28,7 @@ import DonateBloodView from "../modules/blood_donation/views/donate-blood";
 import CreateAppointmentView from "../modules/appointments/views/create-appointment.view"
 import AppointmentsComponent from "../modules/appointments/appointments.component"
 import WorkerComponent from "../modules/workers/worker.component"
+import { DonationHistory } from "../modules/appointments/components/donation-history/donation-history.component"
 
 export const routes: RouteObject[] = [
     {
@@ -85,7 +86,7 @@ export const routes: RouteObject[] = [
                     },
                     {
                         path: ":cid/free-appointments",
-                        element: <FreeAppointments />,
+                        element: <ProtectedWrapper roles={["REGULAR"]}><FreeAppointments /></ProtectedWrapper>
                     },
                 ],
             },
@@ -172,7 +173,7 @@ export const routes: RouteObject[] = [
                     {
                         path: 'create',
                         element: (
-                            <ProtectedWrapper roles={["ADMINISTRATOR", "REGULAR"]}>
+                            <ProtectedWrapper roles={["WORKER"]}>
                                 <CreateAppointmentView />
                             </ProtectedWrapper>
                         )
@@ -216,6 +217,13 @@ export const routes: RouteObject[] = [
                 path: "blood-donation/:cid",
                 element: <DonateBloodView />,
             },
+            {
+                path: "donation-history/:userId",
+                element: (
+                    <ProtectedWrapper roles={["WORKER"]}>
+                        <DonationHistory />
+                    </ProtectedWrapper>)
+            }
         ],
     },
 ]
