@@ -50,4 +50,6 @@ public class Center {
     @OneToMany(mappedBy = "center", fetch = FetchType.LAZY)
     private Set<BloodStorage> bloodStorage;
 
+    private boolean locked = false;
+
 }

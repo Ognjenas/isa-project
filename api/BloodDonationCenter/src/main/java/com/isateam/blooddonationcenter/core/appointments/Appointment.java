@@ -39,4 +39,8 @@ public class Appointment {
     private int duration;
     private AppointmentState state;
     private LocalDateTime endTime;
+
+    @Version
+    private long version = 0;
+
 }

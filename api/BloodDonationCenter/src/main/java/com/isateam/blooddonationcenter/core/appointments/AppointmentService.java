@@ -4,6 +4,8 @@ import com.isateam.blooddonationcenter.core.appointments.dtos.AppointmentsForSho
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentDao;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentLogDao;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentService;
+import com.isateam.blooddonationcenter.core.centers.Center;
+import com.isateam.blooddonationcenter.core.centers.interfaces.CenterDao;
 import com.isateam.blooddonationcenter.core.email.EmailDetails;
 import com.isateam.blooddonationcenter.core.email.IEmailService;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
@@ -14,8 +16,10 @@ import com.isateam.blooddonationcenter.core.users.interfaces.IUserEntityDao;
 import com.isateam.blooddonationcenter.core.workers.Worker;
 import com.isateam.blooddonationcenter.core.workers.interfaces.IWorkerDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -32,14 +36,22 @@ public class AppointmentService implements IAppointmentService {
     private final IUserEntityDao userEntityDao;
     private final IAppointmentLogDao appointmentLogDao;
     private final IWorkerDao workerDao;
+    private final CenterDao centerDao;
 
     private final IEmailService emailService;
 
 
     @Override
+    @Transactional
     public Appointment create(Appointment appointment) {
+        Center center = centerDao.findById(appointment.getCenter().getId()).orElseThrow();
+        center.setLocked(true);
+        centerDao.save(center);
         validateCreation(appointment);
-        return appointmentDao.save(appointment);
+        var returnValue = appointmentDao.save(appointment);
+        center.setLocked(false);
+        centerDao.save(center);
+        return returnValue;
     }
 
     @Override
