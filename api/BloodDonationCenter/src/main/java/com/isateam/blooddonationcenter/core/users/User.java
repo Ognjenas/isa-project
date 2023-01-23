@@ -22,7 +22,7 @@ public class User {
     @Id
     @SequenceGenerator(name = "user_seq",
             sequenceName = "user_sequence",
-            initialValue = 3)
+            initialValue = 300000)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     private Long id;
     private String email;
