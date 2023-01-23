@@ -52,8 +52,8 @@ INSERT INTO public.survey_possible_answers (id, answer, question_id) VALUES (28,
 INSERT INTO public.survey_possible_answers (id, answer, question_id) VALUES (29, 'true', 15);
 INSERT INTO public.survey_possible_answers (id, answer, question_id) VALUES (30, 'false', 15);
 
-INSERT INTO public.centers (id, average_grade, description, name, address_id) VALUES (1, 3, 'Ovo je centar', 'Novosadski', 2);
-INSERT INTO public.centers (id, average_grade, description, name, address_id) VALUES (2, 5, 'Neka deskripcija za dobojski', 'Dobojski', 3);
+INSERT INTO public.centers (id, average_grade, description, name, address_id, locked) VALUES (1, 3, 'Ovo je centar', 'Novosadski', 2, false);
+INSERT INTO public.centers (id, average_grade, description, name, address_id, locked) VALUES (2, 5, 'Neka deskripcija za dobojski', 'Dobojski', 3, false);
 
 INSERT INTO public.users (id, email, name, password, profession, role, school, sex, surname, uid, address_id, activated,penalty_points) VALUES (1, 'stjepanovic@gmail.com', 'Srdjan', '$2a$10$4Xqed/OjxhMp3XZARYlN9ue7eGwyqqOP1vzPdV2gcXqIAkJcIFZ1u', 'Profesija', 0, 'Skola', 0, 'Stjepanovic', '1234787898789', 1, true,0);
 INSERT INTO public.users (id, email, name, password, profession, role, school, sex, surname, uid, address_id, activated,penalty_points) VALUES (5, 'stjepanovic2@gmail.com', 'Srdjan', '$2a$10$4Xqed/OjxhMp3XZARYlN9ue7eGwyqqOP1vzPdV2gcXqIAkJcIFZ1u', 'Profesija', 0, 'Skola', 0, 'Stjepanovic', '1234787898789', 1, true,0);

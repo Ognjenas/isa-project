@@ -4,6 +4,8 @@ import com.isateam.blooddonationcenter.core.appointments.dtos.AppointmentsForSho
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentDao;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentLogDao;
 import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentService;
+import com.isateam.blooddonationcenter.core.centers.Center;
+import com.isateam.blooddonationcenter.core.centers.interfaces.CenterDao;
 import com.isateam.blooddonationcenter.core.email.EmailDetails;
 import com.isateam.blooddonationcenter.core.email.IEmailService;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
@@ -34,14 +36,22 @@ public class AppointmentService implements IAppointmentService {
     private final IUserEntityDao userEntityDao;
     private final IAppointmentLogDao appointmentLogDao;
     private final IWorkerDao workerDao;
+    private final CenterDao centerDao;
 
     private final IEmailService emailService;
 
 
     @Override
+    @Transactional
     public Appointment create(Appointment appointment) {
+        Center center = centerDao.findById(appointment.getCenter().getId()).orElseThrow();
+        center.setLocked(true);
+        centerDao.save(center);
         validateCreation(appointment);
-        return appointmentDao.save(appointment);
+        var returnValue = appointmentDao.save(appointment);
+        center.setLocked(false);
+        centerDao.save(center);
+        return returnValue;
     }
 
     @Override
