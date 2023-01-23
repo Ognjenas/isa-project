@@ -88,6 +88,16 @@ export class AppointmentService {
         }
     }
 
+    async getDonationHistory(userId: number) {
+        try {
+            const url = `${this.url}/appointments/donation-history/${userId}`
+            const response = await getAxios().get(url)
+            return response.data
+        } catch (e: any) {
+            console.log(e)
+        }
+    }
+
     parseError(error: any) {
         if (error.statusCode)
             return error.message

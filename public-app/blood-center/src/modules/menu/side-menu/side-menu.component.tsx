@@ -85,13 +85,6 @@ export const SideMenu = () => {
                                 </NavLink>
                             </Tooltip>
                         </Flex>
-                        <Flex>
-                            <Tooltip label={'Create Appointment'}>
-                                <NavLink to={'/appointments/create'}>
-                                    <BsFillCalendarPlusFill color='white' size={40} cursor='pointer'></BsFillCalendarPlusFill>
-                                </NavLink>
-                            </Tooltip>
-                        </Flex>
                     </>
                 }
                 {
@@ -108,13 +101,6 @@ export const SideMenu = () => {
                             <Tooltip label={'My Appointments'}>
                                 <NavLink to={'/my-appointments'}>
                                     <BsBookmarkCheckFill color='white' size={40} cursor='pointer'></BsBookmarkCheckFill>
-                                </NavLink>
-                            </Tooltip>
-                        </Flex>
-                        <Flex>
-                            <Tooltip label={'Create Appointment'}>
-                                <NavLink to={'/appointments/create'}>
-                                    <BsFillCalendarPlusFill color='white' size={40} cursor='pointer'></BsFillCalendarPlusFill>
                                 </NavLink>
                             </Tooltip>
                         </Flex>
@@ -138,9 +124,9 @@ export const SideMenu = () => {
                             </Tooltip>
                         </Flex>
                         <Flex>
-                            <Tooltip label={'My Appointments'}>
-                                <NavLink to={'/my-appointments'}>
-                                    <BsBookmarkCheckFill color='white' size={40} cursor='pointer'></BsBookmarkCheckFill>
+                            <Tooltip label={'Create Appointment'}>
+                                <NavLink to={'/appointments/create'}>
+                                    <BsFillCalendarPlusFill color='white' size={40} cursor='pointer'></BsFillCalendarPlusFill>
                                 </NavLink>
                             </Tooltip>
                         </Flex>

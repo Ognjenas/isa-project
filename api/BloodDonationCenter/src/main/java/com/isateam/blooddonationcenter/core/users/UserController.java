@@ -54,7 +54,7 @@ public class UserController {
     public List<UserProfileDTO> getSearched(@RequestBody SearchUserDTO searchUserDTO) {
         String name = searchUserDTO.getName();
         String surname = searchUserDTO.getSurname();
-        return userService.getSearchedUsers(name, surname);
+        return userService.getSearchedUsers(userUtils.getLoggedId(), name, surname);
     }
 
     @GetMapping("/first-login")

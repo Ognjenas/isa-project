@@ -50,6 +50,19 @@ export const MyAppointments = () => {
             alignItems="center"
             gap={10}
         >
+            <Flex
+                width="100%"
+                paddingLeft="20px"
+                height="80px"
+                position="sticky"
+                top={0}
+                left={0}
+                boxShadow="base"
+                backgroundColor="#2e3034"
+                alignItems="center"
+                justifyContent={"flex-start"}
+                gap={15}
+            ></Flex>
             <Table variant="simple" width="90%">
                 <Thead>
                     <Tr>
