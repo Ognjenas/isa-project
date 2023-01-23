@@ -49,7 +49,7 @@ public class AppointmentServiceTest {
                 System.out.println("Startovan Thread 1");
                 var appointment = appointmentDao.findById(600L);
                 appointment.orElseThrow().setState(AppointmentState.TAKEN);
-                try { Thread.sleep(3000); } catch (InterruptedException e) {}// thread uspavan na 3 sekunde da bi drugi thread mogao da izvrsi istu operaciju
+                try { Thread.sleep(3000); } catch (InterruptedException e) {}
                 appointmentDao.save(appointment.orElseThrow());
 
             }
@@ -59,7 +59,7 @@ public class AppointmentServiceTest {
             @Override
             public void run() {
                 System.out.println("Startovan Thread 1");
-                var appointment = appointmentDao.findById(6L);
+                var appointment = appointmentDao.findById(600L);
                 appointment.orElseThrow().setState(AppointmentState.TAKEN);
                 appointmentDao.save(appointment.orElseThrow());
             }
