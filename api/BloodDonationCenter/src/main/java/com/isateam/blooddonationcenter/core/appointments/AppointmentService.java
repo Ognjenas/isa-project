@@ -14,8 +14,10 @@ import com.isateam.blooddonationcenter.core.users.interfaces.IUserEntityDao;
 import com.isateam.blooddonationcenter.core.workers.Worker;
 import com.isateam.blooddonationcenter.core.workers.interfaces.IWorkerDao;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
