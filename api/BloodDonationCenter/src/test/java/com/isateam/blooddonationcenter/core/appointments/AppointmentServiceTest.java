@@ -59,7 +59,7 @@ public class AppointmentServiceTest {
             @Override
             public void run() {
                 System.out.println("Startovan Thread 1");
-                var appointment = appointmentDao.findById(6L);
+                var appointment = appointmentDao.findById(600L);
                 appointment.orElseThrow().setState(AppointmentState.TAKEN);
                 appointmentDao.save(appointment.orElseThrow());
             }
