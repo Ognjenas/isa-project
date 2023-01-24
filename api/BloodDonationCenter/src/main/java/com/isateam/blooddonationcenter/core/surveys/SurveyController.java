@@ -2,6 +2,7 @@ package com.isateam.blooddonationcenter.core.surveys;
 
 import com.isateam.blooddonationcenter.core.surveys.dtos.CreateSurveyDTO;
 import com.isateam.blooddonationcenter.core.surveys.dtos.SurveyQuestionsDTO;
+import com.isateam.blooddonationcenter.core.surveys.dtos.UserSurveyDTO;
 import com.isateam.blooddonationcenter.core.surveys.interfaces.ISurveyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +23,13 @@ public class SurveyController {
     @GetMapping
     public SurveyQuestionsDTO getAllQuestions() {
         return new SurveyQuestionsDTO(surveyService.getQuestions());
+    }
+
+
+    @PreAuthorize("hasRole('WORKER')")
+    @GetMapping(path = "/{id}")
+    public UserSurveyDTO getSurveyForUserByAppointmentId(@PathVariable long id){
+        return surveyService.getAnswers(id);
     }
 
     @PostMapping

@@ -8,6 +8,20 @@ export class SurveyService {
 
     constructor() {}
 
+    async getUserAnswersByAppointmentId(appId:number){
+        const url = `${this.apiUrl}/surveys/`+appId;
+
+        try {
+            let response = await getAxios().get(url)
+            return response.data
+        } catch (e: any) {
+            console.log(e)
+            const message = this.parseError(e.response.data)
+            toast.error(message, { autoClose: 3000 })
+            return false
+        }
+    }
+
     async getQuestions() {
         const url = `${this.apiUrl}/surveys`
 
