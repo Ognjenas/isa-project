@@ -82,12 +82,14 @@ public class UserService implements IUserService {
     }
 
     public List<UserProfileDTO> getSearchedUsers(long workerId, String name, String surname) {
-        Worker worker = workerDao.findById(workerId).orElseThrow();
+        Worker worker = workerDao.findByUser_Id(workerId);
+        if (worker == null)
+            throw new BadRequestException("Worker does not exist");
+
         long centerId = worker.getCenter().getId();
         if (name.trim().equals("") && surname.trim().equals(""))
-//            return mapUsersToProfileDtos(userEntityDao.findAll());
             return mapUsersToProfileDtos(userEntityDao.findUsersThatDonatedInCenter(centerId));
-//        List<User> users = userEntityDao.findAllByNameContainingIgnoreCaseAndSurnameContainingIgnoreCase(name, surname);
+
         String nameSearch = "%".concat(name).concat("%");
         String surnameSearch = "%".concat(surname).concat("%");
         List<User> users = userEntityDao.findUsersThatDonatedInCenterBySearch(centerId, nameSearch, surnameSearch);
@@ -114,11 +116,11 @@ public class UserService implements IUserService {
     @Override
     public boolean checkFirstLoginAdmin(long loggedId) {
         User user = userEntityDao.getById(loggedId);
-        if(user.getRole().equals(UserRole.ADMINISTRATOR)){
+        if (user.getRole().equals(UserRole.ADMINISTRATOR)) {
             SystemAdmin admin = adminDao.getSystemAdminByUser_Id(loggedId);
             boolean firstLog = admin.isFirstLogin();
             return firstLog;
-        }else return false;
+        } else return false;
     }
 
     private List<UserProfileDTO> mapUsersToProfileDtos(List<User> users) {
