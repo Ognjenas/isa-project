@@ -105,7 +105,6 @@ public class CenterService implements ICenterService {
         return mapToAllCentersDto(centers);
     }
 
-
     private AllCentersDto mapToAllCentersDto(List<Center> centers) {
         return new AllCentersDto(centers.stream().map(c -> CenterDto.builder()
                 .id(c.getId())

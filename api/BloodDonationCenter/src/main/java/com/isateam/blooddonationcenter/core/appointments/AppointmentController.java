@@ -105,5 +105,4 @@ public class AppointmentController {
     public boolean checkAppointment(@PathVariable long id){
          return appointmentService.checkAppointment(id);
     }
-
 }

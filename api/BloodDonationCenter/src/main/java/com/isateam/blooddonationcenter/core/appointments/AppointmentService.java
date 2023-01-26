@@ -178,6 +178,7 @@ public class AppointmentService implements IAppointmentService {
     }
 
     @Override
+<<<<<<< HEAD
     public List<Appointment> getAllUsersPastAppointments(long userId, String orderBy) {
         if (orderBy.equals("asc")) {
             return appointmentDao.findAllByUser_IdAndStateAndStartTimeBeforeOrderByStartTimeAsc(userId,
@@ -187,6 +188,8 @@ public class AppointmentService implements IAppointmentService {
                 AppointmentState.TAKEN, LocalDateTime.now());
     }
 
+=======
+>>>>>>> f46dba1 (Patient can make appointment for self and worker can open appointment outside calendar by id)
     @Transactional
     public Appointment createForSelf(Appointment appointment) {
         checkUsersSurvey(appointment.getUser().getId());
