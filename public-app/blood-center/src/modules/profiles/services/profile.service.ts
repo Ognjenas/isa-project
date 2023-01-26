@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import { UpdateProfileDTO } from "../dtos/update-profile.dto";
 import axios from "axios"
 import { getAxios } from "../../../util/axios-wrapper";
+import {UpdatePasswordDto} from "../components/update-password-form/update-password-form.component";
 
 export class ProfileService {
 
@@ -36,6 +37,19 @@ export class ProfileService {
 
     }
 
+    async updatePassword(dto: UpdatePasswordDto) {
+        const url = `${this.apiUrl}/users/password`
+
+        let response = await getAxios().patch(url, dto)
+        if(response.data == true){
+            toast.success("Successfully updated password!", { autoClose: 3000 })
+            return true
+        } else {
+            const message = "Password update failed!"
+            toast.error(message, {autoClose: 3000})
+            return false
+        }
+    }
 
     parseError(error: any) {
         if (error.statusCode) {
@@ -44,6 +58,8 @@ export class ProfileService {
             return 'Data not correct!'
         }
     }
+
+
 }
 
 

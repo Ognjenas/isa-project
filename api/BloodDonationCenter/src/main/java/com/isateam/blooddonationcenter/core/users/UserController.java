@@ -1,9 +1,6 @@
 package com.isateam.blooddonationcenter.core.users;
 
-import com.isateam.blooddonationcenter.core.users.dtos.CreateUserDTO;
-import com.isateam.blooddonationcenter.core.users.dtos.SearchUserDTO;
-import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
-import com.isateam.blooddonationcenter.core.users.dtos.UserProfileDTO;
+import com.isateam.blooddonationcenter.core.users.dtos.*;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
 import com.isateam.blooddonationcenter.core.utils.session.UserUtils;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +26,7 @@ public class UserController {
         User user = userService.getOne(id);
         return new UserProfileDTO(user);
     }
+
     @GetMapping("/{id}")
     public UserProfileDTO getOne(@PathVariable("id") long id) {
         User user = userService.getOne(id);
@@ -44,13 +42,18 @@ public class UserController {
         return new UserProfileDTO(updated);
     }
 
+    @PatchMapping("/password")
+    public boolean changePassword(@Valid @RequestBody ChangePasswordDTO dto){
+        return userService.changePassword(dto,userUtils.getLoggedId());
+    }
+
     @PostMapping
     public void register(@Valid @RequestBody CreateUserDTO createUserDTO) {
         userService.create(createUserDTO.map());
     }
 
-    @Secured({"WORKER","ADMINISTRATOR"})
-    @PostMapping ("/search")
+    @Secured({"WORKER", "ADMINISTRATOR"})
+    @PostMapping("/search")
     public List<UserProfileDTO> getSearched(@RequestBody SearchUserDTO searchUserDTO) {
         String name = searchUserDTO.getName();
         String surname = searchUserDTO.getSurname();

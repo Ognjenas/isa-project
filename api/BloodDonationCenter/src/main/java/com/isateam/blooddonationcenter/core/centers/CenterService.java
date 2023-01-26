@@ -10,6 +10,10 @@ import com.isateam.blooddonationcenter.core.centers.interfaces.ICenterService;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
 import com.isateam.blooddonationcenter.core.errorhandling.NotFoundException;
 import com.isateam.blooddonationcenter.core.users.Address;
+import com.isateam.blooddonationcenter.core.users.User;
+import com.isateam.blooddonationcenter.core.users.UserRole;
+import com.isateam.blooddonationcenter.core.users.interfaces.IUserEntityDao;
+import com.isateam.blooddonationcenter.core.workers.Worker;
 import com.isateam.blooddonationcenter.core.workers.interfaces.IWorkerDao;
 import com.isateam.blooddonationcenter.core.worktime.WorkTime;
 import com.isateam.blooddonationcenter.core.worktime.dtos.WorkTimeDto;
@@ -25,9 +29,10 @@ import java.util.stream.Collectors;
 public class CenterService implements ICenterService {
 
     private final CenterDao centerDao;
-
+    private final IUserEntityDao userEntityDao;
     private final ICenterCustomDao centerCustomDao;
     private final IWorkTimeDao workTimeDao;
+    private final IWorkerDao workerDao;
 
     @Override
     public AllCentersDto getAll(Map<String, String> map) {
@@ -54,8 +59,10 @@ public class CenterService implements ICenterService {
     }
 
     @Override
-    public CenterDto getById(long id) {
-        Center center=centerDao.findById(id).orElseThrow(() -> new NotFoundException("Center doesnt exist"));
+    public CenterDto getById(long id,long user_id) {
+        User user = userEntityDao.findById(user_id).orElseThrow(() -> new NotFoundException("User doesn't exist"));
+        checkIfWorkerCenter(id,user);
+        Center center=centerDao.findById(id).orElseThrow(() -> new NotFoundException("Center doesn't exist"));
         List<WorkTimeDto> workTimes= new ArrayList<>();
         center.getWorkTime().stream().forEach(workTime -> workTimes.add(new WorkTimeDto(workTime)));
         Collections.sort(workTimes,(a,b)-> { return a.getDay().compareTo(b.getDay()); });
@@ -66,6 +73,17 @@ public class CenterService implements ICenterService {
                 .averageGrade(center.getAverageGrade())
                 .workTime(workTimes)
                 .build();
+    }
+
+    private void checkIfWorkerCenter(long center_id, User user) {
+        if(user.getRole()== UserRole.WORKER){
+            Worker worker = workerDao.findByUser_Id(user.getId());
+            if(worker==null)
+                throw new NotFoundException("Worker doesn't exist");
+
+            if(center_id!=worker.getCenter().getId())
+                throw new BadRequestException("This center isn't from this Worker!");
+        }
     }
 
 

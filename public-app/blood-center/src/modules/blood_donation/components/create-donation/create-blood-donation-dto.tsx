@@ -10,9 +10,7 @@ import {bloodDonationService} from "../../services/blood_donation.service";
 import {profileService} from "../../../profiles/services/profile.service";
 import {surveyService} from "../../../surveys/services/survey.service";
 import TemplateErrorSelect from "../../../shared/components/template-form/components/template-error-select";
-import {
-    SelectElementTemp
-} from "../../../shared/components/template-form/components/template-error-select/template-error.select.component";
+import {SelectElementTemp} from "../../../shared/components/template-form/components/template-error-select/template-error.select.component";
 
 export interface CreateBloodDonationDto {
     appointmentId:number
@@ -48,7 +46,7 @@ export const CreateBloodDonationForm = () => {
     const [answers,setAnswers] = useState<QApair[]>([])
     const navigate = useNavigate()
 
-    const bloodTypes:SelectElementTemp[]=[
+    const bloodTypes: SelectElementTemp [] =[
         {
             value: "0",
             label: "NULL_POSITIVE"
@@ -254,13 +252,6 @@ export const CreateBloodDonationForm = () => {
                     onSubmit={handleSubmit}
                 >
                     <>
-                       {/* <TemplateErrorInput
-                            isValid={errors.bloodType.isValid}
-                            error={errors.bloodType.errors[0]}
-                            value={bloodType.toString()}
-                            label={"Blood Type"}
-                            onChange={(e) => setBloodType(e.target.value)}
-                        />*/}
                         <TemplateErrorSelect
                             elements={bloodTypes}
                             label={"Blood Type"}

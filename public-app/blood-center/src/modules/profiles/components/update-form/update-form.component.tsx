@@ -1,18 +1,36 @@
-import { Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Grid, GridItem, Input, Radio, RadioGroup, Stack } from "@chakra-ui/react"
-import { setuid } from "process"
-import { useEffect, useState } from "react"
+import {
+    Button,
+    Flex,
+    FormControl,
+    FormErrorMessage,
+    FormHelperText,
+    FormLabel,
+    Grid,
+    GridItem,
+    Input,
+    Radio,
+    RadioGroup,
+    Stack
+} from "@chakra-ui/react"
+import {setuid} from "process"
+import {useEffect, useState} from "react"
 import TemplateErrorInput from "../../../shared/components/template-form/components/template-error-input"
 import TemplateErrorRadio from "../../../shared/components/template-form/components/template-error-radio"
 import TemplateForm from "../../../shared/components/template-form"
-import { Sex } from "../../../shared/utils/constants"
-import { useValidator } from "../../../shared/utils/form-validator.hook"
-import { FormValidator, ValidationField } from "../../../shared/utils/form.validator"
-import { UpdateProfileDTO } from "../../dtos/update-profile.dto"
-import { profileService } from "../../services/profile.service"
-import { useNavigate } from "react-router-dom"
+import {Sex} from "../../../shared/utils/constants"
+import {useValidator} from "../../../shared/utils/form-validator.hook"
+import {FormValidator, ValidationField} from "../../../shared/utils/form.validator"
+import {UpdateProfileDTO} from "../../dtos/update-profile.dto"
+import {profileService} from "../../services/profile.service"
+import {NavLink, useNavigate} from "react-router-dom"
+import {useAuthStore} from "../../../../stores/auth-store/auth.store";
+import {workerService} from "../../../workers/services/worker.service";
 
 
 export const UpdateProfileForm = () => {
+
+    const role = useAuthStore(state => state.role)
+
     const [id, setId] = useState(-1)
     const [name, setName] = useState("")
     const [surname, setSurname] = useState("")
@@ -25,6 +43,8 @@ export const UpdateProfileForm = () => {
     const [street, setStreet] = useState("")
     const [streetNumber, setStreetNumber] = useState("")
     const [addressId, setAddressId] = useState(0)
+    const [isWorker, setIsWorker] = useState(role === 'WORKER')
+    const [centerId, setCenterId] = useState(-1)
     const navigate = useNavigate()
 
     const handleOnMounted = async () => {
@@ -42,6 +62,12 @@ export const UpdateProfileForm = () => {
         setStreet(user.address.street)
         setStreetNumber(user.address.number)
         setAddressId(user.address.id)
+
+        if (isWorker) {
+            let res = await workerService.getWorkerCenter()
+            setCenterId(res)
+        }
+
     }
 
 
@@ -101,7 +127,9 @@ export const UpdateProfileForm = () => {
 
     let [errors, valid] = useValidator(fields)
 
-    useEffect(() => { handleOnMounted() }, [])
+    useEffect(() => {
+        handleOnMounted()
+    }, [])
 
     const handleSubmit = async () => {
         if (!valid) {
@@ -129,8 +157,10 @@ export const UpdateProfileForm = () => {
         }
     }
 
+
     return (
-        <Flex margin='auto' borderRadius={10} justifyContent='center' width='100%' className="update-profile-form" border='1px solid lightgray' w={700} p={10} marginTop={350}>
+        <Flex margin='auto' borderRadius={10} justifyContent='center' width='100%' className="update-profile-form"
+              border='1px solid lightgray' w={700} p={10} marginTop={350}>
             <TemplateForm header={"Profile"} buttonText={"Save"} onSubmit={handleSubmit}>
                 <>
                     <TemplateErrorInput
@@ -138,31 +168,31 @@ export const UpdateProfileForm = () => {
                         isValid={errors.name.isValid}
                         error={errors.name.errors[0]}
                         onChange={(e) => setName(e.target.value)}
-                        value={name} />
+                        value={name}/>
                     <TemplateErrorInput
                         label={'Surname'}
                         isValid={errors.surname.isValid}
                         error={errors.surname.errors[0]}
                         onChange={(e) => setSurname(e.target.value)}
-                        value={surname} />
+                        value={surname}/>
                     <TemplateErrorInput
                         label={'Uid'}
                         isValid={errors.uid.isValid}
                         error={errors.uid.errors[0]}
                         onChange={(e) => setUid(e.target.value)}
-                        value={uid} />
+                        value={uid}/>
                     <TemplateErrorInput
                         label={'Profession'}
                         isValid={errors.profession.isValid}
                         error={errors.profession.errors[0]}
                         onChange={(e) => setProfession(e.target.value)}
-                        value={profession} />
+                        value={profession}/>
                     <TemplateErrorInput
                         label={'School'}
                         isValid={errors.school.isValid}
                         error={errors.school.errors[0]}
                         onChange={(e) => setSchool(e.target.value)}
-                        value={school} />
+                        value={school}/>
 
                     <Grid templateColumns='repeat(2, 1fr)' templateRows='repeat(2, 1fr)' gap={5} width="100%">
                         <GridItem>
@@ -171,7 +201,7 @@ export const UpdateProfileForm = () => {
                                 isValid={errors.country.isValid}
                                 error={errors.country.errors[0]}
                                 onChange={(e) => setCountry(e.target.value)}
-                                value={country} />
+                                value={country}/>
                         </GridItem>
                         <GridItem>
                             <TemplateErrorInput
@@ -179,7 +209,7 @@ export const UpdateProfileForm = () => {
                                 isValid={errors.city.isValid}
                                 error={errors.city.errors[0]}
                                 onChange={(e) => setCity(e.target.value)}
-                                value={city} />
+                                value={city}/>
                         </GridItem>
                         <GridItem>
                             <TemplateErrorInput
@@ -187,7 +217,7 @@ export const UpdateProfileForm = () => {
                                 isValid={errors.street.isValid}
                                 error={errors.street.errors[0]}
                                 onChange={(e) => setStreet(e.target.value)}
-                                value={street} />
+                                value={street}/>
                         </GridItem>
                         <GridItem>
                             <TemplateErrorInput
@@ -195,7 +225,7 @@ export const UpdateProfileForm = () => {
                                 isValid={errors.streetNumber.isValid}
                                 error={errors.streetNumber.errors[0]}
                                 onChange={(e) => setStreetNumber(e.target.value)}
-                                value={streetNumber} />
+                                value={streetNumber}/>
                         </GridItem>
                     </Grid>
                     <TemplateErrorRadio
@@ -206,11 +236,24 @@ export const UpdateProfileForm = () => {
                         onChange={(val: any) => setSex(val)}
                         values={
                             [
-                                { text: 'Male', value: Sex.MALE },
-                                { text: 'Female', value: Sex.FEMALE }
+                                {text: 'Male', value: Sex.MALE},
+                                {text: 'Female', value: Sex.FEMALE}
                             ]
                         }
                     />
+                    <Button size='lg' colorScheme='blue'>
+                        <NavLink to={"/profile/update-password"}>
+                            Change Password
+                        </NavLink>
+                    </Button>
+                    {isWorker && <>
+                        <Button size='lg' colorScheme='blue'>
+                            <NavLink to={"/centers/update/" + centerId}>
+                                Update Center
+                            </NavLink>
+                        </Button>
+                    </>
+                    }
 
                 </>
             </TemplateForm>

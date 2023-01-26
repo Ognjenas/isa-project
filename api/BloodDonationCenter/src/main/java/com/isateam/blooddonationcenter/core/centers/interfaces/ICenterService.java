@@ -15,7 +15,7 @@ public interface ICenterService {
 //    AllCentersDto sort(String field, String sort);
     Center create(Center center);
     Center update(Center center);
-    CenterDto getById(long id);
+    CenterDto getById(long id,long user_id);
     void addWorkTimeToCenter(Set<WorkTime> mapWorkTimeToModel);
 
 }
