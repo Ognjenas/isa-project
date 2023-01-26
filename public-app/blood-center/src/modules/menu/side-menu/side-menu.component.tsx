@@ -112,7 +112,7 @@ export const SideMenu = () => {
                             </Tooltip>
                         </Flex>
                         <Flex>
-                            <Tooltip label={'Surveys'}>
+                            <Tooltip label={'Past Appointments'}>
                                 <NavLink to={'/my-past-appointments'}>
                                     <BsClockHistory color="white" cursor='pointer' size={40} />
                                 </NavLink>
@@ -141,6 +141,13 @@ export const SideMenu = () => {
                             <Tooltip label={'Calendar'}>
                                 <NavLink to={'/calendar-view'}>
                                     <BsFillCalendar2WeekFill color='white' size={40} cursor='pointer'></BsFillCalendar2WeekFill>
+                                </NavLink>
+                            </Tooltip>
+                        </Flex>
+                        <Flex>
+                            <Tooltip label={'Blood Storage'}>
+                                <NavLink to={'/worker/blood-storage'}>
+                                    <MdOutlineBloodtype color="red" cursor='pointer' size={50} />
                                 </NavLink>
                             </Tooltip>
                         </Flex>

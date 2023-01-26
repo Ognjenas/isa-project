@@ -26,7 +26,6 @@ import SingleTimeDisplay from "../single-time-display/single-time-display.compon
 import { WorkTimeDto } from "../../dtos/work-time.dto"
 
 export const UpdateCenterForm = () => {
-    //FIXME: DODATI I POLJA ZA RADNIKE KAO I ZA VREME!
     const { cid } = useParams()
     const [id, setId] = useState(cid ? +cid : -1)
     const [name, setName] = useState("")
@@ -135,20 +134,16 @@ export const UpdateCenterForm = () => {
     const onChangeTimeFrom = (e: any, key: any) => {
         console.log("Changed " + key + " FROM " + e)
         let day = workTimes[key]
-        console.log(day.startTime)
         let time = e.split(":")
         day.startTime = [Number(time[0]), Number(time[1])]
-        console.log(day.startTime)
         workTimes[key] = day
         setWorkTimes({ ...workTimes })
     }
     const onChangeTimeTo = (e: any, key: any) => {
         console.log("Changed " + key + " TO " + e)
         let day = workTimes[key]
-        console.log(day.endTime)
         let time = e.split(":")
         day.endTime = [Number(time[0]), Number(time[1])]
-        console.log(day.endTime)
         workTimes[key] = day
         setWorkTimes({ ...workTimes })
     }
@@ -161,6 +156,7 @@ export const UpdateCenterForm = () => {
             width="100%"
             className="update-profile-form"
             border="1px solid lightgray"
+            marginTop="700px"
             w={600}
             p={20}
         >

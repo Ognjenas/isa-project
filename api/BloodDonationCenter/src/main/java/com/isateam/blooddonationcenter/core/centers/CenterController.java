@@ -5,6 +5,7 @@ import com.isateam.blooddonationcenter.core.centers.dtos.CenterDto;
 import com.isateam.blooddonationcenter.core.centers.dtos.CreateCenterDto;
 import com.isateam.blooddonationcenter.core.centers.dtos.UpdateCenterDto;
 import com.isateam.blooddonationcenter.core.centers.interfaces.ICenterService;
+import com.isateam.blooddonationcenter.core.utils.session.UserUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +20,15 @@ public class CenterController {
 
     private final ICenterService centerService;
 
+    private final UserUtils userUtils;
+
     @GetMapping("/list")
     public AllCentersDto getAll(@RequestParam  Map<String, String> queryParams) {
         return centerService.getAll(queryParams);
     }
     @GetMapping("/{id}")
     public CenterDto getById(@PathVariable long id) {
-        return centerService.getById(id);
+        return centerService.getById(id,userUtils.getLoggedId());
     }
 
     @PostMapping

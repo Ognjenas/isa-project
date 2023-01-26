@@ -9,6 +9,30 @@ export class WorkerService {
     private apiUrl: string = "http://localhost:8000"
     constructor() { }
 
+    async getBloodStorage(){
+        const url = `${this.apiUrl}/workers/blood-storage`
+        try {
+            let response = await getAxios().get(url)
+            return response.data
+        } catch (e: any) {
+            const message = this.parseError(e.response.data)
+            toast.error(message, { autoClose: 3000 })
+            return false
+        }
+    }
+
+    async getWorkerCenter(){
+        const url = `${this.apiUrl}/workers/center`
+        try {
+            let response = await getAxios().get(url)
+            return response.data
+        } catch (e: any) {
+            const message = this.parseError(e.response.data)
+            toast.error(message, { autoClose: 3000 })
+            return false
+        }
+    }
+
     async getCenters() {
         try {
             const url = `${this.apiUrl}/centers`

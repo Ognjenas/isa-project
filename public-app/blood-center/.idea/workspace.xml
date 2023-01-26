@@ -5,8 +5,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2a5df96-a113-4881-91ed-1e607fda23e1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/bloodstorage/dto/BloodStorageDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/bloodstorage/dto/BloodStorageInstanceDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/users/dtos/ChangePasswordDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/profiles/components/update-password-form/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/profiles/components/update-password-form/update-password-form.component.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/profiles/views/update-password/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/profiles/views/update-password/update-password.view.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/workers/components/blood-storage/blood-storage.component.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/workers/components/blood-storage/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/workers/views/blood-storage/blood-storage.view.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/modules/workers/views/blood-storage/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/CenterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/CenterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/CenterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/CenterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/interfaces/ICenterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/centers/interfaces/ICenterService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/users/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/users/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/users/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/users/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/users/interfaces/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/users/interfaces/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/WorkerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/WorkerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/WorkerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/WorkerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/interfaces/IWorkerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/workers/interfaces/IWorkerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/blood_donation/components/create-donation/create-blood-donation-dto.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/blood_donation/components/create-donation/create-blood-donation-dto.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/center/components/update-form/update-form.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/center/components/update-form/update-form.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/center/services/center.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/center/services/center.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/menu/side-menu/side-menu.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/menu/side-menu/side-menu.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/profiles/components/update-form/update-form.component.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/profiles/components/update-form/update-form.component.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/profiles/services/profile.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/profiles/services/profile.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/workers/services/worker.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/workers/services/worker.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/routes.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +43,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>

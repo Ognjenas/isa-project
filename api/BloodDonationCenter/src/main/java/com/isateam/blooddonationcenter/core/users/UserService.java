@@ -5,6 +5,7 @@ import com.isateam.blooddonationcenter.core.email.IEmailService;
 import com.isateam.blooddonationcenter.core.errorhandling.BadRequestException;
 import com.isateam.blooddonationcenter.core.systemadmins.SystemAdmin;
 import com.isateam.blooddonationcenter.core.systemadmins.interfaces.ISystemAdminDao;
+import com.isateam.blooddonationcenter.core.users.dtos.ChangePasswordDTO;
 import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
 import com.isateam.blooddonationcenter.core.users.dtos.UserProfileDTO;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserEntityDao;
@@ -121,6 +122,17 @@ public class UserService implements IUserService {
             boolean firstLog = admin.isFirstLogin();
             return firstLog;
         } else return false;
+    }
+
+    @Override
+    public boolean changePassword(ChangePasswordDTO dto, long loggedId) {
+        User user = userEntityDao.getById(loggedId);
+        if (passwordEncoder.matches(dto.getOldPassword(),user.getPassword())){
+            user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+            userEntityDao.save(user);
+            return true;
+        }
+        return false;
     }
 
     private List<UserProfileDTO> mapUsersToProfileDtos(List<User> users) {

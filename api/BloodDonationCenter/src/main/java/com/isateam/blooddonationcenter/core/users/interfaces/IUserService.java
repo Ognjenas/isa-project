@@ -1,5 +1,6 @@
 package com.isateam.blooddonationcenter.core.users.interfaces;
 
+import com.isateam.blooddonationcenter.core.users.dtos.ChangePasswordDTO;
 import com.isateam.blooddonationcenter.core.users.dtos.UpdateUserDTO;
 import com.isateam.blooddonationcenter.core.users.User;
 import com.isateam.blooddonationcenter.core.users.dtos.UserProfileDTO;
@@ -16,4 +17,5 @@ public interface IUserService {
     User getByEmail(String email);
     void activateUser(String uuid, long id);
     boolean checkFirstLoginAdmin(long loggedId);
+    boolean changePassword(ChangePasswordDTO dto, long loggedId);
 }

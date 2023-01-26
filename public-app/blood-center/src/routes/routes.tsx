@@ -30,6 +30,9 @@ import AppointmentsComponent from "../modules/appointments/appointments.componen
 import WorkerComponent from "../modules/workers/worker.component"
 import { DonationHistory } from "../modules/appointments/components/donation-history/donation-history.component"
 import MyPastAppointments from "../modules/appointments/components/my-past-appointments"
+import BloodStorageView from "../modules/workers/views/blood-storage";
+import React from "react";
+import UpdatePasswordView from "../modules/profiles/views/update-password";
 
 export const routes: RouteObject[] = [
     {
@@ -48,11 +51,23 @@ export const routes: RouteObject[] = [
                                 roles={["REGULAR", "WORKER", "ADMINISTRATOR"]}
                             >
                                 <CheckFirstLoginAdmin>
-                                    <UpdateProfileView />
+                                    <UpdateProfileView/>
                                 </CheckFirstLoginAdmin>
                             </ProtectedWrapper>
                         ),
                     },
+                    {
+                        path:"update-password",
+                        element: (
+                            <ProtectedWrapper
+                                roles={["REGULAR", "WORKER", "ADMINISTRATOR"]}
+                            >
+                                <CheckFirstLoginAdmin>
+                                    <UpdatePasswordView/>
+                                </CheckFirstLoginAdmin>
+                            </ProtectedWrapper>
+                        ),
+                    }
                 ],
             },
             {
@@ -150,6 +165,16 @@ export const routes: RouteObject[] = [
                             </ProtectedWrapper>
                         ),
                     },
+                    {
+                        path:"blood-storage",
+                        element: (
+                            <ProtectedWrapper roles={["WORKER"]}>
+                            <CheckFirstLoginAdmin>
+                                <BloodStorageView/>
+                            </CheckFirstLoginAdmin>
+                        </ProtectedWrapper>
+                        )
+                    }
                 ]
             },
 
