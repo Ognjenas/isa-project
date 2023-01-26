@@ -22,9 +22,10 @@ export const MyAppointments = () => {
         let res = await appointmentService.getMyAppointments()
         setAppointments(res.appointments)
     }
+
     useEffect(() => {
         handleOnMounted()
-    })
+    }, [])
 
     const convertDate = (date: Date) => {
         if (!date) return ""

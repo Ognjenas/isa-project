@@ -57,6 +57,14 @@ public class AppointmentController {
         return appointmentService.create(dto.mapToModel());
     }
 
+    @PostMapping("/create-for-self")
+    public Appointment createForSelf(@Valid @RequestBody CreateAppointmentDTO dto) {
+        Appointment appointment = dto.mapToModel();
+        appointment.setUser(userService.getOne(userUtils.getLoggedId()));
+        appointment.setState(AppointmentState.TAKEN);
+        return appointmentService.createForSelf(appointment);
+    }
+
     @GetMapping("/{centerId}/free")
     public FreeAppointmentsDTO getFreeAppointmentsFromCenter(@PathVariable("centerId") long centerId, @RequestParam(name="sortby") String orderBy) {
         return new FreeAppointmentsDTO(appointmentService.getAllFutureAppointments(centerId, orderBy));
@@ -93,4 +101,8 @@ public class AppointmentController {
                 .toList();
     }
 
+    @GetMapping("check-appointment/{id}")
+    public boolean checkAppointment(@PathVariable long id){
+         return appointmentService.checkAppointment(id);
+    }
 }

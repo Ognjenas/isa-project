@@ -3,12 +3,15 @@ import { getAxios } from "../../../util/axios-wrapper";
 import { toast } from "react-toastify"
 import { FreeAppointmentsParams } from "../components/free-appointments/free-appointment.component";
 import { CreateAppointmentDTO } from "../dtos/create-appointment.dto";
+import { useNavigate } from "react-router-dom"
 
 
 
 export class AppointmentService {
 
     private url: string = "http://localhost:8000"
+
+
     constructor() {
 
     }
@@ -24,6 +27,7 @@ export class AppointmentService {
             return []
         }
     }
+
     async createAppointment(dto: CreateAppointmentDTO) {
         try {
             const url = `${this.url}/appointments`
@@ -107,6 +111,30 @@ export class AppointmentService {
             const message = this.parseError(e)
             toast.error(message)
             return []
+        }
+    }
+
+    async createAppointmentPatient(dto: CreateAppointmentDTO) {
+        try {
+            const url = `${this.url}/appointments/create-for-self`
+            const response = await getAxios().post(url, dto)
+            return true
+        } catch (e) {
+            const message = this.parseError(e)
+            toast.error(message)
+            return false
+        }
+    }
+
+    async checkAppointment(id: number | undefined) {
+        try {
+            const url = `${this.url}/appointments/check-appointment/${id}`
+            const response = await getAxios().get(url)
+            return response.data
+        } catch (e) {
+            const message = this.parseError(e)
+            toast.error(message)
+            return false
         }
     }
 

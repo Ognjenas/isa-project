@@ -22,11 +22,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.ArrayList;
+import java.util.*;
 
-import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -175,19 +172,51 @@ public class AppointmentService implements IAppointmentService {
 
     @Override
     public List<Appointment> getUserDonationHistory(long userId, long workerId) {
-        Worker worker = workerDao.findById(workerId).orElseThrow();
+        Worker worker = workerDao.findByUser_Id(workerId);
         long centerId = worker.getCenter().getId();
         return appointmentDao.getUserDonationHistory(userId, centerId);
     }
 
     @Override
     public List<Appointment> getAllUsersPastAppointments(long userId, String orderBy) {
-        if(orderBy.equals("asc")) {
+        if (orderBy.equals("asc")) {
             return appointmentDao.findAllByUser_IdAndStateAndStartTimeBeforeOrderByStartTimeAsc(userId,
                     AppointmentState.TAKEN, LocalDateTime.now());
         }
         return appointmentDao.findAllByUser_IdAndStateAndStartTimeBeforeOrderByStartTimeDesc(userId,
                 AppointmentState.TAKEN, LocalDateTime.now());
+    }
+
+    @Transactional
+    public Appointment createForSelf(Appointment appointment) {
+        checkUsersSurvey(appointment.getUser().getId());
+        checkUsersGaveDonations(appointment.getUser().getId());
+        Center center = centerDao.findById(appointment.getCenter().getId()).orElseThrow();
+        center.setLocked(true);
+        centerDao.save(center);
+        validateCreation(appointment);
+        var returnValue = appointmentDao.save(appointment);
+        center.setLocked(false);
+        centerDao.save(center);
+        sendReservationEmail(appointment, appointment.getUser());
+        saveAppointmentLog(appointment.getUser().getId(), appointment);
+        return returnValue;
+    }
+
+    public boolean checkAppointment(long appointmentId){
+        Optional<Appointment> appointment = appointmentDao.findById(appointmentId);
+        if(appointment.isEmpty()){
+            throw new BadRequestException("The appointment doesnt exist");
+        }else{
+            if(appointment.get().getState().equals(AppointmentState.FINISHED)){
+                throw new BadRequestException("The appointment is finished");
+            } else if (appointment.get().getState().equals(AppointmentState.FREE)) {
+                throw new BadRequestException("The appointment isn't taken");
+            }else{
+                checkUsersSurvey(appointment.get().getUser().getId());
+            }
+        }
+        return true;
     }
 
     private List<AppointmentsForShowDto> packShowAppointmentsDto(List<Appointment> appointments){

@@ -1,7 +1,7 @@
 import { SearchUsersDTO } from "../dtos/search-users.dto";
 import { toast } from "react-toastify"
 import axios from "axios"
-import {getAxios} from "../../../util/axios-wrapper";
+import { getAxios } from "../../../util/axios-wrapper";
 
 
 export class UserService {

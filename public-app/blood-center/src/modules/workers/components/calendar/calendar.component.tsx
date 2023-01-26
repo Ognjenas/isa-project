@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Flex } from '@chakra-ui/layout'
 import { useNavigate } from "react-router-dom"
+import OpenAppointmentComponent from '../open-appointment'
 
 
 export const CalendarViewComponent = () => {
@@ -26,11 +27,13 @@ export const CalendarViewComponent = () => {
 
     return (
         <Flex
-            justifyContent={'center'}
-            alignItems={'center'}
-            width="100%"
+            flexDirection="column"
             height="100%"
-        >
+            width="100%"
+            justifyContent="flex-start"
+            alignItems="center"
+            gap={10}
+        ><OpenAppointmentComponent />
             <Calendar
                 onSelectEvent={event => navigate("/blood-donation/" + event.id)}
                 localizer={localizer}

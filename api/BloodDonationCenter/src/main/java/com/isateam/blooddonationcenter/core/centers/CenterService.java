@@ -1,5 +1,8 @@
 package com.isateam.blooddonationcenter.core.centers;
 
+import com.isateam.blooddonationcenter.core.appointments.Appointment;
+import com.isateam.blooddonationcenter.core.appointments.AppointmentState;
+import com.isateam.blooddonationcenter.core.appointments.interfaces.IAppointmentDao;
 import com.isateam.blooddonationcenter.core.centers.dtos.AllCentersDto;
 import com.isateam.blooddonationcenter.core.centers.dtos.CenterDto;
 import com.isateam.blooddonationcenter.core.centers.dtos.CreateCenterDto;
@@ -21,6 +24,8 @@ import com.isateam.blooddonationcenter.core.worktime.interfaces.IWorkTimeDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,6 +36,7 @@ public class CenterService implements ICenterService {
     private final CenterDao centerDao;
     private final IUserEntityDao userEntityDao;
     private final ICenterCustomDao centerCustomDao;
+    private final IAppointmentDao appointmentDao;
     private final IWorkTimeDao workTimeDao;
     private final IWorkerDao workerDao;
 
@@ -74,7 +80,7 @@ public class CenterService implements ICenterService {
                 .workTime(workTimes)
                 .build();
     }
-
+    
     private void checkIfWorkerCenter(long center_id, User user) {
         if(user.getRole()== UserRole.WORKER){
             Worker worker = workerDao.findByUser_Id(user.getId());
@@ -86,6 +92,18 @@ public class CenterService implements ICenterService {
         }
     }
 
+    @Override
+    public AllCentersDto getAllWithoutAppointment(LocalDateTime startTime){
+        List<Center> centers = new ArrayList<Center>();
+        List<Appointment> appointments = appointmentDao.findAllByStartTime(startTime);
+        if(appointments.size() == 0){
+            centers = centerDao.findAll();
+        }
+        else {
+            centers = centerDao.findDistinctByAppointmentsIsNotIn(appointments);
+        }
+        return mapToAllCentersDto(centers);
+    }
 
     private AllCentersDto mapToAllCentersDto(List<Center> centers) {
         return new AllCentersDto(centers.stream().map(c -> CenterDto.builder()
@@ -95,6 +113,20 @@ public class CenterService implements ICenterService {
                 .description(c.getDescription())
                 .name(c.getName())
                 .build()).collect(Collectors.toList()));
+    }
+
+    private List<CenterDto> mapToCenterDtoList(List<Center> centers){
+        List<CenterDto> dtoList = new ArrayList<>();
+        for (var center : centers) {
+            CenterDto cen = new CenterDto();
+                cen.setId(center.getId());
+                cen.setAddress(center.getAddress());
+                cen.setName(center.getName());
+                cen.setDescription(center.getDescription());
+                cen.setAverageGrade(center.getAverageGrade());
+                dtoList.add(cen);
+            }
+        return  dtoList;
     }
 
 }

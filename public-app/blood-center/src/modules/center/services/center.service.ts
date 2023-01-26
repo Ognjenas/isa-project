@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { UpdateCenterDto } from "../dtos/update-center.dto";
 import axios from "axios";
 import { CenterRegistrationDTO } from "../dtos/center-registration.dto";
-import {getAxios} from "../../../util/axios-wrapper";
+import { getAxios } from "../../../util/axios-wrapper";
 
 export class CenterService {
 
@@ -11,10 +11,10 @@ export class CenterService {
 
     async getCenter(id: number) {
         try {
-        const url = `${this.apiUrl}/centers/${id}`
-        let response = await getAxios().get(url)
-        return response.data
-        }catch (e: any) {
+            const url = `${this.apiUrl}/centers/${id}`
+            let response = await getAxios().get(url)
+            return response.data
+        } catch (e: any) {
             console.log("OVO JE GRESKA")
             console.log(e.response.data.message)
             const message = this.parseError(e.response.data)
@@ -27,7 +27,7 @@ export class CenterService {
         const url = `${this.apiUrl}/centers/`
 
         try {
-            let response = await axios.put(url, updateCenterDto)
+            let response = await getAxios().put(url, updateCenterDto)
             toast.success("Successfully updated center!", { autoClose: 3000 })
             return true
         } catch (e: any) {
