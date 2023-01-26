@@ -30,6 +30,7 @@ import AppointmentsComponent from "../modules/appointments/appointments.componen
 import WorkerComponent from "../modules/workers/worker.component"
 import { DonationHistory } from "../modules/appointments/components/donation-history/donation-history.component"
 import MyPastAppointments from "../modules/appointments/components/my-past-appointments"
+import Simulator from "../modules/simulator"
 
 export const routes: RouteObject[] = [
     {
@@ -232,6 +233,13 @@ export const routes: RouteObject[] = [
                     <ProtectedWrapper roles={["WORKER"]}>
                         <DonationHistory />
                     </ProtectedWrapper>)
+            }
+            ,
+            {
+                path: "/simulator",
+                element: (
+                    <Simulator />
+                )
             }
         ],
     },
