@@ -26,6 +26,7 @@ public class EmailService implements IEmailService {
     @Value("${spring.mail.username}")
     private String sender;
 
+
     public void sendSimpleMail(EmailDetails details) {
         queue.add(details);
     }

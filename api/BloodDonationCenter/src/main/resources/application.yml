@@ -2,6 +2,7 @@ server:
   port: 8000
 
 spring:
+
   datasource:
     url: jdbc:postgresql://localhost:5432/BloodCenter
     username: isa
@@ -44,3 +45,5 @@ web:
     max-age: 3600
     allowed-headers: "Requestor-Type"
     exposed-headers: "X-Get-Header"
+
+

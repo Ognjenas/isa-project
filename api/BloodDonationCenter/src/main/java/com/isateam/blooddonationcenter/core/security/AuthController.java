@@ -1,5 +1,6 @@
 package com.isateam.blooddonationcenter.core.security;
 
+import com.isateam.blooddonationcenter.core.rabbit.QueueService;
 import com.isateam.blooddonationcenter.core.users.User;
 import com.isateam.blooddonationcenter.core.users.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final JwtUtil jwtUtil;
-
     private final AuthenticationManager authenticationManager;
 
     private final IUserService userService;
@@ -31,4 +31,5 @@ public class AuthController {
         User user = userService.getByEmail(authRequest.getEmail());
         return jwtUtil.generateToken(authRequest.getEmail(), user.getRole().name(), user.getId());
     }
+
 }
