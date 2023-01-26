@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitConfiguration {
-
     String contractQueue="contract.queue";
     String exchange = "dir.exchange";
     String routingKey = "dir.contract.routing-key";
