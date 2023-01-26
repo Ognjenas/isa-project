@@ -8,6 +8,7 @@ public class BloodDonationCenterApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(BloodDonationCenterApplication.class, args);
+
     }
 
 }
