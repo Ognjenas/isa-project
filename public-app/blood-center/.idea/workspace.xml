@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2a5df96-a113-4881-91ed-1e607fda23e1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/surveys/dtos/ResponseAnswerDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/shared/components/template-form/components/template-error-select/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/shared/components/template-form/components/template-error-select/template-error.select.component.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/surveys/SurveyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/surveys/SurveyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/surveys/SurveyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/surveys/SurveyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/surveys/interfaces/ISurveyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/surveys/interfaces/ISurveyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/users/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../api/BloodDonationCenter/src/main/java/com/isateam/blooddonationcenter/core/users/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/blood_donation/components/create-donation/create-blood-donation-dto.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/blood_donation/components/create-donation/create-blood-donation-dto.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/surveys/services/survey.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/surveys/services/survey.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,23 +36,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/PROGRAMI/WORKSPACE/IntelliJ/ISA/isa-project/public-app/blood-center",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "D:\\PROGRAMI\\WORKSPACE\\IntelliJ\\ISA\\isa-project\\public-app\\blood-center\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "ts.external.directory.path": "D:\\PROGRAMI\\WORKSPACE\\IntelliJ\\ISA\\isa-project\\public-app\\blood-center\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/PROGRAMI/WORKSPACE/IntelliJ/ISA/isa-project/public-app/blood-center&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;D:\\PROGRAMI\\WORKSPACE\\IntelliJ\\ISA\\isa-project\\public-app\\blood-center\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\PROGRAMI\\WORKSPACE\\IntelliJ\\ISA\\isa-project\\public-app\\blood-center\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
