@@ -33,6 +33,8 @@ import MyPastAppointments from "../modules/appointments/components/my-past-appoi
 import BloodStorageView from "../modules/workers/views/blood-storage";
 import React from "react";
 import UpdatePasswordView from "../modules/profiles/views/update-password";
+import CreateAppointmentPatientView from "../modules/appointments/views/create-apppointment-by-patient.view"
+
 
 export const routes: RouteObject[] = [
     {
@@ -51,19 +53,19 @@ export const routes: RouteObject[] = [
                                 roles={["REGULAR", "WORKER", "ADMINISTRATOR"]}
                             >
                                 <CheckFirstLoginAdmin>
-                                    <UpdateProfileView/>
+                                    <UpdateProfileView />
                                 </CheckFirstLoginAdmin>
                             </ProtectedWrapper>
                         ),
                     },
                     {
-                        path:"update-password",
+                        path: "update-password",
                         element: (
                             <ProtectedWrapper
                                 roles={["REGULAR", "WORKER", "ADMINISTRATOR"]}
                             >
                                 <CheckFirstLoginAdmin>
-                                    <UpdatePasswordView/>
+                                    <UpdatePasswordView />
                                 </CheckFirstLoginAdmin>
                             </ProtectedWrapper>
                         ),
@@ -166,13 +168,13 @@ export const routes: RouteObject[] = [
                         ),
                     },
                     {
-                        path:"blood-storage",
+                        path: "blood-storage",
                         element: (
                             <ProtectedWrapper roles={["WORKER"]}>
-                            <CheckFirstLoginAdmin>
-                                <BloodStorageView/>
-                            </CheckFirstLoginAdmin>
-                        </ProtectedWrapper>
+                                <CheckFirstLoginAdmin>
+                                    <BloodStorageView />
+                                </CheckFirstLoginAdmin>
+                            </ProtectedWrapper>
                         )
                     }
                 ]
@@ -256,6 +258,13 @@ export const routes: RouteObject[] = [
                 element: (
                     <ProtectedWrapper roles={["WORKER"]}>
                         <DonationHistory />
+                    </ProtectedWrapper>)
+            },
+            {
+                path: "/appointments/create/patient",
+                element: (
+                    <ProtectedWrapper roles={["REGULAR"]}>
+                        <CreateAppointmentPatientView />
                     </ProtectedWrapper>)
             }
         ],

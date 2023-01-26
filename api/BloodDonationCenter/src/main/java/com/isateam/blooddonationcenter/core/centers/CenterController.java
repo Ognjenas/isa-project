@@ -7,8 +7,10 @@ import com.isateam.blooddonationcenter.core.centers.dtos.UpdateCenterDto;
 import com.isateam.blooddonationcenter.core.centers.interfaces.ICenterService;
 import com.isateam.blooddonationcenter.core.utils.session.UserUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -43,4 +45,8 @@ public class CenterController {
         return center;
     }
 
+    @GetMapping("/by-time/{startTime}")
+    public AllCentersDto getAllForPatientAppointmentCreation(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")LocalDateTime startTime) {
+        return centerService.getAllWithoutAppointment(startTime);
+    }
 }

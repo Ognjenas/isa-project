@@ -21,7 +21,7 @@ import { appointmentService } from "../services/appointment.service"
 
 
 
-export const CreateAppointmentView = () => {
+export const CreateAppointmentPatientView = () => {
 
     const [duration, setDuration] = useState(30)
     const [startTime, setStartTime] = useState(new Date())
@@ -41,7 +41,7 @@ export const CreateAppointmentView = () => {
             startTime: startTime
         }
 
-        const success = await appointmentService.createAppointment(dto)
+        const success = await appointmentService.createAppointmentPatient(dto)
         if (success)
             toast.success("Appointment succesfully created!")
     }
@@ -70,17 +70,18 @@ export const CreateAppointmentView = () => {
         if (!date) return ""
         const dt = new Date(date)
         const tzoffset = (new Date()).getTimezoneOffset() * 60000;
-        const localISOTime = moment(new Date(dt.getTime() - tzoffset)).format("YYYY-MM-DD HH:mm")
+        const localISOTime = moment(new Date(dt.getTime())).format("YYYY-MM-DD HH:mm")
         return localISOTime
     }
 
     const handleChange = (event: any) => {
         const newDate = new Date(event.target.value)
         setStartTime(newDate);
+        loadCenters();
     }
 
     const loadCenters = async () => {
-        const centers: any[] = await centerService.getCenters()
+        const centers: any[] = await centerService.getCentersPatient(startTime)
         const options = centers.map(c => ({ text: c.name, val: c.id }))
         setCenters(options)
     }
@@ -92,6 +93,7 @@ export const CreateAppointmentView = () => {
     useEffect(() => {
         console.log(center)
     }, [center])
+
 
     return (
         <Flex
@@ -145,4 +147,4 @@ export const CreateAppointmentView = () => {
 }
 
 
-export default CreateAppointmentView
+export default CreateAppointmentPatientView

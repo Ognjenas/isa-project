@@ -35,4 +35,6 @@ public interface IAppointmentDao extends PagingAndSortingRepository<Appointment,
     List<Appointment> findOverlapping(LocalDateTime start, LocalDateTime end, long centerId);
     List<Appointment> findAllByUser_IdAndStateAndStartTimeBeforeOrderByStartTimeAsc(long userId, AppointmentState state, LocalDateTime dateTime);
     List<Appointment> findAllByUser_IdAndStateAndStartTimeBeforeOrderByStartTimeDesc(long userId, AppointmentState state, LocalDateTime dateTime);
+    List<Appointment> findAllByStartTime(LocalDateTime date);
+
 }

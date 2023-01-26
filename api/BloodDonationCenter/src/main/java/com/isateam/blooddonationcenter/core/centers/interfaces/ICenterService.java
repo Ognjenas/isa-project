@@ -6,6 +6,8 @@ import com.isateam.blooddonationcenter.core.centers.dtos.CenterDto;
 import com.isateam.blooddonationcenter.core.centers.dtos.CreateCenterDto;
 import com.isateam.blooddonationcenter.core.worktime.WorkTime;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,5 +19,6 @@ public interface ICenterService {
     Center update(Center center);
     CenterDto getById(long id,long user_id);
     void addWorkTimeToCenter(Set<WorkTime> mapWorkTimeToModel);
+    AllCentersDto getAllWithoutAppointment(LocalDateTime startTime);
 
 }

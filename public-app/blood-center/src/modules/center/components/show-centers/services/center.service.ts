@@ -1,9 +1,13 @@
 import { filter } from '@chakra-ui/react'
 import axios from 'axios'
 import { FilterSort } from '../dtos/filter-sort.dto'
+import { toast } from "react-toastify"
+import { getAxios } from "../../../../../util/axios-wrapper";
+import moment from 'moment';
 
 export class CenterService {
 
+    private url: string = "http://localhost:8000"
     private apiUrl: string = "http://localhost:8000"
     constructor() { }
 
@@ -59,6 +63,26 @@ export class CenterService {
             params[filters.filterBy] = filters.filterByValue
         return params
     }
+
+    async getCentersPatient(startTime: Date) {
+        try {
+            const formated = moment(startTime).format("YYYY-MM-DD HH:mm:ss")
+            const url = `${this.url}/centers/by-time/${formated}`
+            const response = await getAxios().get(url)
+            return response.data.centers
+        } catch (e) {
+            const message = this.parseError(e)
+            toast.error(message)
+            return []
+        }
+    }
+
+    parseError(error: any) {
+        if (error.statusCode)
+            return error.message
+        return error.response.data.message
+    }
+
 
 }
 
