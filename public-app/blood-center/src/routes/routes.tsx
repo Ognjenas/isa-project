@@ -29,6 +29,7 @@ import CreateAppointmentView from "../modules/appointments/views/create-appointm
 import AppointmentsComponent from "../modules/appointments/appointments.component"
 import WorkerComponent from "../modules/workers/worker.component"
 import { DonationHistory } from "../modules/appointments/components/donation-history/donation-history.component"
+import MyPastAppointments from "../modules/appointments/components/my-past-appointments"
 
 export const routes: RouteObject[] = [
     {
@@ -188,6 +189,14 @@ export const routes: RouteObject[] = [
                         <CheckFirstLoginAdmin>
                             <MyAppointments />
                         </CheckFirstLoginAdmin>
+                    </ProtectedWrapper>
+                )
+            },
+            {
+                path: '/my-past-appointments',
+                element: (
+                    <ProtectedWrapper roles={["REGULAR"]}>
+                        <MyPastAppointments />
                     </ProtectedWrapper>
                 )
             },

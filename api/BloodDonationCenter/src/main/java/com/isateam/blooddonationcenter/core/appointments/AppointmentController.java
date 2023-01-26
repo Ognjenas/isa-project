@@ -85,4 +85,12 @@ public class AppointmentController {
         return appointments.stream().map(a -> new DonationHistoryDTO(a)).toList();
     }
 
+    @GetMapping("/user/past")
+    public List<ShowAppointmentDTO> getAllPastAppointments(@RequestParam(name="sortby") String orderBy) {
+        return appointmentService.getAllUsersPastAppointments(userUtils.getLoggedId(), orderBy)
+                .stream()
+                .map(ShowAppointmentDTO::new)
+                .toList();
+    }
+
 }

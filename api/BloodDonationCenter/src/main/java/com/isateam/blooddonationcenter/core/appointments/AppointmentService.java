@@ -180,6 +180,16 @@ public class AppointmentService implements IAppointmentService {
         return appointmentDao.getUserDonationHistory(userId, centerId);
     }
 
+    @Override
+    public List<Appointment> getAllUsersPastAppointments(long userId, String orderBy) {
+        if(orderBy.equals("asc")) {
+            return appointmentDao.findAllByUser_IdAndStateAndStartTimeBeforeOrderByStartTimeAsc(userId,
+                    AppointmentState.TAKEN, LocalDateTime.now());
+        }
+        return appointmentDao.findAllByUser_IdAndStateAndStartTimeBeforeOrderByStartTimeDesc(userId,
+                AppointmentState.TAKEN, LocalDateTime.now());
+    }
+
     private List<AppointmentsForShowDto> packShowAppointmentsDto(List<Appointment> appointments){
         List<AppointmentsForShowDto> showList = new ArrayList<AppointmentsForShowDto>();
         for (Appointment app: appointments){

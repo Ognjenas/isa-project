@@ -98,6 +98,18 @@ export class AppointmentService {
         }
     }
 
+    async getMyPastAppointments(sort: string) {
+        try {
+            const url = `${this.url}/appointments/user/past`
+            const response = await getAxios().get(url, { params: { sortby: sort } })
+            return response.data
+        } catch (e) {
+            const message = this.parseError(e)
+            toast.error(message)
+            return []
+        }
+    }
+
     parseError(error: any) {
         if (error.statusCode)
             return error.message

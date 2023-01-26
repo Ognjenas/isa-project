@@ -24,4 +24,5 @@ public interface IAppointmentService {
 
     List<Appointment> getUserDonationHistory(long userId, long workerId);
 
+    List<Appointment> getAllUsersPastAppointments(long userId, String orderBy);
 }
