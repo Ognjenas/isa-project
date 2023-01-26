@@ -1,7 +1,7 @@
 import { PhoneIcon } from "@chakra-ui/icons"
 import { Button, Divider, Flex, Icon, Spacer, Image, Tooltip } from "@chakra-ui/react"
 import { FiLogOut, FiHome, FiSettings } from 'react-icons/fi'
-import { BsFillCalendar2WeekFill, BsBookmarkCheckFill, BsFillCalendarPlusFill } from 'react-icons/bs'
+import { BsFillCalendar2WeekFill, BsBookmarkCheckFill, BsFillCalendarPlusFill, BsClockHistory } from 'react-icons/bs'
 import { CgProfile } from 'react-icons/cg'
 import { MdOutlineBloodtype } from 'react-icons/md'
 import { BiUserPlus } from 'react-icons/bi'
@@ -108,6 +108,13 @@ export const SideMenu = () => {
                             <Tooltip label={'Surveys'}>
                                 <NavLink to={'/survey'}>
                                     <MdOutlineBloodtype color="white" cursor='pointer' size={50} />
+                                </NavLink>
+                            </Tooltip>
+                        </Flex>
+                        <Flex>
+                            <Tooltip label={'Surveys'}>
+                                <NavLink to={'/my-past-appointments'}>
+                                    <BsClockHistory color="white" cursor='pointer' size={40} />
                                 </NavLink>
                             </Tooltip>
                         </Flex>
