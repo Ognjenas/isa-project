@@ -3,6 +3,8 @@ import { Button, Divider, Flex, Icon, Spacer, Image, Tooltip } from "@chakra-ui/
 import { FiLogOut, FiHome, FiSettings } from 'react-icons/fi'
 import { BsFillCalendar2WeekFill, BsBookmarkCheckFill, BsFillCalendarPlusFill, BsClockHistory } from 'react-icons/bs'
 import { CgProfile } from 'react-icons/cg'
+import { GrUserAdmin, GrUserWorker } from 'react-icons/gr'
+import { FaClinicMedical } from 'react-icons/fa'
 import { MdOutlineBloodtype } from 'react-icons/md'
 import { BiUserPlus } from 'react-icons/bi'
 import image from "../../../logo.svg"
@@ -72,16 +74,23 @@ export const SideMenu = () => {
                     (isAdministrator && role != null) &&
                     <>
                         <Flex>
-                            <Tooltip label={'Users'}>
-                                <NavLink to={'/users'}>
-                                    <CgProfile color='white' cursor='pointer' size={40} onClick={handleProfile} />
+                            <Tooltip label={'Register center'}>
+                                <NavLink to={'/centers/registration'}>
+                                    <FaClinicMedical color='black' size={40} cursor='pointer'></FaClinicMedical>
                                 </NavLink>
                             </Tooltip>
                         </Flex>
                         <Flex>
-                            <Tooltip label={'Appointments'}>
-                                <NavLink to={'/appointments'}>
-                                    <BsFillCalendar2WeekFill color='white' size={40} cursor='pointer'></BsFillCalendar2WeekFill>
+                            <Tooltip label={'Register worker'}>
+                                <NavLink to={'/worker/registration'}>
+                                    <GrUserWorker color='white' size={40} cursor='pointer'></GrUserWorker>
+                                </NavLink>
+                            </Tooltip>
+                        </Flex>
+                        <Flex>
+                            <Tooltip label={'Register admin'}>
+                                <NavLink to={'/admin/registration'}>
+                                    <GrUserAdmin color='white' size={40} cursor='pointer'></GrUserAdmin>
                                 </NavLink>
                             </Tooltip>
                         </Flex>

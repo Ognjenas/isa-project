@@ -172,7 +172,7 @@ public class AppointmentService implements IAppointmentService {
 
     @Override
     public List<Appointment> getUserDonationHistory(long userId, long workerId) {
-        Worker worker = workerDao.findById(workerId).orElseThrow();
+        Worker worker = workerDao.findByUser_Id(workerId);
         long centerId = worker.getCenter().getId();
         return appointmentDao.getUserDonationHistory(userId, centerId);
     }

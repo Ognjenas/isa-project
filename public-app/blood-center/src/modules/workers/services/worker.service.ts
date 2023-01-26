@@ -35,8 +35,8 @@ export class WorkerService {
 
     async getCenters() {
         try {
-            const url = `${this.apiUrl}/centers`
-            let response = await axios.get(url)
+            const url = `${this.apiUrl}/centers/list`
+            let response = await getAxios().get(url)
             return response.data.centers
         } catch (e: any) {
             toast.error(e.response.data)

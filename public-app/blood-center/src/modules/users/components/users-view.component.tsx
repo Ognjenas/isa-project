@@ -19,7 +19,7 @@ export const UsersView = () => {
     const navigate = useNavigate()
 
     const handleOnMounted = async () => {
-        const starterSearch: SearchUsersDTO = { name: "", surname: "" }
+        const starterSearch: SearchUsersDTO = { name: " ", surname: " " }
         const searchedUsers: User[] = await usersService.getUsers(starterSearch)
         setUsers(searchedUsers)
     }
