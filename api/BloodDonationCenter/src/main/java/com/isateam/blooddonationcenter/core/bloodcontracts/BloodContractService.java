@@ -40,7 +40,7 @@ public class BloodContractService implements IBloodContractService {
     }
 
 
-    @Scheduled(fixedDelay = 5000)
+//    @Scheduled(fixedDelay = 5000)
     public void checkReserves() {
         LocalDate today = LocalDate.now();
         LocalDate first = today.minusDays(today.getDayOfMonth() - 1);

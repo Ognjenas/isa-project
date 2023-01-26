@@ -1,6 +1,7 @@
 package com.isateam.blooddonationcenter.core.websockets;
 
 import com.isateam.blooddonationcenter.core.blooddonations.BloodDonation;
+import com.isateam.blooddonationcenter.core.rabbit.Location;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -20,26 +21,9 @@ public class WebSocketController {
 
     private final SimpMessagingTemplate simpMessagingTemplate;
 
-
-
-    @MessageMapping("/hello")
     @SendTo("/topic/greetings")
-    public BloodDonation broadcastNotification() {
-//        Map<String, String> messageConverted = new HashMap<String, String>();
-//        messageConverted.put("hey", "nigger");
-//
-//        if (messageConverted != null) {
-//            if (messageConverted.containsKey("toId") && messageConverted.get("toId") != null
-//                    && !messageConverted.get("toId").equals("")) {
-//                this.simpMessagingTemplate.convertAndSend("/socket-publisher/" + messageConverted.get("toId"),
-//                        messageConverted);
-//                this.simpMessagingTemplate.convertAndSend("/socket-publisher/" + messageConverted.get("fromId"),
-//                        messageConverted);
-//            } else {
-//                this.simpMessagingTemplate.convertAndSend("/socket-publisher", messageConverted);
-//            }
-//        }
-        return BloodDonation.builder().id(1L).build();
+    public Location broadcastNotification(Location location) {
+        return location;
     }
 
 //    @SuppressWarnings("unchecked")

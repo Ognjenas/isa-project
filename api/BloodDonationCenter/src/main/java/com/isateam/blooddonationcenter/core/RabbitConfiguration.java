@@ -12,6 +12,11 @@ public class RabbitConfiguration {
     String contractQueue="contract.queue";
     String exchange = "dir.exchange";
     String routingKey = "dir.contract.routing-key";
+
+    String locationQueue="geolocation.queue";
+    String locationExchange = "geo.exchange";
+    String locationRoutingKey = "geo.geolocation.routing-key";
+
     String connection = "amqps://nfyetmku:LEFF5_Pbra4eSczMvpN1HIcPLPgU_nFr@stingray.rmq.cloudamqp.com/nfyetmku";
 
     @Bean
@@ -25,8 +30,8 @@ public class RabbitConfiguration {
     }
 
     @Bean
-    public Binding binding(Queue q, DirectExchange e) {
-        return BindingBuilder.bind(q).to(e).with(routingKey);
+    public Binding binding() {
+        return BindingBuilder.bind(queue()).to(exchange()).with(routingKey);
     }
 
     @Bean
@@ -34,5 +39,20 @@ public class RabbitConfiguration {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
         connectionFactory.setUri(connection);
         return connectionFactory;
+    }
+
+    @Bean
+    public Queue queue2() {
+        return new Queue(locationQueue, true);
+    }
+
+    @Bean
+    public DirectExchange exchange2() {
+        return new DirectExchange(locationExchange);
+    }
+
+    @Bean
+    public Binding binding2() {
+        return BindingBuilder.bind(queue2()).to(exchange2()).with(locationRoutingKey);
     }
 }

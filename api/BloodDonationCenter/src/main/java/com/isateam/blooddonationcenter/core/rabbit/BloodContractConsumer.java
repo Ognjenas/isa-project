@@ -15,6 +15,8 @@ public class BloodContractConsumer {
 
     @RabbitListener(queues = "contract.queue")
     public void contractHandler(String contractStr) {
+        if(contractStr.equals("null")) return;
+        System.out.println(contractStr);
         BloodContract contract = convertStringToBloodContract(contractStr);
         contractService.createContract(contract);
     }
